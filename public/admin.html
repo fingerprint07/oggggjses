@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lupin • Admin</title>
+    <link rel="stylesheet" href="/css/admin-login.css">
+</head>
+<body>
+    <!-- Aurora background -->
+    <div class="aurora">
+        <div class="aurora__layer"></div>
+        <div class="aurora__layer"></div>
+        <div class="aurora__layer"></div>
+    </div>
+
+    <!-- Floating particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Noir vignette -->
+    <div class="vignette"></div>
+
+    <div class="container">
+        <div class="logo">
+            <!-- Arsène Lupin Gentleman Thief SVG Logo -->
+            <svg class="logo-svg" width="90" height="90" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="goldGrad" x1="0" y1="0" x2="120" y2="120">
+                        <stop offset="0%" stop-color="#e8c87a"/>
+                        <stop offset="50%" stop-color="#d4a853"/>
+                        <stop offset="100%" stop-color="#c49a3c"/>
+                    </linearGradient>
+                    <linearGradient id="darkGrad" x1="0" y1="0" x2="0" y2="120">
+                        <stop offset="0%" stop-color="#1a1825"/>
+                        <stop offset="100%" stop-color="#0e0d15"/>
+                    </linearGradient>
+                    <radialGradient id="glowGrad" cx="60" cy="60" r="55" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="rgba(212,168,83,0.08)"/>
+                        <stop offset="100%" stop-color="transparent"/>
+                    </radialGradient>
+                    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+                    </filter>
+                </defs>
+
+                <!-- Background circle with subtle glow -->
+                <circle cx="60" cy="60" r="58" fill="url(#darkGrad)" stroke="url(#goldGrad)" stroke-width="1.5"/>
+                <circle cx="60" cy="60" r="55" fill="url(#glowGrad)"/>
+
+                <!-- Inner decorative ring -->
+                <circle cx="60" cy="60" r="52" fill="none" stroke="url(#goldGrad)" stroke-width="0.3" opacity="0.4"/>
+
+                <!-- TOP HAT -->
+                <!-- Hat brim -->
+                <ellipse cx="60" cy="32" rx="26" ry="4" fill="url(#goldGrad)" opacity="0.9"/>
+                <!-- Hat crown -->
+                <rect x="42" y="12" width="36" height="20" rx="3" fill="url(#goldGrad)" opacity="0.85"/>
+                <!-- Hat band -->
+                <rect x="42" y="26" width="36" height="4" rx="1" fill="#0e0d15" opacity="0.5"/>
+                <!-- Hat band buckle -->
+                <rect x="56" y="26.5" width="8" height="3" rx="0.5" fill="url(#goldGrad)" opacity="0.7"/>
+
+                <!-- FACE SILHOUETTE -->
+                <!-- Head shape -->
+                <ellipse cx="60" cy="54" rx="18" ry="20" fill="#0e0d15"/>
+
+                <!-- MASK - elegant across the eyes -->
+                <path d="M38 48 C38 48 44 42 60 42 C76 42 82 48 82 48 C82 48 78 56 72 56 C68 56 64 52 60 52 C56 52 52 56 48 56 C42 56 38 48 38 48Z" fill="url(#goldGrad)" opacity="0.85"/>
+
+                <!-- Mask eye holes -->
+                <ellipse cx="50" cy="49" rx="6" ry="4.5" fill="#0e0d15"/>
+                <ellipse cx="70" cy="49" rx="6" ry="4.5" fill="#0e0d15"/>
+
+                <!-- Eye glints inside mask -->
+                <ellipse cx="51" cy="49" rx="2" ry="1.5" fill="url(#goldGrad)" opacity="0.3"/>
+                <ellipse cx="71" cy="49" rx="2" ry="1.5" fill="url(#goldGrad)" opacity="0.3"/>
+
+                <!-- MONOCLE on right eye -->
+                <circle cx="70" cy="49" r="9" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" opacity="0.9"/>
+                <!-- Monocle glass reflection -->
+                <path d="M64 45 Q67 43 70 44" fill="none" stroke="url(#goldGrad)" stroke-width="0.5" opacity="0.4"/>
+                <!-- Monocle chain -->
+                <path d="M79 49 Q85 55 82 68 Q80 78 76 82" fill="none" stroke="url(#goldGrad)" stroke-width="0.8" opacity="0.5" stroke-dasharray="2,2"/>
+
+                <!-- Nose hint -->
+                <path d="M60 54 L58.5 60 L61.5 60" fill="none" stroke="url(#goldGrad)" stroke-width="0.6" opacity="0.3"/>
+
+                <!-- SMIRK / mischievous smile -->
+                <path d="M52 64 Q56 68 60 67 Q64 68 68 64" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" opacity="0.6" stroke-linecap="round"/>
+
+                <!-- COLLAR / Gentleman collar hints -->
+                <path d="M42 74 L52 70 L60 76 L68 70 L78 74" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.4"/>
+
+                <!-- Bow tie -->
+                <path d="M55 76 L60 73 L65 76 L60 79 Z" fill="url(#goldGrad)" opacity="0.5"/>
+                <circle cx="60" cy="76" r="1.5" fill="#0e0d15" opacity="0.6"/>
+
+                <!-- Decorative corner flourishes -->
+                <path d="M18 18 Q18 28 28 28" fill="none" stroke="url(#goldGrad)" stroke-width="0.5" opacity="0.3"/>
+                <path d="M102 18 Q102 28 92 28" fill="none" stroke="url(#goldGrad)" stroke-width="0.5" opacity="0.3"/>
+                <path d="M18 102 Q18 92 28 92" fill="none" stroke="url(#goldGrad)" stroke-width="0.5" opacity="0.3"/>
+                <path d="M102 102 Q102 92 92 92" fill="none" stroke="url(#goldGrad)" stroke-width="0.5" opacity="0.3"/>
+            </svg>
+
+            <h1>Arsène Lupin</h1>
+            <p>Gentleman Admin</p>
+
+            <div class="logo-divider">
+                <div class="logo-diamond"></div>
+            </div>
+        </div>
+
+        <!-- License Activation Screen -->
+        <div id="licenseScreen">
+            <div class="info">
+                Enter your license key to gain access to the gentleman's private quarters.
+            </div>
+            <div id="licenseError" class="error"></div>
+            <form id="licenseForm" onsubmit="return activateLicense(event)">
+                <div class="form-group">
+                    <label>License Key</label>
+                    <input type="text" id="licenseKey" placeholder="TG-XXXX-XXXX-XXXX" required>
+                </div>
+                <button type="submit" class="btn">Activate License</button>
+            </form>
+        </div>
+
+        <!-- Create Password Screen -->
+        <div id="createPasswordScreen" class="hidden">
+            <div class="info">
+                License verified. Secure your quarters with a personal key.
+            </div>
+            <div id="passwordError" class="error"></div>
+            <div id="passwordSuccess" class="success"></div>
+            <form id="createPasswordForm" onsubmit="return createPassword(event)">
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" id="newPassword" placeholder="Create your secret" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your secret" required minlength="6">
+                </div>
+                <button type="submit" class="btn">Set Password</button>
+            </form>
+        </div>
+
+        <!-- Login Screen -->
+        <div id="loginScreen" class="hidden">
+            <div id="loginError" class="error"></div>
+            <form id="loginForm" onsubmit="return login(event)">
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter the gentleman's key..." required>
+                </div>
+                <button type="submit" class="btn">Enter</button>
+            </form>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="hidden">
+            <h2 style="margin-bottom: 20px; color: var(--text-primary); font-family: 'Playfair Display', serif; font-weight: 700;">Dashboard</h2>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalTokens">0</div>
+                    <div class="stat-label">Total Tokens</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalLinks">0</div>
+                    <div class="stat-label">Total Links</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="todayTokens">0</div>
+                    <div class="stat-label">Today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="activeSessions">0</div>
+                    <div class="stat-label">Active</div>
+                </div>
+            </div>
+
+            <div class="info">
+                Welcome back, Monsieur. Your operations await in the main dashboard.
+            </div>
+
+            <button onclick="logout()" class="btn logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <script src="/js/admin-login.js"></script>
+</body>
+</html>
