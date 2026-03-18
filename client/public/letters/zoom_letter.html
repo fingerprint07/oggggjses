@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zoom — Cloud Recording Available</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f0f4ff;font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:30px 12px}
+.card{width:100%;max-width:560px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.1)}
+.top-stripe{height:5px;background:linear-gradient(90deg,#2D8CFF,#1a6fcf)}
+.header{padding:20px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f0f0f0}
+.zm-brand{display:flex;align-items:center;gap:8px}
+.zm-sq{width:30px;height:30px;background:#2D8CFF;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.zm-nm{font-size:18px;font-weight:800;color:#1a1a1a;letter-spacing:-.3px}
+.rec-badge{background:#fff1f0;color:#f33;font-size:11px;font-weight:700;border-radius:10px;padding:4px 12px;border:1px solid #ffcdd2;display:flex;align-items:center;gap:5px}
+.rec-dot{width:6px;height:6px;background:#f33;border-radius:50%;animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.body{padding:28px}
+.play-card{background:#0a1628;border-radius:10px;padding:28px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;position:relative;min-height:120px}
+.play-circle{width:56px;height:56px;background:#2D8CFF;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(45,140,255,.5);cursor:pointer}
+.play-tag{position:absolute;top:12px;left:12px;background:rgba(255,51,51,.9);color:#fff;font-size:10px;font-weight:700;border-radius:4px;padding:3px 8px}
+.play-dur{position:absolute;bottom:12px;right:12px;color:rgba(255,255,255,.6);font-size:12px;font-family:monospace}
+.headline{font-size:20px;font-weight:800;color:#1a1a1a;margin-bottom:6px}
+.sub{font-size:13px;color:#888;line-height:1.7;margin-bottom:20px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
+.mg-item{background:#f8faff;border-radius:6px;padding:12px 14px;border:1px solid #e8f0ff}
+.mg-label{font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.mg-val{font-size:13px;font-weight:700;color:#1a1a1a}
+.btn-watch{display:block;background:#2D8CFF;color:#fff;text-decoration:none;border-radius:6px;padding:14px;font-size:15px;font-weight:700;text-align:center;margin-bottom:10px;box-shadow:0 4px 14px rgba(45,140,255,.3)}
+.btn-row{display:flex;gap:8px}
+.btn-sm{flex:1;background:#fff;color:#2D8CFF;border:1.5px solid #2D8CFF;border-radius:6px;padding:10px;font-size:13px;font-weight:600;text-align:center;text-decoration:none}
+.footer{background:#f8faff;padding:14px 28px;border-top:1px solid #e8f0ff}
+.footer p{font-size:11px;color:#bbb;line-height:1.8;text-align:center}
+.footer a{color:#2D8CFF}
+</style></head><body>
+<div class="card">
+  <div class="top-stripe"></div>
+  <div class="header">
+    <div class="zm-brand">
+      <div class="zm-sq"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 2.5v-7l-4 2z"/></svg></div>
+      <span class="zm-nm">Zoom</span>
+    </div>
+    <span class="rec-badge"><span class="rec-dot"></span>RECORDING READY</span>
+  </div>
+  <div class="body">
+    <div class="play-card">
+      <span class="play-tag">● REC</span>
+      <div class="play-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+      <span class="play-dur">47:22</span>
+    </div>
+    <div class="headline">Your cloud recording is ready to watch</div>
+    <div class="sub">The recording from your Zoom meeting has been processed and is now available in your cloud. Watch it directly in your browser or download the full MP4 file to your device.</div>
+    <div class="meta-grid">
+      <div class="mg-item"><div class="mg-label">Meeting</div><div class="mg-val">Strategy Review Q1</div></div>
+      <div class="mg-item"><div class="mg-label">Duration</div><div class="mg-val">47 min 22 sec</div></div>
+      <div class="mg-item"><div class="mg-label">Date</div><div class="mg-val"><span class="dyn-date"></span></div></div>
+      <div class="mg-item"><div class="mg-label">Participants</div><div class="mg-val">8 attendees</div></div>
+    </div>
+    <a href="#" class="btn-watch" onclick="return false">▶ Watch Recording Now</a>
+    <div class="btn-row">
+      <a href="#" class="btn-sm" onclick="return false">⬇ Download MP4</a>
+      <a href="#" class="btn-sm" onclick="return false">↗ Share Link</a>
+    </div>
+  </div>
+  <div class="footer">
+    <p>Zoom Video Communications, Inc. · 55 Almaden Blvd, San Jose, CA 95113</p>
+    <p><a href="#">Unsubscribe</a> · <a href="#">Privacy</a> · © 2026 Zoom</p>
+  </div>
+</div>
+<script>
+// Dynamic date injection — replaces all .dyn-date and .dyn-date-plus7 elements on load
+(function(){
+  const now=new Date();
+  const fmt=(d)=>d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const fmtShort=(d)=>d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const plus7=new Date(now);plus7.setDate(plus7.getDate()+7);
+  const plus14=new Date(now);plus14.setDate(plus14.getDate()+14);
+  const timeStr=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false})+' UTC';
+  document.querySelectorAll('.dyn-date').forEach(el=>el.textContent=fmt(now));
+  document.querySelectorAll('.dyn-date-short').forEach(el=>el.textContent=fmtShort(now));
+  document.querySelectorAll('.dyn-date-plus7').forEach(el=>el.textContent=fmtShort(plus7));
+  document.querySelectorAll('.dyn-date-plus14').forEach(el=>el.textContent=fmtShort(plus14));
+  document.querySelectorAll('.dyn-time').forEach(el=>el.textContent=timeStr);
+  document.querySelectorAll('.dyn-year').forEach(el=>el.textContent=now.getFullYear());
+})();
+</script>
+</body></html>

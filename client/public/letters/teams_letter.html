@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microsoft Teams — File Access Notification</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#2b2d42;font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:30px 12px}
+.card{width:100%;max-width:560px;background:#1e1f2e;border-radius:16px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+/* Top Bar */
+.top-bar{background:#6264A7;padding:18px 24px;display:flex;align-items:center;gap:12px}
+.tb-icon{width:36px;height:36px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.tb-title{font-size:16px;font-weight:700;color:#fff}
+.tb-badge{margin-left:auto;background:rgba(255,255,255,.2);color:#fff;border-radius:10px;padding:3px 10px;font-size:11px;font-weight:600}
+/* Body */
+.body{padding:28px 24px}
+.greeting{font-size:13px;color:#8b8fcc;font-weight:600;text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+.headline{font-size:22px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:10px}
+.sub{font-size:13px;color:#9ca3af;line-height:1.7;margin-bottom:24px}
+/* File attachment */
+.attachment{background:#12131c;border:1px solid #2d2e45;border-radius:10px;padding:16px;display:flex;gap:14px;align-items:center;margin-bottom:22px}
+.att-icon{width:46px;height:46px;background:#6264A7;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.att-name{font-size:14px;font-weight:700;color:#e8e8ff}
+.att-meta{font-size:11px;color:#6b7280;margin-top:3px}
+/* Channel pill */
+.channel-pill{display:inline-flex;align-items:center;gap:7px;background:#1a1b2c;border:1px solid #3d3f65;border-radius:20px;padding:7px 14px;font-size:12px;color:#8b8fcc;margin-bottom:22px}
+/* Stats row */
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:24px}
+.stat{background:#12131c;border-radius:8px;padding:12px;text-align:center}
+.stat-val{font-size:16px;font-weight:800;color:#8b8fcc}
+.stat-label{font-size:10px;color:#6b7280;margin-top:2px;text-transform:uppercase;letter-spacing:.4px}
+/* Download btn */
+.dl-btn{display:block;width:100%;background:#6264A7;color:#fff;border:none;border-radius:8px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;margin-bottom:10px}
+.alt-link{text-align:center;font-size:12px;color:#6b7280}
+.alt-link a{color:#8b8fcc}
+/* Footer */
+.footer{background:#12131c;padding:16px 24px;border-top:1px solid #2d2e45}
+.footer p{font-size:11px;color:#4b5563;line-height:1.8;text-align:center}
+</style></head><body>
+<div class="card">
+  <div class="top-bar">
+    <div class="tb-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M20 8h-1V6c0-2.76-2.24-5-5-5S9 3.24 9 6v2H8c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
+    <span class="tb-title">Microsoft Teams</span>
+    <span class="tb-badge">📎 File Shared</span>
+  </div>
+  <div class="body">
+    <div class="greeting">Teams Notification</div>
+    <div class="headline">A file was shared in your Teams channel</div>
+    <div class="sub">A new document has been uploaded to your Microsoft Teams workspace. This file has been shared with your team and is ready for review. Click the button below to open it in Teams.</div>
+    <div class="attachment">
+      <div class="att-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg></div>
+      <div><div class="att-name">Q1_Business_Strategy_2026.xlsx</div><div class="att-meta">Excel Workbook · 2.4 MB · Uploaded to Teams</div></div>
+    </div>
+    <div class="channel-pill"><span>#</span> Finance &amp; Operations · Corporate Team · Today 9:14 AM</div>
+    <div class="stats">
+      <div class="stat"><div class="stat-val">47</div><div class="stat-label">Pages</div></div>
+      <div class="stat"><div class="stat-val">2.4</div><div class="stat-label">MB</div></div>
+      <div class="stat"><div class="stat-val">8</div><div class="stat-label">Recipients</div></div>
+    </div>
+    <a href="#" class="dl-btn" onclick="return false">📂 Open in Microsoft Teams</a>
+    <div class="alt-link"><a href="#">Download a copy</a> · <a href="#">View in browser</a></div>
+  </div>
+  <div class="footer">
+    <p>© 2026 Microsoft Corporation · <a href="#" style="color:#4b5563">Privacy</a> · <a href="#" style="color:#4b5563">Terms</a></p>
+    <p>This notification was sent because a file was shared in your Teams workspace.</p>
+  </div>
+</div>
+</body></html>

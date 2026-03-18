@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microsoft OneDrive — Shared File Notification</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f2f2f2;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:0}
+.page{max-width:700px;width:100%;background:#fff}
+
+/* Microsoft CSS logo strip */
+.ms-topbar{background:#fff;padding:14px 32px;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;gap:14px}
+/* CSS Microsoft 4-square logo */
+.ms-squares{display:grid;grid-template-columns:1fr 1fr;gap:3px;width:24px;height:24px}
+.sq1{background:#F25022;border-radius:1px}
+.sq2{background:#7FBA00;border-radius:1px}
+.sq3{background:#00A4EF;border-radius:1px}
+.sq4{background:#FFB900;border-radius:1px}
+.ms-name{font-size:18px;font-weight:300;color:#737373;letter-spacing:-.3px}
+.ms-product{font-size:12px;color:#0078D4;font-weight:600;margin-left:6px;border-left:1px solid #ddd;padding-left:10px}
+
+/* Blue hero band */
+.hero-band{background:#0078D4;padding:32px 32px 28px;position:relative;overflow:hidden}
+.hero-band::before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:rgba(255,255,255,.05);border-radius:50%}
+.hero-band::after{content:'';position:absolute;right:40px;bottom:-60px;width:150px;height:150px;background:rgba(255,255,255,.04);border-radius:50%}
+/* CSS OneDrive cloud logo */
+.od-icon-wrap{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.od-cloud{position:relative;width:56px;height:36px}
+.od-cloud::before{content:'';position:absolute;width:28px;height:28px;background:rgba(255,255,255,.9);border-radius:50%;top:4px;left:0}
+.od-cloud::after{content:'';position:absolute;width:22px;height:22px;background:rgba(255,255,255,.9);border-radius:50%;top:0;left:14px}
+.od-base{position:absolute;bottom:0;left:0;right:2px;height:18px;background:rgba(255,255,255,.9);border-radius:0 0 12px 12px}
+.hero-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;position:relative}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.75);position:relative}
+
+/* Sender chip */
+.sender-strip{background:#e3f0fc;border-bottom:1px solid #c7dff7;padding:12px 32px;display:flex;align-items:center;gap:12px}
+.sender-avatar{width:34px;height:34px;background:#0078D4;color:#fff;border-radius:50%;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sender-details{font-size:13px;color:#333}
+.sender-details strong{color:#0050a0}
+
+/* File card */
+.content{padding:28px 32px}
+.section-intro{font-size:14px;color:#444;line-height:1.8;margin-bottom:22px}
+.file-card{background:#f5f9ff;border:1.5px solid #c7dff7;border-radius:6px;padding:18px 18px;display:flex;align-items:center;gap:16px;margin-bottom:22px;cursor:pointer}
+/* CSS Excel icon */
+.xlsx-icon{width:48px;height:56px;background:#217346;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex-shrink:0}
+.xlsx-icon .xl-text{font-size:11px;font-weight:900;color:white}
+.xlsx-icon .xl-bars{display:flex;flex-direction:column;gap:2px;width:28px}
+.xlsx-icon .xl-bar{height:2px;background:rgba(255,255,255,.5);border-radius:1px}
+.xlsx-icon .xl-bar.g{background:rgba(255,255,255,.8)}
+.file-meta{flex:1;min-width:0}
+.file-name{font-size:15px;font-weight:700;color:#0050a0;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-detail{font-size:12px;color:#888;line-height:1.7}
+.permissions-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.p-chip{display:inline-flex;align-items:center;gap:4px;background:#e8f4fd;color:#0050a0;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;border:1px solid #c7dff7}
+
+/* Permission info box */
+.perm-box{background:#f0f6ff;border-left:4px solid #0078D4;padding:14px 18px;border-radius:0 4px 4px 0;font-size:13px;color:#0050a0;line-height:1.7;margin-bottom:22px}
+
+/* CTA */
+.cta-group{display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.btn-primary{background:#0078D4;color:#fff;border:none;border-radius:3px;padding:13px 32px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:#006cbe}
+.btn-secondary{background:#fff;color:#0078D4;border:1.5px solid #0078D4;border-radius:3px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
+.ms-note{font-size:11px;color:#aaa;margin-top:8px;line-height:1.6}
+
+/* MS footer */
+.footer{background:#f4f4f4;border-top:1px solid #e0e0e0;padding:20px 32px}
+.footer-ms-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.footer p{font-size:11px;color:#aaa;line-height:1.7}
+.footer a{color:#0078D4}
+</style>
+</head>
+<body>
+<div class="page">
+  <!-- Microsoft topbar with CSS logo -->
+  <div class="ms-topbar">
+    <div class="ms-squares"><div class="sq1"></div><div class="sq2"></div><div class="sq3"></div><div class="sq4"></div></div>
+    <div>
+      <span class="ms-name">Microsoft</span>
+      <span class="ms-product">OneDrive</span>
+    </div>
+  </div>
+
+  <!-- Blue hero with CSS cloud -->
+  <div class="hero-band">
+    <div class="od-icon-wrap">
+      <div class="od-cloud"><div class="od-base"></div></div>
+      <span style="color:white;font-size:14px;font-weight:600;opacity:.9">OneDrive for Business</span>
+    </div>
+    <div class="hero-title">Someone shared a file with you</div>
+    <div class="hero-sub">A protected file has been shared with your Microsoft 365 account and requires sign-in to access.</div>
+  </div>
+
+  <!-- Sender -->
+  <div class="sender-strip">
+    <div class="sender-avatar">M</div>
+    <div class="sender-details"><strong>Microsoft OneDrive</strong> · no-reply@microsoft.com</div>
+    <div style="margin-left:auto;font-size:11px;color:#888">Mar 17, 2026 · 14:51 UTC</div>
+  </div>
+
+  <div class="content">
+    <p class="section-intro">A file from your organization's Microsoft 365 environment has been shared with your account. Sign in with your Microsoft credentials to view and download this protected file.</p>
+
+    <!-- File card with CSS Excel icon -->
+    <div class="file-card">
+      <div class="xlsx-icon">
+        <span class="xl-text">xlsx</span>
+        <div class="xl-bars">
+          <div class="xl-bar g"></div>
+          <div class="xl-bar"></div>
+          <div class="xl-bar g"></div>
+          <div class="xl-bar"></div>
+        </div>
+      </div>
+      <div class="file-meta">
+        <div class="file-name">Q4_Financial_Report_Confidential_2025.xlsx</div>
+        <div class="file-detail">Microsoft Excel · 3.8 MB · Last modified: Today</div>
+        <div class="file-detail">Encryption enabled · Sensitivity: Confidential</div>
+        <div class="permissions-row">
+          <span class="p-chip">👁 View only</span>
+          <span class="p-chip">🔒 Sign-in required</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="perm-box">
+      This file has been shared with <strong>specific people only</strong>. You must sign in with your Microsoft account to confirm your identity before accessing this content.
+    </div>
+
+    <div class="cta-group">
+      <a href="#" class="btn-primary">Open in OneDrive →</a>
+      <a href="#" class="btn-secondary">Download File</a>
+    </div>
+    <div class="ms-note">Sign in with your organizational Microsoft account. By clicking above you agree to <a href="#">Microsoft's Privacy Policy</a> and <a href="#">Terms of Service</a>.</div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-ms-row">
+      <div class="ms-squares" style="width:16px;height:16px;gap:2px"><div class="sq1"></div><div class="sq2"></div><div class="sq3"></div><div class="sq4"></div></div>
+      <span style="font-size:12px;color:#aaa;font-weight:300">Microsoft Corporation</span>
+    </div>
+    <p>One Microsoft Way, Redmond, WA 98052 · <a href="#">Privacy Statement</a> · <a href="#">Terms of Use</a> · <a href="#">Unsubscribe</a></p>
+    <p style="margin-top:6px">You are receiving this notification because a file was shared with your Microsoft 365 account through OneDrive for Business.</p>
+  </div>
+</div>
+</body></html>

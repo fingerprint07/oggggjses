@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DocuSign — Signature Request Letter</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+body{background:#e8e9ef;font-family:'Lato',Helvetica,sans-serif;padding:40px 16px;min-height:100vh}
+.page{max-width:720px;margin:0 auto}
+/* DocuSign CSS logo builder */
+.ds-header{background:#26282b;padding:0}
+.ds-header-inner{padding:22px 40px;display:flex;align-items:center;justify-content:space-between}
+/* CSS DocuSign D logo */
+.ds-logo{display:flex;align-items:center;gap:12px}
+.ds-d{width:38px;height:38px;background:#4744A4;border-radius:4px;position:relative;display:flex;align-items:center;justify-content:center}
+.ds-d::before{content:'';position:absolute;left:9px;top:8px;bottom:8px;width:4px;background:white;border-radius:2px}
+.ds-d::after{content:'';position:absolute;right:6px;top:8px;bottom:8px;width:14px;background:transparent;border-right:4px solid white;border-radius:0 12px 12px 0}
+.ds-wordmark{font-size:18px;font-weight:900;color:white;letter-spacing:-0.5px}
+.ds-wordmark span{color:#ffcb00}
+.ds-tagline{color:#6e7177;font-size:11px;margin-top:2px}
+.ds-secure-badge{display:flex;align-items:center;gap:6px;color:#6e7177;font-size:11px}
+/* Purple accent bar */
+.accent-stripe{height:5px;background:linear-gradient(90deg,#4744A4,#7c79d9,#4744A4)}
+/* Recipient bar */
+.recipient-bar{background:#fff;border-bottom:1px solid #e8e8e8;padding:16px 40px;display:flex;align-items:center;gap:16px}
+.date-chip{background:#f0efff;color:#4744A4;border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;border:1px solid #dddcff}
+.ref-chip{background:#f5f5f5;color:#888;border-radius:20px;padding:4px 14px;font-size:11px;border:1px solid #e0e0e0}
+.urgent-chip{background:#fff3cd;color:#856404;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;border:1px solid #ffd700}
+/* Main card */
+.letter-body{background:#fff;padding:40px 40px 30px}
+.greeting{font-size:15px;color:#333;margin-bottom:20px;line-height:1.7}
+.letter-text{font-size:14px;color:#444;line-height:1.9;margin-bottom:14px}
+/* Document card */
+.doc-card{border:2px solid #4744A4;border-radius:6px;padding:20px 22px;margin:24px 0;display:flex;align-items:center;gap:16px;background:#f9f9ff}
+.doc-card-icon{width:52px;height:66px;background:#4744A4;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;font-size:9px;font-weight:700;gap:4px;flex-shrink:0}
+.doc-card-icon::before{content:'▐▌▌';letter-spacing:-1px;font-size:14px;opacity:.7}
+.doc-card-info h3{font-size:15px;font-weight:700;color:#26282b;margin-bottom:4px}
+.doc-card-info p{font-size:12px;color:#888}
+.doc-card-badge{display:inline-block;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:3px;padding:2px 8px;font-size:11px;font-weight:700;margin-top:6px}
+/* CTA button */
+.cta-section{text-align:center;margin:30px 0 24px}
+.cta-btn{display:inline-block;background:#ffcb00;color:#26282b;font-size:16px;font-weight:900;padding:16px 60px;border-radius:3px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;box-shadow:0 3px 0 #e6b800}
+.cta-sub{font-size:11px;color:#aaa;margin-top:10px}
+.cta-sub a{color:#4744A4}
+/* Steps */
+.steps-row{display:flex;gap:0;margin:20px 0;border:1px solid #e8e8e8;border-radius:4px;overflow:hidden}
+.step{flex:1;padding:14px 12px;text-align:center;border-right:1px solid #e8e8e8;background:#fafafa}
+.step:last-child{border-right:none}
+.step-n{width:26px;height:26px;background:#4744A4;color:#fff;border-radius:50%;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 6px}
+.step-label{font-size:11px;color:#666;line-height:1.4}
+/* Signature block */
+.sig{padding:24px 0 0;border-top:1px solid #e8e8e8;margin-top:20px}
+.sig p{font-size:13px;color:#555;line-height:1.9}
+/* Footer */
+.footer{background:#26282b;padding:20px 40px}
+.footer p{font-size:11px;color:#6e7177;line-height:1.7}
+.footer a{color:#7c79d9}
+.footer-logo-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="page">
+  <!-- DocuSign Header -->
+  <div class="ds-header">
+    <div class="ds-header-inner">
+      <div class="ds-logo">
+        <div class="ds-d"></div>
+        <div>
+          <div class="ds-wordmark">Docu<span>Sign</span></div>
+          <div class="ds-tagline">eSignature · Agreement Cloud</div>
+        </div>
+      </div>
+      <div class="ds-secure-badge">
+        <svg viewBox="0 0 14 14" width="14" height="14" fill="#4744A4"><path d="M7 0L1 3v4c0 3.3 2.5 6.4 6 7 3.5-.6 6-3.7 6-7V3L7 0z"/></svg>
+        Secured · ESIGN Compliant
+      </div>
+    </div>
+    <div class="accent-stripe"></div>
+  </div>
+
+  <!-- Recipient info bar -->
+  <div class="recipient-bar">
+    <span class="date-chip">March 17, 2026</span>
+    <span class="ref-chip">REF: DS-2026-4491027</span>
+    <span class="urgent-chip">⏳ ACTION REQUIRED · Expires in 7 days</span>
+  </div>
+
+  <!-- Letter body -->
+  <div class="letter-body">
+    <p class="greeting">Dear Valued Recipient,</p>
+    <p class="letter-text">A document has been submitted through <strong>DocuSign eSignature</strong> that requires your electronic review and signature. This document is legally binding upon execution and has been prepared in accordance with applicable electronic signature laws, including the U.S. ESIGN Act and the UETA.</p>
+    <p class="letter-text">Please review the document details below carefully before proceeding:</p>
+
+    <!-- Document card -->
+    <div class="doc-card">
+      <div class="doc-card-icon">PDF</div>
+      <div class="doc-card-info">
+        <h3>Mutual_Non-Disclosure_Agreement_2026.pdf</h3>
+        <p>Submitted: March 17, 2026 · 4 pages · 1 signature field</p>
+        <p>Sent via: DocuSign eSignature Platform</p>
+        <span class="doc-card-badge">⏳ Awaiting Your Signature</span>
+      </div>
+    </div>
+
+    <p class="letter-text">To review and sign this document, click the button below. You will be directed to the DocuSign secure signing environment where you can view the full document before applying your electronic signature.</p>
+
+    <div class="cta-section">
+      <a href="#" class="cta-btn">Review &amp; Sign Document</a>
+      <div class="cta-sub">By clicking above you agree to DocuSign's <a href="#">Terms of Service</a> &amp; <a href="#">Privacy Policy</a></div>
+    </div>
+
+    <div class="steps-row">
+      <div class="step"><div class="step-n">1</div><div class="step-label">Click button to open DocuSign</div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-label">Verify your identity</div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-label">Review all pages</div></div>
+      <div class="step"><div class="step-n">4</div><div class="step-label">Sign &amp; submit</div></div>
+    </div>
+
+    <div class="sig">
+      <p>Sent through DocuSign eSignature</p>
+      <p>DocuSign, Inc. · 221 Main Street, Suite 1550, San Francisco, CA 94105</p>
+      <p style="margin-top:10px;font-size:12px;color:#bbb">Do not reply to this email. This is an automated notification from the DocuSign eSignature platform. If you have questions about the document, contact the sender directly.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-logo-row">
+      <div style="width:22px;height:22px;background:#4744A4;border-radius:3px;position:relative;display:flex;align-items:center;justify-content:center"><div style="width:8px;height:8px;border-right:3px solid white;border-radius:0 5px 5px 0;position:absolute;right:4px"></div><div style="width:3px;height:12px;background:white;border-radius:2px;position:absolute;left:7px"></div></div>
+      <span style="color:#9e9ea8;font-size:12px;font-weight:700">DocuSign</span>
+      <span style="color:#4a4a55;font-size:11px">· The world's #1 eSignature platform</span>
+    </div>
+    <p><a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a> · <a href="#">Contact Support</a> · <a href="#">Report Abuse</a></p>
+    <p style="margin-top:8px">© 2026 DocuSign, Inc. All rights reserved. · This email was generated by the DocuSign eSignature system.</p>
+  </div>
+</div>
+</body></html>

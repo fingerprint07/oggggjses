@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Drive — Document Shared</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f1f3f4;font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:30px 12px}
+.card{width:100%;max-width:560px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.12)}
+.header{padding:18px 24px;border-bottom:1px solid #e8eaed;display:flex;align-items:center;justify-content:space-between}
+.gdrive-logo{display:flex;align-items:center;gap:8px}
+.body{padding:24px}
+.doc-card{border:1px solid #e8eaed;border-radius:8px;padding:16px;display:flex;gap:14px;align-items:center;margin-bottom:20px;cursor:pointer}
+.dc-doc-icon{width:44px;height:52px;background:linear-gradient(135deg,#4285F4,#1a73e8);border-radius:4px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;flex-shrink:0;position:relative}
+.dc-doc-icon::before{content:'';position:absolute;top:0;right:0;width:12px;height:12px;background:#fff;clip-path:polygon(0 0,100% 100%,100% 0)}
+.dc-name{font-size:14px;font-weight:700;color:#202124}
+.dc-meta{font-size:11px;color:#80868b;margin-top:3px}
+.share-notice{background:#e8f0fe;border-radius:6px;padding:14px 16px;display:flex;gap:12px;align-items:center;margin-bottom:20px}
+.sn-text{font-size:13px;color:#1a73e8;font-weight:600;line-height:1.5}
+.perms{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.perm-chip{background:#f1f3f4;border:1px solid #e8eaed;border-radius:20px;padding:5px 12px;font-size:12px;color:#5f6368;display:flex;align-items:center;gap:5px}
+.perm-chip.blue{background:#e8f0fe;border-color:#c5d3f0;color:#1a73e8}
+.btn-open{display:block;background:#1a73e8;color:#fff;border-radius:4px;padding:13px;font-size:14px;font-weight:700;text-align:center;text-decoration:none;margin-bottom:8px}
+.btn-row{display:flex;gap:8px}
+.btn-sm{flex:1;background:#fff;color:#1a73e8;border:1px solid #dadce0;border-radius:4px;padding:10px;font-size:12px;font-weight:600;text-align:center;text-decoration:none}
+.expires{text-align:center;font-size:11px;color:#80868b;margin-top:10px}
+.footer{background:#f8f9fa;padding:14px 24px;border-top:1px solid #e8eaed}
+.footer p{font-size:11px;color:#80868b;line-height:1.8;text-align:center}
+.footer a{color:#1a73e8}
+</style></head><body>
+<div class="card">
+  <div class="header">
+    <div class="gdrive-logo">
+      <svg width="115" height="26" viewBox="0 0 115 26" fill="none"><g transform="translate(0,2)"><path d="M7 16L0 5h6l7 11H7z" fill="#0F9D58"/><path d="M14 16L7 5h13l7 11H14z" fill="#4285F4"/><path d="M14 16h13l-7-11H14v5l3.5 6H14z" fill="#FBBC05"/></g><text x="30" y="18" font-family="Arial,sans-serif" font-size="13" font-weight="600" fill="#202124">Drive</text></svg>
+    </div>
+    <span style="font-size:11px;color:#80868b;background:#f1f3f4;padding:3px 10px;border-radius:10px">Google Workspace</span>
+  </div>
+  <div class="body">
+    <p style="font-size:22px;font-weight:800;color:#202124;margin-bottom:6px">Someone shared a document with you</p>
+    <p style="font-size:13px;color:#80868b;margin-bottom:18px;line-height:1.7">A Google Drive document has been shared to your work inbox. Open it to view and collaborate on it with your team.</p>
+    <div class="doc-card">
+      <div class="dc-doc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/></svg></div>
+      <div>
+        <div class="dc-name">Annual_Business_Plan_2026_v3.docx</div>
+        <div class="dc-meta">Google Docs · Shared with you · Today, 8:41 AM</div>
+      </div>
+    </div>
+    <div class="share-notice">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#1a73e8"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92 0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+      <div class="sn-text">Shared from your organization's Google Workspace. Verify your work account to access.</div>
+    </div>
+    <div class="perms">
+      <span class="perm-chip blue">✏️ Can view &amp; comment</span>
+      <span class="perm-chip">📅 Shared today</span>
+      <span class="perm-chip">🔒 Organisation only</span>
+    </div>
+    <a href="#" class="btn-open" onclick="return false">Open with Google Docs</a>
+    <div class="btn-row">
+      <a href="#" class="btn-sm" onclick="return false">⬇ Download</a>
+      <a href="#" class="btn-sm" onclick="return false">📋 Make a Copy</a>
+    </div>
+    <div class="expires">🔗 Shared link · Sign in with your work account to collaborate</div>
+  </div>
+  <div class="footer">
+    <p>Google LLC · 1600 Amphitheatre Parkway, Mountain View, CA 94043</p>
+    <p><a href="#">Unsubscribe</a> · <a href="#">Privacy</a> · © 2026 Google LLC</p>
+  </div>
+</div>
+</body></html>

